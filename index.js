@@ -13,7 +13,7 @@ const server = app.listen(process.env.PORT || 5000, () => {
     console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
 
-//const apiaiApp = apiai(ACCESS_TOKEN);
+const apiaiApp = apiai("1c5c2bd1f8b548b18f3782ca17420f2c");
 
 /* For Facebook Validation */
 app.get('/incident', (req, res) => {
