@@ -31,7 +31,8 @@ app.post('/incident', (req, res) => {
         req.body.entry.forEach((entry) => {
             entry.messaging.forEach((event) => {
                 if (event.message && event.message.text) {
-                    sendMessage(event);
+                    //sendMessage(event);
+                    sendMessage(event, req, res);
                 }
             });
         });
@@ -39,13 +40,40 @@ app.post('/incident', (req, res) => {
     }
 });
 
+function sendMessage(event, req, res) {
+    let sender = event.sender.id;
+    let text = event.message.text;
+    console.log('*** Inside sendMessage ***');
+    console.log(req.body.result);
+
+    if (req.body.result.action === 'input.welcome') {
+        console.log('Inside Welcome intent');
+        let msg = 'Hi welcome';
+        request({
+            url: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: { access_token: 'EAAFwXfBX3n4BAHemcRPAiC2LJHYzRoT2XiZBFtkJMFUOLyWHvuTHukYa9zGBAZAZBCqcrh1W0h5ub1fPIMXLdC55cYfdvlTeykIrGTvZBH5AfAAqgkn4WR4CgVZBZAJ90Le17ZClNu5kp5mARxo026gC2FoEWYGHa4t9pumRoWMxQZDZD' },
+            method: 'POST',
+            json: {
+                recipient: { id: sender },
+                message: { text: aiText }
+            }
+        }, (error, response) => {
+            if (error) {
+                console.log('Error sending message: ', error);
+            } else if (response.body.error) {
+                console.log('Error: ', response.body.error);
+            }
+        });
+    }
+}
+
 /* GET query from API.ai */
 
-function sendMessage(event) {
+/*function sendMessage(event) {
     let sender = event.sender.id;
     let text = event.message.text;
 
-    /*let apiai = apiaiApp.textRequest(text, {
+    let apiai = apiaiApp.textRequest(text, {
         sessionId: 'incidentBot'
     });
 
@@ -74,29 +102,8 @@ function sendMessage(event) {
         console.log(error);
     });
 
-    apiai.end();*/
-
-    if (req.body.result.action === 'input.welcome') {
-        console.log('Inside Welcome intent');
-        let msg = 'Hi welcome';
-        request({
-            url: 'https://graph.facebook.com/v2.6/me/messages',
-            qs: { access_token: 'EAAFwXfBX3n4BAHemcRPAiC2LJHYzRoT2XiZBFtkJMFUOLyWHvuTHukYa9zGBAZAZBCqcrh1W0h5ub1fPIMXLdC55cYfdvlTeykIrGTvZBH5AfAAqgkn4WR4CgVZBZAJ90Le17ZClNu5kp5mARxo026gC2FoEWYGHa4t9pumRoWMxQZDZD' },
-            method: 'POST',
-            json: {
-                recipient: { id: sender },
-                message: { text: msg }
-            }
-        }, (error, response) => {
-            if (error) {
-                console.log('Error sending message: ', error);
-            } else if (response.body.error) {
-                console.log('Error: ', response.body.error);
-            }
-        });
-    }
-
-}
+    apiai.end();
+}*/
 
 /* Webhook for API.ai to get response from the 3rd party API */
 app.post('/ai', (req, res) => {
