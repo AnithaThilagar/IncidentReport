@@ -48,6 +48,7 @@ function sendMessage(event, req, res) {
 
     if (req.body.result.action === 'input.welcome') {
         console.log('Inside Welcome intent');
+        let msg = 'Hi welcome';
         return res.json({
             speech: msg,
             displayText: msg,
