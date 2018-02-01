@@ -83,12 +83,12 @@ app.post('/ai', (req, res) => {
     console.log(req.body.result);
 
     if (req.body.result.action === 'input.welcome') {
-        console.log('Inside Welcome intent');      
-        let msg = 'Hi, welcome';
+        console.log('Inside Welcome intent');
+        let msg = 'Hi welcome';
         return res.json({
             speech: msg,
             displayText: msg,
-            source: 'weather'
+            source: 'reportIncidentBot'
         });
     }
 });
