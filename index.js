@@ -48,21 +48,10 @@ function sendMessage(event, req, res) {
 
     if (req.body.result.action === 'input.welcome') {
         console.log('Inside Welcome intent');
-        let msg = 'Hi welcome';
-        request({
-            url: 'https://graph.facebook.com/v2.6/me/messages',
-            qs: { access_token: 'EAAFwXfBX3n4BAHemcRPAiC2LJHYzRoT2XiZBFtkJMFUOLyWHvuTHukYa9zGBAZAZBCqcrh1W0h5ub1fPIMXLdC55cYfdvlTeykIrGTvZBH5AfAAqgkn4WR4CgVZBZAJ90Le17ZClNu5kp5mARxo026gC2FoEWYGHa4t9pumRoWMxQZDZD' },
-            method: 'POST',
-            json: {
-                recipient: { id: sender },
-                message: { text: aiText }
-            }
-        }, (error, response) => {
-            if (error) {
-                console.log('Error sending message: ', error);
-            } else if (response.body.error) {
-                console.log('Error: ', response.body.error);
-            }
+        return res.json({
+            speech: msg,
+            displayText: msg,
+            source: 'reportIncidentBot'
         });
     }
 }
