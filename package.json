@@ -1,0 +1,25 @@
+{
+  "name": "incidentreport",
+  "version": "1.0.0",
+  "description": "Bot to manage the incident reporting and view the incidents",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnithaThilagar/IncidentReport.git"
+  },
+  "author": "Anitha Thilagar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnithaThilagar/IncidentReport/issues"
+  },
+  "homepage": "https://github.com/AnithaThilagar/IncidentReport#readme",
+  "dependencies": {
+    "apiai": "^3.0.3",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "request": "^2.83.0"
+  }
+}
