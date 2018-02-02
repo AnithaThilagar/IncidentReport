@@ -108,75 +108,51 @@ function incidentCategory() {
 //To send the sub category for the value for the incident category selected as list
 function incidentSubCategory(category) {
     return {
-        speech: '',
-        displayText: "Hi, welcome to incident Report Bot",
-        data: {
-            "facebook": {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "list",
-                        "top_element_style": "compact",
-                        "elements": [
-                            {
-                                "title": "Classic T-Shirt Collection",
-                                "subtitle": "See all our colors",
-                                "image_url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png",
-                                "buttons": [
-                                    {
-                                        "title": "View",
-                                        "type": "web_url",
-                                        "url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png",
-                                        "messenger_extensions": true,
-                                        "webview_height_ratio": "tall",
-                                        "fallback_url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png"
-                                    }
-                                ]
-                            },
-                            {
-                                "title": "Classic White T-Shirt",
-                                "subtitle": "See all our colors",
-                                "default_action": {
-                                    "type": "web_url",
-                                    "url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png",
-                                    "messenger_extensions": false,
-                                    "webview_height_ratio": "tall"
+        "facebook": {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "generic",
+                    "elements": [
+                        {
+                            "title": "Device Request",
+                            "image_url": "https://png.icons8.com/color/540/add-row.png",
+                            "subtitle": "For requesting new device",
+                            "buttons": [
+                                {
+                                    "type": "postback",
+                                    "title": "Device Request",
+                                    "payload": "device_request"
                                 }
-                            },
-                            {
-                                "title": "Classic Blue T-Shirt",
-                                "image_url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png",
-                                "subtitle": "100% Cotton, 200% Comfortable",
-                                "default_action": {
-                                    "type": "web_url",
-                                    "url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png",
-                                    "messenger_extensions": true,
-                                    "webview_height_ratio": "tall",
-                                    "fallback_url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png"
-                                },
-                                "buttons": [
-                                    {
-                                        "title": "Shop Now",
-                                        "type": "web_url",
-                                        "url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png",
-                                        "messenger_extensions": true,
-                                        "webview_height_ratio": "tall",
-                                        "fallback_url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png"
-                                    }
-                                ]
-                            }
-                        ],
-                        "buttons": [
-                            {
-                                "title": "View More",
-                                "type": "postback",
-                                "payload": "payload"
-                            }
-                        ]
-                    }
+                            ]
+                        },
+                        {
+                            "title": "Damaged Device",
+                            "image_url": "https://occ-0-2433-1001.1.nflxso.net/art/c7210/1d0174474023d33d907d44f7eb9bedc03cdc7210.png",
+                            "subtitle": "To report the device is damaged",
+                            "buttons": [
+                                {
+                                    "type": "postback",
+                                    "title": "Damaged Device",
+                                    "payload": "damaged_device"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Replace Request",
+                            "image_url": "https://cdn3.iconfinder.com/data/icons/finance-and-money-1/512/arrows_currency_exchange_direction_flat_icon-512.png",
+                            "subtitle": "For replacing the device",
+                            "buttons": [
+                                {
+                                    "type": "postback",
+                                    "title": "Replace Device",
+                                    "payload": "replace_device"
+                                }
+                            ]
+                        }
+                    ]
                 }
             }
-        },
-        source: 'reportIncidentBot'
+        }
     };
 }
