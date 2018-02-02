@@ -80,23 +80,25 @@ function incidentCategory() {
             "facebook": {
                 "attachment": {
                     "type": "template",
-                    "quick_replies": [
-                        {
-                            "content_type": "text",
-                            "title": "Hardware",
-                            "payload": "hardware"
-                        },
-                        {
-                            "content_type": "text",
-                            "title": "Software",
-                            "payload": "software"
-                        },
-                        {
-                            "content_type": "text",
-                            "title": "Others",
-                            "payload": "others"
-                        }
-                    ]
+                    "payload": {
+                        "quick_replies": [
+                            {
+                                "content_type": "text",
+                                "title": "Hardware",
+                                "payload": "hardware"
+                            },
+                            {
+                                "content_type": "text",
+                                "title": "Software",
+                                "payload": "software"
+                            },
+                            {
+                                "content_type": "text",
+                                "title": "Others",
+                                "payload": "others"
+                            }
+                        ]
+                    }
                 }
             }
         },
