@@ -4,15 +4,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const apiai = require('apiai');
-const serviceNow = require('servicenow');
-var config = {
-    instance: "https://Dev18442.service-now.com",
-    username: "33238",
-    password: "abc123"
-}
-
-var client = new serviceNow.client(config);
-console.log("Connected " + client);
+const GlideRecord = require('servicenow-rest').gliderecord;
+var record = new GlideRecord('dev18442', 'incident', '33238', 'abc123', 'v1');
+console.log('Record ' + record);
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,16 +17,6 @@ const server = app.listen(process.env.PORT || 5000, () => {
 });
 
 const apiaiApp = apiai("1c5c2bd1f8b548b18f3782ca17420f2c");
-
-
-/*let client = new serviceNow.client(serviceNowConfig);
-client.getRecords("incident", "Active=true", function (error, result) {
-    if (error) {
-        console.log('Error in get records ' + error);
-    } else {
-        console.log('Result from sn ' + result);
-    }
-});*/
 
 //To handle the response to bot
 app.post('/ai', (req, res) => {
