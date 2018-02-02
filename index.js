@@ -15,13 +15,13 @@ const server = app.listen(process.env.PORT || 5000, () => {
 });
 
 const apiaiApp = apiai("1c5c2bd1f8b548b18f3782ca17420f2c");
-/*const serviceNowConfig = serviceNow({
+const serviceNowConfig = serviceNow({
     'host': 'https://dev18442.service-now.com',
     'user': '33238',
     'pass': 'abc123'
 });
 
-let client = new serviceNow.client(serviceNowConfig);
+/*let client = new serviceNow.client(serviceNowConfig);
 client.getRecords("incident", "Active=true", function (error, result) {
     if (error) {
         console.log('Error in get records ' + error);
@@ -38,7 +38,7 @@ app.post('/ai', (req, res) => {
         console.log('Inside Welcome intent');       
         res.json(welcomeIntent());
     } else if (req.body.result.action === 'reportIncident') {
-        console.log('Inside Welcome intent');
+        console.log('Inside report incident intent');
         return res.json({
             speech: "",
             displayText: "Please select the incident type",
