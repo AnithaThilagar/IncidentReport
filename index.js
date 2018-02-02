@@ -23,13 +23,13 @@ app.post('/ai', (req, res) => {
     console.log('*** Inside service now request ***');
     console.log(req.body.result);
     if (req.body.result.action === 'input.welcome') {
-        console.log('Inside Welcome intent');       
+        console.log('Inside Welcome');       
         return res.json(welcomeIntent());
     } else if (req.body.result.action === 'reportIncident') {
-        console.log('Inside report incident intent');
+        console.log('Inside report incident');
         return res.json(incidentCategory());
     } else if (req.body.result.action === 'ReportIncident.ReportIncident-category') {
-        console.log('Inside incident category');
+        console.log('Inside incident sub category');
         return res.json(incidentSubCategory(req.body.result.resolvedQuery));
     } else {
         console.log('Other than welcome intent');
@@ -117,28 +117,61 @@ function incidentSubCategory(category) {
                     "type": "template",
                     "payload": {
                         "template_type": "list",
-                        "top_element_style": "COMPACT",
+                        "top_element_style": "compact",
                         "elements": [
                             {
-                                "title": "Hardware",
-                                "image_url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png",
+                                "title": "Classic T-Shirt Collection",
+                                "subtitle": "See all our colors",
+                                "image_url": "https://peterssendreceiveapp.ngrok.io/img/collection.png",
                                 "buttons": [
                                     {
-                                        "type": "postback",
-                                        "title": "Device Request",
-                                        "payload": "device_request"
-                                    },
-                                    {
-                                        "type": "postback",
-                                        "title": "Damaged Device",
-                                        "payload": "damaged_device"
-                                    },
-                                    {
-                                        "type": "postback",
-                                        "title": "Replace Device",
-                                        "payload": "replace_device"
+                                        "title": "View",
+                                        "type": "web_url",
+                                        "url": "https://peterssendreceiveapp.ngrok.io/collection",
+                                        "messenger_extensions": true,
+                                        "webview_height_ratio": "tall",
+                                        "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
                                     }
                                 ]
+                            },
+                            {
+                                "title": "Classic White T-Shirt",
+                                "subtitle": "See all our colors",
+                                "default_action": {
+                                    "type": "web_url",
+                                    "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
+                                    "messenger_extensions": false,
+                                    "webview_height_ratio": "tall"
+                                }
+                            },
+                            {
+                                "title": "Classic Blue T-Shirt",
+                                "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
+                                "subtitle": "100% Cotton, 200% Comfortable",
+                                "default_action": {
+                                    "type": "web_url",
+                                    "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
+                                    "messenger_extensions": true,
+                                    "webview_height_ratio": "tall",
+                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                },
+                                "buttons": [
+                                    {
+                                        "title": "Shop Now",
+                                        "type": "web_url",
+                                        "url": "https://peterssendreceiveapp.ngrok.io/shop?item=101",
+                                        "messenger_extensions": true,
+                                        "webview_height_ratio": "tall",
+                                        "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                    }
+                                ]
+                            }
+                        ],
+                        "buttons": [
+                            {
+                                "title": "View More",
+                                "type": "postback",
+                                "payload": "payload"
                             }
                         ]
                     }
