@@ -133,6 +133,7 @@ function incidentSubCategory(category) {
                                     }
                                 ]
                             }
+                        ]
                     }
                 }
             }
