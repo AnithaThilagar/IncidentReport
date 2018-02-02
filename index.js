@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const apiai = require('apiai');
-const serviceNow = require('servicenow');
+//const serviceNow = require('servicenow');
 
 const app = express();
 app.use(bodyParser.json());
