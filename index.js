@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const apiai = require('apiai');
-const serviceNow = require('sn-rest');
+const serviceNow = require('servicenow');
 
 const app = express();
 app.use(bodyParser.json());
@@ -15,13 +15,22 @@ const server = app.listen(process.env.PORT || 5000, () => {
 });
 
 const apiaiApp = apiai("1c5c2bd1f8b548b18f3782ca17420f2c");
-const serviceNowObject = serviceNow({
-    'host': 'Dev18442.service-now.com',
+const serviceNowConfig = serviceNow({
+    'host': 'https://dev18442.service-now.com',
     'user': '33238',
     'pass': 'abc123'
 });
 
-console.log("---- " + serviceNowObject+" ------');
+let client = new serviceNow.client(serviceNowConfig);
+client.getRecords("incident", "Active=true", function (error, result) {
+    if (error) {
+        console.log('Error in get records ' + error);
+    } else {
+        console.log('Result from sn ' + result);
+    }
+});
+
+console.log("---- " + serviceNowObject+" ------");
 
 //To handle the response to bot
 app.post('/ai', (req, res) => {

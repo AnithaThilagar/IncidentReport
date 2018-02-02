@@ -21,6 +21,6 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "request": "^2.83.0",
-	"sn-rest": "^0.0.5"
+	"servicenow": "^0.5.0"
   }
 }
