@@ -30,7 +30,7 @@ app.post('/ai', (req, res) => {
         return res.json(incidentCategory());
     } else if (req.body.result.action === 'ReportIncident.ReportIncident-category') {
         console.log('Inside incident sub category');
-        return res.json(incidentSubCategory(req.body.result.resolvedQuery));
+        return res.json(incidentSubCategory());//req.body.result.resolvedQuery
     } else {
         console.log('Other than welcome intent');
         let msg = "Can't understand";
@@ -106,7 +106,7 @@ function incidentCategory() {
 }
 
 //To send the sub category for the value for the incident category selected as list
-function incidentSubCategory(category) {
+function incidentSubCategory() {
     return {
         "facebook": {
             "attachment": {
