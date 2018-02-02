@@ -120,8 +120,6 @@ function incidentSubCategory(category) {
                         "elements": [
                             {
                                 "title": "Hardware",
-                                //"subtitle": "<SUBTITLE_TEXT>",
-                                //"image_url": "<IMAGE_URL_FOR_THUMBNAIL>",
                                 "buttons": [
                                     {
                                         "type": "postback",
