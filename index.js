@@ -30,7 +30,7 @@ app.post('/ai', (req, res) => {
         });*/
         return res.json({
             speech: '',
-            displayText: " Your Ticket has been booked",
+            displayText: "Hi, welcome to incident Report Bot",
             data: {
                 "facebook": {
                     "attachment": {
@@ -39,18 +39,18 @@ app.post('/ai', (req, res) => {
                             "template_type": "generic",
                             "elements": [
                                 {
-                                    "title": "Booking Successful",
-                                    "subtitle": "Your Ticket has been booked",
+                                    "title": "Report Incident Bot",
+                                    "subtitle": "Hi, welcome to incident Report Bot. I can help you with the following.<br/>1) To report an incident in your organization<br/>2) To view the status of the incidents<br/>3) Add comments to the incidents<br/>Please select any one of the following to continue",
                                     "buttons": [
                                         {
                                             "type": "postback",
-                                            "title": "Book Another Ticket",
-                                            "payload": "book_ticket"
+                                            "title": "Report Incident",
+                                            "payload": "report_incident"
                                         },
                                         {
                                             "type": "postback",
-                                            "title": "Contact Us",
-                                            "payload": "contact_us"
+                                            "title": "My Incidents",
+                                            "payload": "my_incidents"
                                         }
                                     ]
                                 }
