@@ -28,6 +28,7 @@ app.post('/ai', (req, res) => {
             displayText: msg,
             source: 'reportIncidentBot'
         });*/
+        let content = `Hi, welcome to incident Report Bot. I can help you with the following.<br/>1) To report an incident in your organization<br/>2) To view the status of the incidents<br/>3) Add comments to the incidents<br/>Please select any one of the following to continue`;
         return res.json({
             speech: '',
             displayText: "Hi, welcome to incident Report Bot",
@@ -40,7 +41,7 @@ app.post('/ai', (req, res) => {
                             "elements": [
                                 {
                                     "title": "Report Incident Bot",
-                                    "subtitle": "Hi, welcome to incident Report Bot. I can help you with the following.<br/>1) To report an incident in your organization<br/>2) To view the status of the incidents<br/>3) Add comments to the incidents<br/>Please select any one of the following to continue",
+                                    "subtitle": content,
                                     "buttons": [
                                         {
                                             "type": "postback",
