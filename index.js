@@ -48,52 +48,48 @@ function sendMessage(event, req, res) {
 
     if (req.body.result.action === 'input.welcome') {
         console.log('Inside Welcome intent');
-        let msg = 'Hi welcome';
+        /*let msg = 'Hi welcome';
         return res.json({
             speech: msg,
             displayText: msg,
             source: 'reportIncidentBot'
-        });
+        });*/
+        var facebookResponse = {
+            "speech": "",
+            "displayText": " Your Ticket has been booked",
+            "data": {
+                "facebook": {
+                    "attachment": {
+                        "type": "template",
+                        "payload": {
+                            "template_type": "generic",
+                            "elements": [
+                                {
+                                    "title": "Booking Successful",
+                                    "subtitle": "Your Ticket has been booked",
+                                    "buttons": [
+                                        {
+                                            "type": "postback",
+                                            "title": "Book Another Ticket",
+                                            "payload": "book_ticket"
+                                        },
+                                        {
+                                            "type": "postback",
+                                            "title": "Contact Us",
+                                            "payload": "contact_us"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "source": "DuckDuckGo"
+        };
+        return facebookResponse;
     }
 }
-
-/* GET query from API.ai */
-
-/*function sendMessage(event) {
-    let sender = event.sender.id;
-    let text = event.message.text;
-
-    let apiai = apiaiApp.textRequest(text, {
-        sessionId: 'incidentBot'
-    });
-
-    apiai.on('response', (response) => {
-        console.log(response)
-        let aiText = response.result.fulfillment.speech;
-
-        request({
-            url: 'https://graph.facebook.com/v2.6/me/messages',
-            qs: { access_token: 'EAAFwXfBX3n4BAHemcRPAiC2LJHYzRoT2XiZBFtkJMFUOLyWHvuTHukYa9zGBAZAZBCqcrh1W0h5ub1fPIMXLdC55cYfdvlTeykIrGTvZBH5AfAAqgkn4WR4CgVZBZAJ90Le17ZClNu5kp5mARxo026gC2FoEWYGHa4t9pumRoWMxQZDZD' },
-            method: 'POST',
-            json: {
-                recipient: { id: sender },
-                message: { text: aiText }
-            }
-        }, (error, response) => {
-            if (error) {
-                console.log('Error sending message: ', error);
-            } else if (response.body.error) {
-                console.log('Error: ', response.body.error);
-            }
-        });
-    });
-
-    apiai.on('error', (error) => {
-        console.log(error);
-    });
-
-    apiai.end();
-}*/
 
 /* Webhook for API.ai to get response from the 3rd party API */
 app.post('/ai', (req, res) => {
