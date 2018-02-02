@@ -28,10 +28,10 @@ app.post('/ai', (req, res) => {
             displayText: msg,
             source: 'reportIncidentBot'
         });*/
-        var facebookResponse = {
-            "speech": "",
-            "displayText": " Your Ticket has been booked",
-            "data": {
+        return res.json({
+            speech: '',
+            displayText: " Your Ticket has been booked",
+            data: {
                 "facebook": {
                     "attachment": {
                         "type": "template",
@@ -59,9 +59,8 @@ app.post('/ai', (req, res) => {
                     }
                 }
             },
-            "source": "DuckDuckGo"
-        };
-        return facebookResponse;
+            source: 'reportIncidentBot'
+        });
     } else {
         console.log('Other than welcome intent');
         let msg = "Can't understand";
