@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const apiai = require('apiai');
-//const serviceNow = require('servicenow');
+const serviceNow = require('servicenow');
 
 const app = express();
 app.use(bodyParser.json());
@@ -38,7 +38,12 @@ app.post('/ai', (req, res) => {
         console.log('Inside Welcome intent');       
         res.json(welcomeIntent());
     } else if (req.body.result.action === 'reportIncident') {
-
+        console.log('Inside Welcome intent');
+        return res.json({
+            speech: "",
+            displayText: "Please select the incident type",
+            source: 'reportIncidentBot'
+        });
     } else {
         console.log('Other than welcome intent');
         let msg = "Can't understand";
