@@ -21,7 +21,7 @@ const apiaiApp = apiai("1c5c2bd1f8b548b18f3782ca17420f2c");
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     console.log('*** Inside service now request ***');
-    console.log(req.body.result.resolvedQuery);
+    console.log(req.body.result);
     if (req.body.result.action === 'input.welcome') {
         console.log('Inside Welcome intent');       
         return res.json(welcomeIntent());
@@ -30,7 +30,7 @@ app.post('/ai', (req, res) => {
         return res.json(incidentCategory());
     } else if (req.body.result.action === 'ReportIncident.ReportIncident-category') {
         console.log('Inside incident category');
-        return res.json();
+        return res.json(incidentSubCategory(req.body.result.resolvedQuery));
     } else {
         console.log('Other than welcome intent');
         let msg = "Can't understand";
@@ -107,6 +107,7 @@ function incidentCategory() {
 
 //To send the sub category for the value for the incident category selected as list
 function incidentSubCategory(category) {
+    console.log(category == 'hardware');
     return {
         speech: '',
         displayText: "Hi, welcome to incident Report Bot",
