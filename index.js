@@ -19,6 +19,10 @@ const serviceNowConfig = serviceNow({
     'host': 'https://dev18442.service-now.com',
     'user': '33238',
     'pass': 'abc123'
+}, function (error) {
+    if (error) {
+        console.log('Error ' + error);
+    }
 });
 
 /*let client = new serviceNow.client(serviceNowConfig);
