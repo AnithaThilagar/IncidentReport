@@ -24,14 +24,10 @@ app.post('/ai', (req, res) => {
     console.log(req.body.result);
     if (req.body.result.action === 'input.welcome') {
         console.log('Inside Welcome intent');       
-        res.json(welcomeIntent());
+        return res.json(welcomeIntent());
     } else if (req.body.result.action === 'reportIncident') {
         console.log('Inside report incident intent');
-        return res.json({
-            speech: "",
-            displayText: "Please select the incident type",
-            source: 'reportIncidentBot'
-        });
+        return res.json(incidentCategory());
     } else {
         console.log('Other than welcome intent');
         let msg = "Can't understand";
@@ -68,6 +64,39 @@ function welcomeIntent() {
                             }
                         ]
                     }
+                }
+            }
+        },
+        source: 'reportIncidentBot'
+    };
+}
+
+//To send the incident category as quick replies
+function incidentCategory() {
+    return {
+        speech: '',
+        displayText: "Hi, welcome to incident Report Bot",
+        data: {
+            "facebook": {
+                "attachment": {
+                    "type": "template",
+                    "quick_replies": [
+                        {
+                            "content_type": "text",
+                            "title": "Hardware",
+                            "payload": "hardware"
+                        },
+                        {
+                            "content_type": "text",
+                            "title": "Software",
+                            "payload": "software"
+                        },
+                        {
+                            "content_type": "text",
+                            "title": "Others",
+                            "payload": "others"
+                        }
+                    ]
                 }
             }
         },
