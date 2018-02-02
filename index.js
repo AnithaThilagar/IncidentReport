@@ -30,8 +30,6 @@ client.getRecords("incident", "Active=true", function (error, result) {
     }
 });*/
 
-console.log("---- " + serviceNowObject+" ------");
-
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     console.log('*** Inside service now request ***');
