@@ -107,7 +107,6 @@ function incidentCategory() {
 
 //To send the sub category for the value for the incident category selected as list
 function incidentSubCategory(category) {
-    console.log(category == 'hardware');
     return {
         speech: '',
         displayText: "Hi, welcome to incident Report Bot",
@@ -122,15 +121,15 @@ function incidentSubCategory(category) {
                             {
                                 "title": "Classic T-Shirt Collection",
                                 "subtitle": "See all our colors",
-                                "image_url": "https://peterssendreceiveapp.ngrok.io/img/collection.png",
+                                "image_url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png",
                                 "buttons": [
                                     {
                                         "title": "View",
                                         "type": "web_url",
-                                        "url": "https://peterssendreceiveapp.ngrok.io/collection",
+                                        "url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png",
                                         "messenger_extensions": true,
                                         "webview_height_ratio": "tall",
-                                        "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                        "fallback_url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png"
                                     }
                                 ]
                             },
@@ -139,30 +138,30 @@ function incidentSubCategory(category) {
                                 "subtitle": "See all our colors",
                                 "default_action": {
                                     "type": "web_url",
-                                    "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
+                                    "url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png",
                                     "messenger_extensions": false,
                                     "webview_height_ratio": "tall"
                                 }
                             },
                             {
                                 "title": "Classic Blue T-Shirt",
-                                "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
+                                "image_url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png",
                                 "subtitle": "100% Cotton, 200% Comfortable",
                                 "default_action": {
                                     "type": "web_url",
-                                    "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
+                                    "url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png",
                                     "messenger_extensions": true,
                                     "webview_height_ratio": "tall",
-                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                    "fallback_url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png"
                                 },
                                 "buttons": [
                                     {
                                         "title": "Shop Now",
                                         "type": "web_url",
-                                        "url": "https://peterssendreceiveapp.ngrok.io/shop?item=101",
+                                        "url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png",
                                         "messenger_extensions": true,
                                         "webview_height_ratio": "tall",
-                                        "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                        "fallback_url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png"
                                     }
                                 ]
                             }
