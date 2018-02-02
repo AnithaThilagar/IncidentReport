@@ -78,28 +78,24 @@ function incidentCategory() {
         displayText: "Hi, welcome to incident Report Bot",
         data: {
             "facebook": {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "quick_replies": [
-                            {
-                                "content_type": "text",
-                                "title": "Hardware",
-                                "payload": "hardware"
-                            },
-                            {
-                                "content_type": "text",
-                                "title": "Software",
-                                "payload": "software"
-                            },
-                            {
-                                "content_type": "text",
-                                "title": "Others",
-                                "payload": "others"
-                            }
-                        ]
+                "text": "Please select any one category",
+                "quick_replies": [
+                    {
+                        "content_type": "text",
+                        "title": "Hardware",
+                        "payload": "hardware"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "Software",
+                        "payload": "software"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "Others",
+                        "payload": "others"
                     }
-                }
+                ]
             }
         },
         source: 'reportIncidentBot'
