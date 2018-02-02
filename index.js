@@ -21,14 +21,14 @@ const serviceNowConfig = serviceNow({
     'pass': 'abc123'
 });
 
-let client = new serviceNow.client(serviceNowConfig);
+/*let client = new serviceNow.client(serviceNowConfig);
 client.getRecords("incident", "Active=true", function (error, result) {
     if (error) {
         console.log('Error in get records ' + error);
     } else {
         console.log('Result from sn ' + result);
     }
-});
+});*/
 
 console.log("---- " + serviceNowObject+" ------");
 
