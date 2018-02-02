@@ -43,23 +43,18 @@ function welcomeIntent() {
                 "attachment": {
                     "type": "template",
                     "payload": {
-                        "template_type": "generic",
-                        "elements": [
+                        "template_type": "button",
+                        "text":"Hi, welcome to incident Report Bot. \n I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents \n Please select any one of the following to continue",
+                        "buttons": [
                             {
-                                "title": "Report Incident Bot",
-                                "subtitle": 'Hi, welcome to incident Report Bot. \n I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents \n Please select any one of the following to continue',
-                                "buttons": [
-                                    {
-                                        "type": "postback",
-                                        "title": "Report Incident",
-                                        "payload": "report_incident"
-                                    },
-                                    {
-                                        "type": "postback",
-                                        "title": "My Incidents",
-                                        "payload": "my_incidents"
-                                    }
-                                ]
+                                "type": "postback",
+                                "title": "Report Incident",
+                                "payload": "report_incident"
+                            },
+                            {
+                                "type": "postback",
+                                "title": "My Incidents",
+                                "payload": "my_incidents"
                             }
                         ]
                     }
