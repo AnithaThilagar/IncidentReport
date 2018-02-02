@@ -30,7 +30,7 @@ app.post('/ai', (req, res) => {
         return res.json(incidentCategory());
     } else if (req.body.result.action === 'ReportIncident.ReportIncident-category') {
         console.log('Inside incident sub category');
-        return res.json(incidentSubCategory());//req.body.result.resolvedQuery
+        return res.json(incidentSubCategory(req.body.result.resolvedQuery));
     } else {
         console.log('Other than welcome intent');
         let msg = "Can't understand";
@@ -106,7 +106,7 @@ function incidentCategory() {
 }
 
 //To send the sub category for the value for the incident category selected as list
-function incidentSubCategory() {
+function incidentSubCategory(category) {
     return {
         "facebook": {
             "attachment": {
@@ -116,7 +116,7 @@ function incidentSubCategory() {
                     "elements": [
                         {
                             "title": "Device Request",
-                            "image_url": "https://png.icons8.com/color/540/add-row.png",
+                            "image_url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png",
                             "subtitle": "For requesting new device",
                             "buttons": [
                                 {
@@ -128,7 +128,7 @@ function incidentSubCategory() {
                         },
                         {
                             "title": "Damaged Device",
-                            "image_url": "https://occ-0-2433-1001.1.nflxso.net/art/c7210/1d0174474023d33d907d44f7eb9bedc03cdc7210.png",
+                            "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxod-I0fuatggTIxbnHFELF6y62zwXkrzthtoVAWOmOwNQuPJusw",
                             "subtitle": "To report the device is damaged",
                             "buttons": [
                                 {
