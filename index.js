@@ -21,13 +21,16 @@ const apiaiApp = apiai("1c5c2bd1f8b548b18f3782ca17420f2c");
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     console.log('*** Inside service now request ***');
-    console.log(req.body.result);
+    console.log(req.body.result.resolvedQuery);
     if (req.body.result.action === 'input.welcome') {
         console.log('Inside Welcome intent');       
         return res.json(welcomeIntent());
     } else if (req.body.result.action === 'reportIncident') {
         console.log('Inside report incident intent');
         return res.json(incidentCategory());
+    } else if (req.body.result.action === 'ReportIncident.ReportIncident-category') {
+        console.log('Inside incident category');
+        return res.json();
     } else {
         console.log('Other than welcome intent');
         let msg = "Can't understand";
@@ -96,6 +99,44 @@ function incidentCategory() {
                         "payload": "others"
                     }
                 ]
+            }
+        },
+        source: 'reportIncidentBot'
+    };
+}
+
+//To send the sub category for the value for the incident category selected as list
+function incidentSubCategory(category) {
+    return {
+        speech: '',
+        displayText: "Hi, welcome to incident Report Bot",
+        data: {
+            "facebook": {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "list",
+                        "top_element_style": "COMPACT",
+                        "elements": [
+                            {
+                                "title": "Hardware",
+                                //"subtitle": "<SUBTITLE_TEXT>",
+                                //"image_url": "<IMAGE_URL_FOR_THUMBNAIL>",
+                                "buttons": [
+                                    {
+                                        "type": "postback",
+                                        "title": "Device Request",
+                                        "payload": "device_request"
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": "My Incidents",
+                                        "payload": "my_incidents"
+                                    }
+                                ]
+                            }
+                    }
+                }
             }
         },
         source: 'reportIncidentBot'
