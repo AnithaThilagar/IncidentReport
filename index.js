@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const apiai = require('apiai');
+const serviceNow = require('sn-rest');
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,6 +15,13 @@ const server = app.listen(process.env.PORT || 5000, () => {
 });
 
 const apiaiApp = apiai("1c5c2bd1f8b548b18f3782ca17420f2c");
+const serviceNowObject = serviceNow({
+    'host': 'Dev18442.service-now.com',
+    'user': '33238',
+    'pass': 'abc123'
+});
+
+console.log("---- " + serviceNowObject+" ------');
 
 //To handle the response to bot
 app.post('/ai', (req, res) => {
@@ -22,6 +30,8 @@ app.post('/ai', (req, res) => {
     if (req.body.result.action === 'input.welcome') {
         console.log('Inside Welcome intent');       
         res.json(welcomeIntent());
+    } else if (req.body.result.action === 'reportIncident') {
+
     } else {
         console.log('Other than welcome intent');
         let msg = "Can't understand";
