@@ -121,6 +121,7 @@ function incidentSubCategory(category) {
                         "elements": [
                             {
                                 "title": "Hardware",
+                                "image_url": "https://global-uploads.webflow.com/573d5a1eee15ab7f704a5af7/5893d33209ed0c4c6209037a_Icon-incident-management.png",
                                 "buttons": [
                                     {
                                         "type": "postback",
@@ -129,8 +130,13 @@ function incidentSubCategory(category) {
                                     },
                                     {
                                         "type": "postback",
-                                        "title": "My Incidents",
-                                        "payload": "my_incidents"
+                                        "title": "Damaged Device",
+                                        "payload": "damaged_device"
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": "Replace Device",
+                                        "payload": "replace_device"
                                     }
                                 ]
                             }
