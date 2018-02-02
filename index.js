@@ -16,9 +16,9 @@ const server = app.listen(process.env.PORT || 5000, () => {
 
 const apiaiApp = apiai("1c5c2bd1f8b548b18f3782ca17420f2c");
 const serviceNowConfig = serviceNow({
-    'host': 'https://dev18442.service-now.com',
-    'user': '33238',
-    'pass': 'abc123'
+    "host": "https://dev18442.service-now.com",
+    "user": "33238",
+    "pass": "abc123"
 }, function (error) {
     if (error) {
         console.log('Error ' + error);
