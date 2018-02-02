@@ -15,35 +15,9 @@ const server = app.listen(process.env.PORT || 5000, () => {
 
 const apiaiApp = apiai("1c5c2bd1f8b548b18f3782ca17420f2c");
 
-/* For Facebook Validation */
-app.get('/incident', (req, res) => {
-    if (req.query['hub.mode'] && req.query['hub.verify_token'] === 'incidentBot') {
-        res.status(200).send(req.query['hub.challenge']);
-    } else {
-        res.status(403).end();
-    }
-});
-
-/* Handling all messenges */
-app.post('/incident', (req, res) => {
-    console.log(req.body);
-    if (req.body.object === 'page') {
-        req.body.entry.forEach((entry) => {
-            entry.messaging.forEach((event) => {
-                if (event.message && event.message.text) {
-                    //sendMessage(event);
-                    sendMessage(event, req, res);
-                }
-            });
-        });
-        res.status(200).end();
-    }
-});
-
-function sendMessage(event, req, res) {
-    let sender = event.sender.id;
-    let text = event.message.text;
-    console.log('*** Inside sendMessage ***');
+//To handle the response to bot
+app.post('/ai', (req, res) => {
+    console.log('*** Inside service now request ***');
     console.log(req.body.result);
 
     if (req.body.result.action === 'input.welcome') {
@@ -88,17 +62,9 @@ function sendMessage(event, req, res) {
             "source": "DuckDuckGo"
         };
         return facebookResponse;
-    }
-}
-
-/* Webhook for API.ai to get response from the 3rd party API */
-app.post('/ai', (req, res) => {
-    console.log('*** Inside service now request ***');
-    console.log(req.body.result);
-
-    if (req.body.result.action === 'input.welcome') {
-        console.log('Inside Welcome intent');
-        let msg = 'Hi welcome';
+    } else {
+        console.log('Other than welcome intent');
+        let msg = "Can't understand";
         return res.json({
             speech: msg,
             displayText: msg,
