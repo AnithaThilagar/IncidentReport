@@ -5,6 +5,14 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const apiai = require('apiai');
 const serviceNow = require('servicenow');
+var config = {
+    instance: "https://Dev18442.service-now.com",
+    username: "33238",
+    password: "abc123"
+}
+
+var client = new serviceNow.client(config);
+console.log("Connected " + client);
 
 const app = express();
 app.use(bodyParser.json());
@@ -15,15 +23,7 @@ const server = app.listen(process.env.PORT || 5000, () => {
 });
 
 const apiaiApp = apiai("1c5c2bd1f8b548b18f3782ca17420f2c");
-const serviceNowConfig = serviceNow({
-    "host": "https://dev18442.service-now.com",
-    "user": "33238",
-    "pass": "abc123"
-}, function (error) {
-    if (error) {
-        console.log('Error ' + error);
-    }
-});
+
 
 /*let client = new serviceNow.client(serviceNowConfig);
 client.getRecords("incident", "Active=true", function (error, result) {
