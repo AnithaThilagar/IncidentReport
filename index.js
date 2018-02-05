@@ -34,7 +34,7 @@ app.post('/ai', (req, res) => {
         userData.category = req.body.result.resolvedQuery;
         console.log('Inside incident sub category');
         if (req.body.result.resolvedQuery == 'Others') {
-            console.log("Res is " + JSON.stringify(req.body));
+            console.log(req.body);
         } else {
             return res.json(incidentSubCategory(req.body.result.resolvedQuery));
         }
