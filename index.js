@@ -23,7 +23,7 @@ let userData = {};
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     console.log('*** Inside service now request ***');
-    console.log(req.body.result.parameter);
+    console.log(req.body.result);
     if (req.body.result.action === 'input.welcome') {
         console.log('Inside Welcome');       
         return res.json(welcomeIntent());
