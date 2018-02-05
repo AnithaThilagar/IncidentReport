@@ -41,7 +41,11 @@ app.post('/ai', (req, res) => {
         userData.urgencyType = req.body.result.resolvedQuery.toLowerCase() == 'high' ? 1 : req.body.result.resolvedQuery.toLowerCase() == 'medium' ? 2 : 3; //Set the urgency type based on the selected value
         return res.json(incidentModeOfContact());
     } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact.IncidentSubcategory-modeOfContact-getModeOfContact') {
+        userData.modeOfContact = req.body.result.resolvedQuery;
         return res.json(incidentContactDetails(req.body.result.resolvedQuery.toLowerCase()));
+    } else if (req.body.result.action === 'incidentCreation') {
+        userData.contactDetails = req.body.result.resolvedQuery;
+        return res.json(saveIncident());
     } else {
         console.log('Other than welcome intent');
         let msg = "Can't understand";
@@ -247,6 +251,32 @@ function incidentContactDetails(contactType) {
         speech: msg,
         displayText: msg,
         source: 'reportIncidentBot'
+    });
+}
+
+//To save the incident using the servicenow API
+function saveIncident() {
+    var obj = {
+        category: userData.category,
+        subcategory: userData.subCategory,
+        urgency: userData.urgencyType,
+        contact_type: userData.contactDetails
+    };
+    //To insert the incident details
+    record.insert(obj).then(function (response) {
+        console.log(response);
+        return res.json({
+            speech: response,
+            displayText: response,
+            source: 'reportIncidentBot'
+        });
+    }).catch(function (error) {
+        console.log(error);
+        return res.json({
+            speech: error,
+            displayText: error,
+            source: 'reportIncidentBot'
+        });
     });
 }
 
