@@ -77,58 +77,96 @@ function welcomeIntent() {
 //To send the incident category as quick replies
 function incidentCategory() {
     return {
-        "facebook": {
-            "attachment": {
-                "type": "template",
-                    "payload": {
-                    "template_type": "generic",
-                        "elements": [
-                            {
-                                "title": "New Device",
-                                "image_url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png",
-                                "subtitle": "For requesting new device",
-                                "buttons": [
-                                    {
-                                        "type": "postback",
-                                        "title": "New Device",
-                                        "payload": "new_device"
-                                    }
-                                ]
-                            },
-                            {
-                                "title": "Damaged Device",
-                                "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxod-I0fuatggTIxbnHFELF6y62zwXkrzthtoVAWOmOwNQuPJusw",
-                                "subtitle": "To report the device is damaged",
-                                "buttons": [
-                                    {
-                                        "type": "postback",
-                                        "title": "Damaged Device",
-                                        "payload": "damaged_device"
-                                    }
-                                ]
-                            },
-                            {
-                                "title": "Replace Device",
-                                "image_url": "https://cdn3.iconfinder.com/data/icons/finance-and-money-1/512/arrows_currency_exchange_direction_flat_icon-512.png",
-                                "subtitle": "For replacing the device",
-                                "buttons": [
-                                    {
-                                        "type": "postback",
-                                        "title": "Replace Device",
-                                        "payload": "replace_device"
-                                    }
-                                ]
-                            }
-                        ]
-                }
+        speech: '',
+        displayText: "Hi, welcome to incident Report Bot",
+        data: {
+            "facebook": {
+                "text": "Please select any one category",
+                "quick_replies": [
+                    {
+                        "content_type": "text",
+                        "title": "Hardware",
+                        "payload": "hardware"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "Software",
+                        "payload": "software"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "Others",
+                        "payload": "others"
+                    }
+                ]
             }
-        }
+        },
+        source: 'reportIncidentBot'
     };
 }
 
 //To send the sub category for the value for the incident category selected as list
 function incidentSubCategory(category) {
-    return {
+    if (category.toLowerCase() == 'hardware') {
+        return {
+            speech: '',
+            displayText: "Hi, welcome to incident Report Bot",
+            data: {
+                "facebook": {
+                    "text": "Please select any one sub-category",
+                    "quick_replies": [
+                        {
+                            "content_type": "text",
+                            "title": "New Device",
+                            "payload": "New Device"
+                        },
+                        {
+                            "content_type": "text",
+                            "title": "Damaged Device",
+                            "payload": "Damaged Device"
+                        },
+                        {
+                            "content_type": "text",
+                            "title": "Replace Device",
+                            "payload": "Replace Device"
+                        }
+                    ]
+                }
+            },
+            source: 'reportIncidentBot'
+        }; 
+    } else if (category.toLowerCase() == 'software') {
+        return {
+           speech: '',
+           displayText: "Hi, welcome to incident Report Bot",
+           data: {
+                "facebook": {
+                    "text": "Please select any one sub-category",
+                    "quick_replies": [
+                        {
+                            "content_type": "text",
+                            "title": "Software Installation",
+                            "payload": "Software Installation"
+                        },
+                        {
+                            "content_type": "text",
+                            "title": "Problem with Installed Software",
+                            "payload": "Problem with Installed Software"
+                        }
+                    ]
+                }
+           },
+           source: 'reportIncidentBot'
+        };
+    } else {
+        let msg = "Others";
+        return res.json({
+            speech: msg,
+            displayText: msg,
+            source: 'reportIncidentBot'
+        });
+    }
+    /*return {
         "facebook": {
             "attachment": {
                 "type": "template",
@@ -175,5 +213,5 @@ function incidentSubCategory(category) {
                 }
             }
         }
-    };
+    };*/
 }
