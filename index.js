@@ -33,21 +33,15 @@ app.post('/ai', (req, res) => {
     } else if (req.body.result.action === 'incident-category') {
         userData.category = req.body.result.resolvedQuery;
         console.log('Inside incident sub category');
-        if (req.body.result.resolvedQuery == 'Others') {
-            console.log(req.body);
-        } else {
-            return res.json(incidentSubCategory(req.body.result.resolvedQuery));
-        }
+        return res.json(incidentSubCategory(req.body.result.resolvedQuery.toLowerCase()));
     } else if (req.body.result.action === 'incident-subcategory') {
         userData.subCategory = req.body.result.resolvedQuery;
-        console.log("User Data " + JSON.stringify(userData));
-        console.log('Inside incident description');
-        let msg = "Please enter the description for your incident";
-        return res.json({
-            speech: msg,
-            displayText: msg,
-            source: 'reportIncidentBot'
-        }); 
+        return res.json(incidentUrgencyType());
+    } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact') {
+        userData.urgencyType = req.body.result.resolvedQuery.toLowerCase() == 'high' ? 1 : req.body.result.resolvedQuery.toLowerCase() == 'medium' ? 2 : 3; //Set the urgency type based on the selected value
+        return res.json(incidentModeOfContact());
+    } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact.IncidentSubcategory-modeOfContact-getModeOfContact') {
+        return res.json(incidentContactDetails(req.body.result.resolvedQuery.toLowerCase()));
     } else {
         console.log('Other than welcome intent');
         let msg = "Can't understand";
@@ -124,7 +118,7 @@ function incidentCategory() {
 
 //To send the sub category for the value for the incident category selected as list
 function incidentSubCategory(category) {
-    if (category.toLowerCase() == 'hardware') {
+    if (category == 'hardware') {
         return {
             speech: '',
             displayText: "Hi, welcome to incident Report Bot",
@@ -152,7 +146,7 @@ function incidentSubCategory(category) {
             },
             source: 'reportIncidentBot'
         }; 
-    } else if (category.toLowerCase() == 'software') {
+    } else if (category == 'software') {
         return {
            speech: '',
            displayText: "Hi, welcome to incident Report Bot",
@@ -183,6 +177,77 @@ function incidentSubCategory(category) {
             source: 'reportIncidentBot'
         });
     }
+}
+
+//To handle the urgency type for the incidents
+function incidentUrgencyType() {
+    return {
+        speech: '',
+        displayText: "Hi, welcome to incident Report Bot",
+        data: {
+            "facebook": {
+                "text": "Please select any one urgency or type skip to proceed",
+                "quick_replies": [
+                    {
+                        "content_type": "text",
+                        "title": "High",
+                        "payload": "High"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "Medium",
+                        "payload": "Medium"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "Low",
+                        "payload": "Low"
+                    }
+                ]
+            }
+        },
+        source: 'reportIncidentBot'
+    };
+}
+
+//To handle the mode of contact
+function incidentModeOfContact() {
+    return {
+        speech: '',
+        displayText: "Hi, welcome to incident Report Bot",
+        data: {
+            "facebook": {
+                "text": "Please select any one urgency or type skip to proceed",
+                "quick_replies": [
+                    {
+                        "content_type": "text",
+                        "title": "Mobile Number",
+                        "payload": "High"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "Mail",
+                        "payload": "Medium"
+                    }
+                ]
+            }
+        },
+        source: 'reportIncidentBot'
+    };
+}
+
+//To handle the contact details
+function incidentContactDetails(contactType) {
+    if (contactType == 'mobile number') {
+        let msg = 'Please enter the mobile number';
+    } else {
+        let msg = 'Please enter the mail Id';
+    }
+    return res.json({
+        speech: msg,
+        displayText: msg,
+        source: 'reportIncidentBot'
+    });
 }
 
 /*return {
