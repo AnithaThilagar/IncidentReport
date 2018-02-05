@@ -30,8 +30,8 @@ app.post('/ai', (req, res) => {
         return res.json(incidentCategory());
     } else if (req.body.result.action === 'incident-category') {
         console.log('Inside incident sub category');
-        if (req.body.result.resolvedQuery == 'Others'){
-            console.log("Res is "+res);
+        if (req.body.result.resolvedQuery == 'Others') {
+            console.log("Res is " + JSON.stringify(req.body));
         } else {
             return res.json(incidentSubCategory(req.body.result.resolvedQuery));
         }
