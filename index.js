@@ -225,13 +225,13 @@ function incidentModeOfContact() {
                 "quick_replies": [
                     {
                         "content_type": "text",
-                        "title": "Mobile Number",
-                        "payload": "High"
+                        "title": "Phone",
+                        "payload": "Phone"
                     },
                     {
                         "content_type": "text",
-                        "title": "Mail",
-                        "payload": "Medium"
+                        "title": "Email",
+                        "payload": "Email"
                     }
                 ]
             }
@@ -243,7 +243,7 @@ function incidentModeOfContact() {
 //To handle the contact details
 function incidentContactDetails(contactType) {
     if (contactType == 'mobile number') {
-        let msg = 'Please enter the mobile number';
+        let msg = 'Please enter the Phone number';
     } else {
         let msg = 'Please enter the mail Id';
     }
@@ -264,19 +264,20 @@ function saveIncident() {
     };
     //To insert the incident details
     record.insert(obj).then(function (response) {
-        console.log(response);
-        return res.json({
+        console.log("Final Response" + response);
+        console.log("Incident Id is "+response.number);
+        return {
             speech: response,
             displayText: response,
             source: 'reportIncidentBot'
-        });
+        }
     }).catch(function (error) {
-        console.log(error);
-        return res.json({
+        console.log("Error in result "+error);
+        return {
             speech: error,
             displayText: error,
             source: 'reportIncidentBot'
-        });
+        }
     });
 }
 
