@@ -18,6 +18,8 @@ const server = app.listen(process.env.PORT || 5000, () => {
 
 const apiaiApp = apiai("1c5c2bd1f8b548b18f3782ca17420f2c");
 
+let userData = {};
+
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     console.log('*** Inside service now request ***');
@@ -29,7 +31,7 @@ app.post('/ai', (req, res) => {
         console.log('Inside report incident');
         return res.json(incidentCategory());
     } else if (req.body.result.action === 'incident-category') {
-        req.userData.category = req.body.result.resolvedQuery;
+        userData.category = req.body.result.resolvedQuery;
         console.log('Inside incident sub category');
         if (req.body.result.resolvedQuery == 'Others') {
             console.log("Res is " + JSON.stringify(req.body));
@@ -37,8 +39,8 @@ app.post('/ai', (req, res) => {
             return res.json(incidentSubCategory(req.body.result.resolvedQuery));
         }
     } else if (req.body.result.action === 'incident-subcategory') {
-        req.userData.subCategory = req.body.result.resolvedQuery;
-        console.log("User Data " + JSON.stringify(req.userData));
+        userData.subCategory = req.body.result.resolvedQuery;
+        console.log("User Data " + JSON.stringify(userData));
         console.log('Inside incident description');
         let msg = "Please enter the description for your incident";
         return res.json({
