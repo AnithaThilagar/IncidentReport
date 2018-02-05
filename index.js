@@ -116,7 +116,7 @@ function incidentSubCategory(category) {
                     "elements": [
                         {
                             "title": "Device Request",
-                            "image_url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png",
+                            "image_url": "/Image/add_device.png",
                             "subtitle": "For requesting new device",
                             "buttons": [
                                 {
@@ -128,7 +128,7 @@ function incidentSubCategory(category) {
                         },
                         {
                             "title": "Damaged Device",
-                            "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxod-I0fuatggTIxbnHFELF6y62zwXkrzthtoVAWOmOwNQuPJusw",
+                            "image_url": "/Image/damaged_device.png",
                             "subtitle": "To report the device is damaged",
                             "buttons": [
                                 {
@@ -140,7 +140,7 @@ function incidentSubCategory(category) {
                         },
                         {
                             "title": "Replace Request",
-                            "image_url": "https://cdn3.iconfinder.com/data/icons/finance-and-money-1/512/arrows_currency_exchange_direction_flat_icon-512.png",
+                            "image_url": "/Image/replace_device.png",
                             "subtitle": "For replacing the device",
                             "buttons": [
                                 {
