@@ -30,7 +30,19 @@ app.post('/ai', (req, res) => {
         return res.json(incidentCategory());
     } else if (req.body.result.action === 'incident-category') {
         console.log('Inside incident sub category');
-        return res.json(incidentSubCategory(req.body.result.resolvedQuery));
+        if (req.body.result.resolvedQuery == 'Others'){
+            console.log("Res is "+res);
+        } else {
+            return res.json(incidentSubCategory(req.body.result.resolvedQuery));
+        }
+    } else if (req.body.result.action === 'incident-subcategory') {
+        console.log('Inside incident description');
+        let msg = "Please enter the description for your incident";
+        return res.json({
+            speech: msg,
+            displayText: msg,
+            source: 'reportIncidentBot'
+        }); 
     } else {
         console.log('Other than welcome intent');
         let msg = "Can't understand";
