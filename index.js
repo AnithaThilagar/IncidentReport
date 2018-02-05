@@ -29,6 +29,7 @@ app.post('/ai', (req, res) => {
         console.log('Inside report incident');
         return res.json(incidentCategory());
     } else if (req.body.result.action === 'incident-category') {
+        req.userData.category = req.body.result.resolvedQuery;
         console.log('Inside incident sub category');
         if (req.body.result.resolvedQuery == 'Others') {
             console.log("Res is " + JSON.stringify(req.body));
@@ -36,6 +37,8 @@ app.post('/ai', (req, res) => {
             return res.json(incidentSubCategory(req.body.result.resolvedQuery));
         }
     } else if (req.body.result.action === 'incident-subcategory') {
+        req.userData.subCategory = req.body.result.resolvedQuery;
+        console.log("User Data " + JSON.stringify(req.userData));
         console.log('Inside incident description');
         let msg = "Please enter the description for your incident";
         return res.json({
@@ -121,52 +124,31 @@ function incidentCategory() {
 function incidentSubCategory(category) {
     if (category.toLowerCase() == 'hardware') {
         return {
-            "facebook": {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "generic",
-                        "elements": [
-                            {
-                                "title": "New Device",
-                                "image_url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png",
-                                "subtitle": "For requesting new device",
-                                "buttons": [
-                                    {
-                                        "type": "postback",
-                                        "title": "New Device",
-                                        "payload": "new_device"
-                                    }
-                                ]
-                            },
-                            {
-                                "title": "Damaged Device",
-                                "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxod-I0fuatggTIxbnHFELF6y62zwXkrzthtoVAWOmOwNQuPJusw",
-                                "subtitle": "To report the device is damaged",
-                                "buttons": [
-                                    {
-                                        "type": "postback",
-                                        "title": "Damaged Device",
-                                        "payload": "damaged_device"
-                                    }
-                                ]
-                            },
-                            {
-                                "title": "Replace Device",
-                                "image_url": "https://cdn3.iconfinder.com/data/icons/finance-and-money-1/512/arrows_currency_exchange_direction_flat_icon-512.png",
-                                "subtitle": "For replacing the device",
-                                "buttons": [
-                                    {
-                                        "type": "postback",
-                                        "title": "Replace Device",
-                                        "payload": "replace_device"
-                                    }
-                                ]
-                            }
-                        ]
-                    }
+            speech: '',
+            displayText: "Hi, welcome to incident Report Bot",
+            data: {
+                "facebook": {
+                    "text": "Please select any one sub-category",
+                    "quick_replies": [
+                        {
+                            "content_type": "text",
+                            "title": "New Device",
+                            "payload": "New Device"
+                        },
+                        {
+                            "content_type": "text",
+                            "title": "Damaged Device",
+                            "payload": "Damaged Device"
+                        },
+                        {
+                            "content_type": "text",
+                            "title": "Replace Device",
+                            "payload": "Replace Device"
+                        }
+                    ]
                 }
-            }
+            },
+            source: 'reportIncidentBot'
         }; 
     } else if (category.toLowerCase() == 'software') {
         return {
