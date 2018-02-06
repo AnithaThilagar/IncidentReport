@@ -111,47 +111,80 @@ function incidentCategory() {
 
 //To send the sub category for the value for the incident category selected as list
 function incidentSubCategory(category) {
-    return {
-        speech: '',
-        displayText: "Hi, welcome to incident Report Bot",
-        data: {
-            "facebook": {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "list",
-                        "top_element_style": "large",
-                        "elements": [
-                            {
-                                "title": "Device Request",
-                                "image_url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png",
-                                "subtitle": "For requesting new device",
-                                "buttons": [
-                                    {
-                                        "type": "postback",
-                                        "title": "New Device",
-                                        "payload": "new_device"
-                                    }
-                                ]
-                            },
-                            {
-                                "title": "Damaged Device",
-                                "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxod-I0fuatggTIxbnHFELF6y62zwXkrzthtoVAWOmOwNQuPJusw",
-                                "subtitle": "To report the device is damaged",
-                                "buttons": [
-                                    {
-                                        "type": "postback",
-                                        "title": "Damaged Device",
-                                        "payload": "damaged_device"
-                                    }
-                                ]
-                            }
-                        ]
+    if (category == 'hardware') {
+        return return {
+            speech: '',
+            displayText: "Hi, welcome to incident Report Bot",
+            data: {
+                "facebook": {
+                    "attachment": {
+                        "type": "template",
+                        "payload": {
+                            "template_type": "list",
+                            "top_element_style": "large",
+                            "elements": [
+                                {
+                                    "title": "Device Request",
+                                    "image_url": "/Image/add_device.png",
+                                    "subtitle": "For requesting new device",
+                                    "buttons": [
+                                        {
+                                            "type": "postback",
+                                            "title": "New Device",
+                                            "payload": "new_device"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "Damaged Device",
+                                    "image_url": "/Image/damaged_device.png",
+                                    "subtitle": "To report the device is damaged",
+                                    "buttons": [
+                                        {
+                                            "type": "postback",
+                                            "title": "Damaged Device",
+                                            "payload": "damaged_device"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     }
                 }
             }
-        }
-    };
+        };
+    } else if (category == 'software') {
+        return {
+            speech: '',
+            displayText: "Hi, welcome to incident Report Bot",
+            data: {
+                "facebook": {
+                    "text": "Please select any one sub-category",
+                    "quick_replies": [
+                        {
+                            "content_type": "text",
+                            "title": "Software Installation",
+                            "payload": "Software Installation"
+                        },
+                        {
+                            "content_type": "text",
+                            "title": "Problem with Installed Software",
+                            "payload": "Problem with Installed Software"
+                        }
+                    ]
+                }
+            },
+            source: 'reportIncidentBot'
+        };
+    } else {
+        let msg = "Others";
+        return res.json({
+            speech: msg,
+            displayText: msg,
+            source: 'reportIncidentBot'
+        });
+    }
+    
 }
 
 //To send the urgency type for the incidents as quick replies
