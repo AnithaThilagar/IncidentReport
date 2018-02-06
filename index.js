@@ -330,7 +330,7 @@ function getIncidentDetails(incidentId) {
     }, (error, response) => {
         if (!error && response.statusCode == 200) {
             console.log("Inside response build");
-            let incidentDetails = '<table><tr><th>Incident Number</th><td>' + response.body.number + '</td></tr></table>';
+            let incidentDetails = "<table border = '0'><tr><th>Incident Number</th><td>dsfd</td></tr></table>";
             return {
                 speech: incidentDetails,
                 displayText: incidentDetails,
