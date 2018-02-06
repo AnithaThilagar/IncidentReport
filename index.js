@@ -328,8 +328,8 @@ function getIncidentDetails(incidentId) {
     request.get(restUrl, (err, response, body) => {
         if (!err && response.statusCode == 200) {
             return {
-                speech: msg,
-                displayText: msg,
+                speech: response,
+                displayText: response,
                 source: 'reportIncidentBot'
             };
         } else {
