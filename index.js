@@ -107,11 +107,6 @@ function incidentCategory() {
                         "content_type": "text",
                         "title": "Software",
                         "payload": "software"
-                    },
-                    {
-                        "content_type": "text",
-                        "title": "Others",
-                        "payload": "others"
                     }
                 ]
             }
@@ -221,7 +216,7 @@ function incidentModeOfContact() {
         displayText: "Hi, welcome to incident Report Bot",
         data: {
             "facebook": {
-                "text": "Please select any one urgency or type skip to proceed",
+                "text": "Please select any one mode of contact",
                 "quick_replies": [
                     {
                         "content_type": "text",
@@ -264,7 +259,7 @@ function saveIncident() {
     };
     //To insert the incident details
     record.insert(obj).then(function (response) {
-        console.log("Final Response" + response);
+        console.log(response);
         console.log("Incident Id is "+response.number);
         return {
             speech: response,
