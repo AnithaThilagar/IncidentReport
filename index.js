@@ -23,10 +23,12 @@ let userData = {};
 app.post('/ai', (req, res) => {
     console.log(req.body.result);
     if (req.body.result.action === 'input.welcome') {
+        userData = {};
         return res.json(welcomeIntent());
     } else if (req.body.result.action === 'reportIncident') {
         return res.json(incidentCategory());
     } else if (req.body.result.action === 'incident-category') {
+        userData = {};
         userData.category = req.body.result.resolvedQuery;
         return res.json(incidentSubCategory(req.body.result.resolvedQuery.toLowerCase()));
     } else if (req.body.result.action === 'incident-subcategory') {
@@ -38,9 +40,16 @@ app.post('/ai', (req, res) => {
     } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact.IncidentSubcategory-modeOfContact-getModeOfContact') {
         userData.modeOfContact = req.body.result.resolvedQuery;
         return res.json(incidentContactDetails(req.body.result.resolvedQuery.toLowerCase()));
-    } else if (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId') {
+    } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {
         userData.contactDetails = req.body.result.resolvedQuery;
         return res.json(saveIncident());
+    } else if (req.body.result.action === 'getIncident') {
+        let msg = 'Testing'
+        return res.json({
+            speech: msg,
+            displayText: msg,
+            source: 'reportIncidentBot'
+        });
     } else {
         let msg = "Can't understand";
         return res.json({
