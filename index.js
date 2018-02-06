@@ -332,6 +332,7 @@ function getIncidentDetails(incidentId) {
         method: 'GET'
     }, (error, response) => {
         if (!error && response.statusCode == 200) {
+            console.log("Inside response build");
             let incidentDetails = `<table><tr><th>Incident Number</th><td>` + response.body.number + `</td></tr></table>`;
             return {
                 speech: incidentDetails,
@@ -348,24 +349,4 @@ function getIncidentDetails(incidentId) {
             };
         }
     });
-    /*let restUrl = 'https://dev18442.service-now.com/api/now/v1/table/incident?number=' + incidentId;
-    request.get(restUrl, (err, response, body) => {
-        console.log("Before " + JSON.stringify(response));
-        if (!err && response.statusCode == 200) {
-            console.log("Resp " + JSON.stringify(response));
-            return {
-                speech: response,
-                displayText: response,
-                source: 'reportIncidentBot'
-            };
-        } else {
-            console.log("Err is " + JSON.stringify(err));
-            return {
-                status: {
-                    code: 400,
-                    errorType: err
-                }
-            };
-        }
-    });*/
 }
