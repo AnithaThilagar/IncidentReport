@@ -45,12 +45,7 @@ app.post('/ai', (req, res) => {
         userData.contactDetails = req.body.result.resolvedQuery;
         return res.json(saveIncident());
     } else if (req.body.result.action === 'getIncident') {
-        let msg = 'Testing'
-        return res.json({
-            speech: msg,
-            displayText: msg,
-            source: 'reportIncidentBot'
-        });
+        return res.json(getIncidentDetails(req.body.result.parameters["incidentId"]));
     } else {
         let msg = "Can't understand";
         return res.json({
@@ -323,6 +318,27 @@ function saveIncident() {
             speech: error,
             displayText: error,
             source: 'reportIncidentBot'
+        }
+    });
+}
+
+//To get the incident details using the incident Id
+function getIncidentDetails(incidentId) {
+    let restUrl = 'https://dev18442.service-now.com/api/now/v1/table/incident?number=' + incidentId;
+    request.get(restUrl, (err, response, body) => {
+        if (!err && response.statusCode == 200) {
+            return {
+                speech: msg,
+                displayText: msg,
+                source: 'reportIncidentBot'
+            };
+        } else {
+            return {
+                status: {
+                    code: 400,
+                    errorType: err
+                }
+            };
         }
     });
 }
