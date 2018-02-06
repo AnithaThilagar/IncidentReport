@@ -6,6 +6,7 @@ const request = require('request');
 const apiai = require('apiai');
 const GlideRecord = require('servicenow-rest').gliderecord;
 var record = new GlideRecord('dev18442', 'incident', '33238', 'abc123', 'v1');
+console.log("SN Obj " + JSON.stringify(record));
 
 const app = express();
 app.use(bodyParser.json());
