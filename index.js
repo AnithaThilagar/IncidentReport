@@ -329,24 +329,20 @@ function getIncidentDetails(incidentId) {
 			headers: { 'Authorization' : 'Basic MzMyMzg6YWJjMTIz' },
 			method: 'GET'
 		}, (error, response) => {
+			let incidentDetails = '';
 			if (!error && response.statusCode == 200) {
 				let incidentJson = JSON.parse(response.body);
 				//console.log(incidentJson.result[0].category);
-				let incidentDetails = "Incident Number " + incidentJson.result[0].number;
-				return {
-					speech: incidentDetails,
-					displayText: incidentDetails,
-					source: 'reportIncidentBot'
-				};
+				incidentDetails = "Incident Number ";// + incidentJson.result[0].number
 			} else {
 				console.log(error);
-				let message = 'Try again later';
-				return {
-					speech: message,
-					displayText: message,
-					source: 'reportIncidentBot'
-				};
+				incidentDetails = 'Try again later';
 			}
+			return {
+				speech: incidentDetails,
+				displayText: incidentDetails,
+				source: 'reportIncidentBot'
+			};
 		});
 	} catch(e){
 		console.log("Exception in getIncidentDetails "+e);
