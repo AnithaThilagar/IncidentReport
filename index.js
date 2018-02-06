@@ -324,15 +324,18 @@ function saveIncident() {
 
 //To get the incident details using the incident Id
 function getIncidentDetails(incidentId) {
+    console.log("Inside get incident");
     let restUrl = 'https://dev18442.service-now.com/api/now/v1/table/incident?number=' + incidentId;
     request.get(restUrl, (err, response, body) => {
         if (!err && response.statusCode == 200) {
+            console.log(response);
             return {
                 speech: response,
                 displayText: response,
                 source: 'reportIncidentBot'
             };
         } else {
+            console.log(err);
             return {
                 status: {
                     code: 400,
