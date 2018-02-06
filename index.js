@@ -6,7 +6,6 @@ const request = require('request');
 const apiai = require('apiai');
 const GlideRecord = require('servicenow-rest').gliderecord;
 var record = new GlideRecord('dev18442', 'incident', '33238', 'abc123', 'v1');
-console.log("SN Obj " + JSON.stringify(record));
 
 const app = express();
 app.use(bodyParser.json());
@@ -22,8 +21,6 @@ let userData = {};
 
 //To handle the response to bot
 app.post('/ai', (req, res) => {
-    console.log(req.body.originalRequest.data);
-    console.log(req.body.result);
     if (req.body.result.action === 'input.welcome') {
         userData = {};
         return res.json(welcomeIntent());
@@ -333,7 +330,7 @@ function getIncidentDetails(incidentId) {
     }, (error, response) => {
         if (!error && response.statusCode == 200) {
             console.log("Inside response build");
-            let incidentDetails = `<table><tr><th>Incident Number</th><td>` + response.body.number + `</td></tr></table>`;
+            let incidentDetails = '<table><tr><th>Incident Number</th><td>' + response.body.number + '</td></tr></table>';
             return {
                 speech: incidentDetails,
                 displayText: incidentDetails,
