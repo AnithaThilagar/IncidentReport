@@ -331,7 +331,7 @@ function getIncidentDetails(incidentId) {
         if (!error && response.statusCode == 200) {
 			let incidentJson = JSON.parse(response.body);
             //console.log(incidentJson.result[0].category);
-            let incidentDetails = "<table border = '0'><tr><th>Incident Number</th><td>" + incidentJson.result[0].number + "</td></tr></table>";
+            let incidentDetails = "Incident Number " + incidentJson.result[0].number;
             return {
                 speech: incidentDetails,
                 displayText: incidentDetails,
