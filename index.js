@@ -113,54 +113,50 @@ function incidentCategory() {
 function incidentSubCategory(category) {
     if (category == 'hardware') {
         return {
-            speech: '',
-            displayText: "Hi, welcome to incident Report Bot",
-            data: {
-                "facebook": {
-                    "attachment": {
-                        "type": "template",
-                        "payload": {
-                            "template_type": "list",
-                            "top_element_style": "large",
-                            "elements": [
-                                {
-                                    "title": "Device Request",
-                                    "image_url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png",
-                                    "subtitle": "For requesting new device",
-                                    "buttons": [
-                                        {
-                                            "type": "postback",
-                                            "title": "New Device",
-                                            "payload": "new_device"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "title": "Damaged Device",
-                                    "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxod-I0fuatggTIxbnHFELF6y62zwXkrzthtoVAWOmOwNQuPJusw",
-                                    "subtitle": "To report the device is damaged",
-                                    "buttons": [
-                                        {
-                                            "type": "postback",
-                                            "title": "Damaged Device",
-                                            "payload": "damaged_device"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "title": "Replace Device",
-                                    "image_url": "https://cdn3.iconfinder.com/data/icons/finance-and-money-1/512/arrows_currency_exchange_direction_flat_icon-512.png",
-                                    "subtitle": "To replace the existing device",
-                                    "buttons": [
-                                        {
-                                            "content_type": "text",
-                                            "title": "Replace Device",
-                                            "payload": "Replace Device"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
+            "facebook": {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "list",
+                        "top_element_style": "large",
+                        "elements": [
+                            {
+                                "title": "Device Request",
+                                "image_url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png",
+                                "subtitle": "For requesting new device",
+                                "buttons": [
+                                    {
+                                        "type": "postback",
+                                        "title": "New Device",
+                                        "payload": "new_device"
+                                    }
+                                ]
+                            },
+                            {
+                                "title": "Damaged Device",
+                                "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxod-I0fuatggTIxbnHFELF6y62zwXkrzthtoVAWOmOwNQuPJusw",
+                                "subtitle": "To report if the device is damaged",
+                                "buttons": [
+                                    {
+                                        "type": "postback",
+                                        "title": "Damaged Device",
+                                        "payload": "damaged_device"
+                                    }
+                                ]
+                            },
+                            {
+                                "title": "Replace Device",
+                                "image_url": "https://cdn3.iconfinder.com/data/icons/finance-and-money-1/512/arrows_currency_exchange_direction_flat_icon-512.png",
+                                "subtitle": "To replace the existing device",
+                                "buttons": [
+                                    {
+                                        "type": "postback",
+                                        "title": "Replace Device",
+                                        "payload": "replace_device"
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 }
             }
