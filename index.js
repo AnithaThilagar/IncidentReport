@@ -22,6 +22,7 @@ let userData = {};
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     console.log(req.body.originalRequest.data);
+    console.log(req.body.result);
     if (req.body.result.action === 'input.welcome') {
         userData = {};
         return res.json(welcomeIntent());
