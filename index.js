@@ -112,7 +112,7 @@ function incidentCategory() {
 //To send the sub category for the value for the incident category selected as list
 function incidentSubCategory(category) {
     if (category == 'hardware') {
-        return return {
+        return {
             speech: '',
             displayText: "Hi, welcome to incident Report Bot",
             data: {
