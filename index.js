@@ -112,38 +112,42 @@ function incidentCategory() {
 //To send the sub category for the value for the incident category selected as list
 function incidentSubCategory(category) {
     return {
-        "facebook": {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "list",
-                    "top_element_style": "large",
-                    "elements": [
-                        {
-                            "title": "Device Request",
-                            "image_url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png",
-                            "subtitle": "For requesting new device",
-                            "buttons": [
-                                {
-                                    "type": "postback",
-                                    "title": "New Device",
-                                    "payload": "new_device"
-                                }
-                            ]
-                        },
-                        {
-                            "title": "Damaged Device",
-                            "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxod-I0fuatggTIxbnHFELF6y62zwXkrzthtoVAWOmOwNQuPJusw",
-                            "subtitle": "To report the device is damaged",
-                            "buttons": [
-                                {
-                                    "type": "postback",
-                                    "title": "Damaged Device",
-                                    "payload": "damaged_device"
-                                }
-                            ]
-                        }
-                    ]
+        speech: '',
+        displayText: "Hi, welcome to incident Report Bot",
+        data: {
+            "facebook": {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "list",
+                        "top_element_style": "large",
+                        "elements": [
+                            {
+                                "title": "Device Request",
+                                "image_url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png",
+                                "subtitle": "For requesting new device",
+                                "buttons": [
+                                    {
+                                        "type": "postback",
+                                        "title": "New Device",
+                                        "payload": "new_device"
+                                    }
+                                ]
+                            },
+                            {
+                                "title": "Damaged Device",
+                                "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxod-I0fuatggTIxbnHFELF6y62zwXkrzthtoVAWOmOwNQuPJusw",
+                                "subtitle": "To report the device is damaged",
+                                "buttons": [
+                                    {
+                                        "type": "postback",
+                                        "title": "Damaged Device",
+                                        "payload": "damaged_device"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
                 }
             }
         }
