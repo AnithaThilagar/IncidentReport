@@ -116,10 +116,11 @@ function incidentSubCategory(category) {
             "attachment": {
                 "type": "template",
                 "payload": {
-                    "template_type": "generic",
+                    "template_type": "list",
+                    "top_element_style": "large",
                     "elements": [
                         {
-                            "title": "New Device",
+                            "title": "Device Request",
                             "image_url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png",
                             "subtitle": "For requesting new device",
                             "buttons": [
@@ -141,18 +142,6 @@ function incidentSubCategory(category) {
                                     "payload": "damaged_device"
                                 }
                             ]
-                        },
-                        {
-                            "title": "Replace Device",
-                            "image_url": "https://cdn3.iconfinder.com/data/icons/finance-and-money-1/512/arrows_currency_exchange_direction_flat_icon-512.png",
-                            "subtitle": "For replacing the device",
-                            "buttons": [
-                                {
-                                    "type": "postback",
-                                    "title": "Replace Device",
-                                    "payload": "replace_device"
-                                }
-                            ]
                         }
                     ]
                 }
@@ -161,7 +150,7 @@ function incidentSubCategory(category) {
     };
 }
 
-//To handle the urgency type for the incidents
+//To send the urgency type for the incidents as quick replies
 function incidentUrgencyType() {
     return {
         speech: '',
@@ -192,7 +181,7 @@ function incidentUrgencyType() {
     };
 }
 
-//To handle the mode of contact
+//To send the mode of contact as quick replies
 function incidentModeOfContact() {
     return {
         speech: '',
@@ -218,9 +207,9 @@ function incidentModeOfContact() {
     };
 }
 
-//To handle the contact details
+//To send the contact details as text
 function incidentContactDetails(contactType) {
-    if (contactType == 'mobile number') {
+    if (contactType == 'phone') {
         let msg = 'Please enter the Phone number';
     } else {
         let msg = 'Please enter the mail Id';
@@ -366,4 +355,42 @@ function saveIncident() {
         displayText: msg,
         source: 'reportIncidentBot'
     });
+}*/
+
+/*{
+    "facebook": {
+        "attachment": {
+            "type":"template",
+            "payload":{
+                "template_type":"list",
+                "top_element_style":"large",
+                "elements":[
+                    {
+                        "title": "Device Request",
+                        "image_url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png",
+                        "subtitle": "For requesting new device",
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "New Device",
+                                "payload": "new_device"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Damaged Device",
+                        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxod-I0fuatggTIxbnHFELF6y62zwXkrzthtoVAWOmOwNQuPJusw",
+                        "subtitle": "To report the device is damaged",
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "Damaged Device",
+                                "payload": "damaged_device"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
 }*/
