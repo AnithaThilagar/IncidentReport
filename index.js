@@ -331,17 +331,21 @@ function getIncidentDetails(incidentId) {
         headers: { 'Authorization' : 'Basic MzMyMzg6YWJjMTIz' },
         method: 'GET'
     }, (error, response) => {
-        console.log("Resp " + JSON.stringify(response));
-        if (error) {
-            console.log('Error sending message: ', error);
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
+        if (!err && response.statusCode == 200) {
+            let incidentDetails = `<table><tr><th>Incident Number</th><td>` + response.body.number + `</td></tr></table>`;
+            return {
+                speech: incidentDetails,
+                displayText: incidentDetails,
+                source: 'reportIncidentBot'
+            };
+        } else {
+            let message = 'Try again later';
+            return {
+                speech: msg,
+                displayText: msg,
+                source: 'reportIncidentBot'
+            };
         }
-        return {
-            speech: response,
-            displayText: response,
-            source: 'reportIncidentBot'
-        };
     });
     /*let restUrl = 'https://dev18442.service-now.com/api/now/v1/table/incident?number=' + incidentId;
     request.get(restUrl, (err, response, body) => {
