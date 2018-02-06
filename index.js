@@ -331,7 +331,7 @@ function getIncidentDetails(incidentId) {
         headers: { 'Authorization' : 'Basic MzMyMzg6YWJjMTIz' },
         method: 'GET'
     }, (error, response) => {
-        if (!err && response.statusCode == 200) {
+        if (!error && response.statusCode == 200) {
             let incidentDetails = `<table><tr><th>Incident Number</th><td>` + response.body.number + `</td></tr></table>`;
             return {
                 speech: incidentDetails,
@@ -339,6 +339,7 @@ function getIncidentDetails(incidentId) {
                 source: 'reportIncidentBot'
             };
         } else {
+            console.log(error);
             let message = 'Try again later';
             return {
                 speech: msg,
