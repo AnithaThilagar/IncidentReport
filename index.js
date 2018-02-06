@@ -282,11 +282,11 @@ function incidentContactDetails(contactType) {
     } else {
         let msg = 'Please enter the mail Id';
     }
-    return res.json({
+    return {
         speech: msg,
         displayText: msg,
         source: 'reportIncidentBot'
-    });
+    };
 }
 
 //To save the incident using the servicenow API
