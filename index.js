@@ -324,7 +324,25 @@ function saveIncident() {
 function getIncidentDetails(incidentId) {
 	try{
 		console.log("Inside get incident");
-		request({
+		let incidentMessage = '';
+		let options = {
+			url: 'https://dev18442.service-now.com/api/now/v1/table/incident?number=' + incidentId,
+			headers: { 'Authorization' : 'Basic MzMyMzg6YWJjMTIz' }
+		};
+		request.get(options, (err, response, body) => {
+			console.log(response);
+			if(!err && response.statusCode == 200){
+				incidentMessage = 'Response '+response;
+			} else {
+				incidentMessage = 'Error '+err;
+			}
+			return {
+			  speech: incidentMessage,
+			  displayText: incidentMessage,
+			  source: 'reportIncidentBot'
+			};
+		});
+		/*request({
 			url: 'https://dev18442.service-now.com/api/now/v1/table/incident?number=' + incidentId,
 			headers: { 'Authorization' : 'Basic MzMyMzg6YWJjMTIz' },
 			method: 'GET'
@@ -343,7 +361,7 @@ function getIncidentDetails(incidentId) {
 				displayText: incidentDetails,
 				source: 'reportIncidentBot'
 			};
-		});
+		});*/
 	} catch(e){
 		console.log("Exception in getIncidentDetails "+e);
 	}
