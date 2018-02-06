@@ -38,7 +38,7 @@ app.post('/ai', (req, res) => {
     } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact.IncidentSubcategory-modeOfContact-getModeOfContact') {
         userData.modeOfContact = req.body.result.resolvedQuery;
         return res.json(incidentContactDetails(req.body.result.resolvedQuery.toLowerCase()));
-    } else if (typeof userData.subCategory != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {
+    } else if (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId') {
         userData.contactDetails = req.body.result.resolvedQuery;
         return res.json(saveIncident());
     } else {
