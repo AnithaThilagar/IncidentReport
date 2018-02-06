@@ -322,29 +322,33 @@ function saveIncident() {
 
 //To get the incident details using the incident Id
 function getIncidentDetails(incidentId) {
-    console.log("Inside get incident");
-    request({
-        url: 'https://dev18442.service-now.com/api/now/v1/table/incident?number=' + incidentId,
-        headers: { 'Authorization' : 'Basic MzMyMzg6YWJjMTIz' },
-        method: 'GET'
-    }, (error, response) => {
-        if (!error && response.statusCode == 200) {
-			let incidentJson = JSON.parse(response.body);
-            //console.log(incidentJson.result[0].category);
-            let incidentDetails = "Incident Number " + incidentJson.result[0].number;
-            return {
-                speech: incidentDetails,
-                displayText: incidentDetails,
-                source: 'reportIncidentBot'
-            };
-        } else {
-            console.log(error);
-            let message = 'Try again later';
-            return {
-                speech: msg,
-                displayText: msg,
-                source: 'reportIncidentBot'
-            };
-        }
-    });
+	try{
+		console.log("Inside get incident");
+		request({
+			url: 'https://dev18442.service-now.com/api/now/v1/table/incident?number=' + incidentId,
+			headers: { 'Authorization' : 'Basic MzMyMzg6YWJjMTIz' },
+			method: 'GET'
+		}, (error, response) => {
+			if (!error && response.statusCode == 200) {
+				let incidentJson = JSON.parse(response.body);
+				//console.log(incidentJson.result[0].category);
+				let incidentDetails = "Incident Number " + incidentJson.result[0].number;
+				return {
+					speech: incidentDetails,
+					displayText: incidentDetails,
+					source: 'reportIncidentBot'
+				};
+			} else {
+				console.log(error);
+				let message = 'Try again later';
+				return {
+					speech: message,
+					displayText: message,
+					source: 'reportIncidentBot'
+				};
+			}
+		});
+	} catch(e){
+		console.log("Exception in getIncidentDetails "+e);
+	}
 }
