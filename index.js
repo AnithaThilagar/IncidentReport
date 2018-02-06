@@ -328,7 +328,7 @@ function getIncidentDetails(incidentId) {
     console.log("Inside get incident");
     request({
         url: 'https://dev18442.service-now.com/api/now/v1/table/incident?number=' + incidentId,
-        qs: { Authorization: 'Basic MzMyMzg6YWJjMTIz' },
+        headers: { 'Authorization' : 'Basic MzMyMzg6YWJjMTIz' },
         method: 'GET'
     }, (error, response) => {
         console.log("Resp " + JSON.stringify(response));
