@@ -329,8 +329,8 @@ function getIncidentDetails(incidentId) {
         method: 'GET'
     }, (error, response) => {
         if (!error && response.statusCode == 200) {
-            console.log("Inside response build " + response.body.number);
-            let incidentDetails = "Testing";
+            console.log("Inside response build " + response.body.result[0].number);
+            let incidentDetails = "<table border = '0'><tr><th>Incident Number</th><td>" + response.body.result[0].number + "</td></tr></table>";
             return {
                 speech: incidentDetails,
                 displayText: incidentDetails,
