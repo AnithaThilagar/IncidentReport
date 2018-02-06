@@ -277,10 +277,11 @@ function incidentModeOfContact() {
 
 //To send the contact details as text
 function incidentContactDetails(contactType) {
+    let msg = '';
     if (contactType == 'phone') {
-        let msg = 'Please enter the Phone number';
+        msg = 'Please enter the Phone number';
     } else {
-        let msg = 'Please enter the mail Id';
+        msg = 'Please enter the mail Id';
     }
     return {
         speech: msg,
