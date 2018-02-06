@@ -327,6 +327,7 @@ function getIncidentDetails(incidentId) {
     console.log("Inside get incident");
     let restUrl = 'https://dev18442.service-now.com/api/now/v1/table/incident?number=' + incidentId;
     request.get(restUrl, (err, response, body) => {
+        console.log("Before " + JSON.stringify(response));
         if (!err && response.statusCode == 200) {
             console.log("Resp " + JSON.stringify(response));
             return {
