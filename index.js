@@ -31,20 +31,21 @@ app.post('/ai', (req, res) => {
         return res.json(incidentCategory());
     } else if (req.body.result.action === 'incident-category') {
         userData = {};
-        userData.category = req.body.result.resolvedQuery;
-        return res.json(incidentSubCategory(req.body.result.resolvedQuery.toLowerCase()));
+        userData.category = req.body.result.parameters["incidentCategory"];
+        return res.json(incidentSubCategory(userData.category.toLowerCase()));
     } else if (req.body.result.action === 'incident-subcategory') {
         userData.description = req.body.result.parameters["description"];
-        userData.subCategory = req.body.result.resolvedQuery;
+        userData.subCategory = req.body.result.parameters["subcategory"];
         return res.json(incidentUrgencyType());
     } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact') {
-        userData.urgencyType = req.body.result.resolvedQuery.toLowerCase() == 'high' ? 1 : req.body.result.resolvedQuery.toLowerCase() == 'medium' ? 2 : 3; //Set the urgency type based on the selected value
+        userData.urgencyType = req.body.result.parameters["urgencyType"].toLowerCase() == 'high' ? 1 : req.body.result.parameters["urgencyType"].toLowerCase() == 'medium'
+            ? 2 : 3; //Set the urgency type based on the selected value
         return res.json(incidentModeOfContact());
     } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact.IncidentSubcategory-modeOfContact-getModeOfContact') {
-        userData.modeOfContact = req.body.result.resolvedQuery;
-        return res.json(incidentContactDetails(req.body.result.resolvedQuery.toLowerCase()));
+        userData.modeOfContact = req.body.result.parameters["modeOfContact"];
+        return res.json(incidentContactDetails(req.body.result.parameters["modeOfContact"].toLowerCase()));
     } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {
-        userData.contactDetails = req.body.result.resolvedQuery;
+        userData.contactDetails = req.body.result.action === 'getPhoneNumber' ? req.body.result.parameters["phone-number"] : req.body.result.parameters["email"];
         saveIncident(res);
     } else if (req.body.result.action === 'getIncident') {
         getIncidentDetails(res,req.body.result.parameters["incidentId"]);
@@ -355,7 +356,14 @@ function getIncidentDetails(res, incidentId) {
                     displayText: incidentDetails,
                     source: 'reportIncidentBot'
                 });
-			} else {
+            } else if (response.statusCode == 404){
+                incidentDetails = 'The given incident is not found';
+                return res.json({
+                    speech: incidentDetails,
+                    displayText: incidentDetails,
+                    source: 'reportIncidentBot'
+                });
+            } else {
 				console.log(error);
                 incidentDetails = 'Try again later';
                 return res.json({
