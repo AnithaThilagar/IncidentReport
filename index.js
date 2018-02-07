@@ -77,7 +77,7 @@ app.post('/ai', (req, res) => {
             }
         }
     } else if (req.body.result.action === 'getIncident') {
-        let reg = '^[a-zA-Z0-9]+$';
+        let reg = /^[a-zA-Z0-9]+$/;
         if (reg.test(req.body.result.parameters["incidentId"])){
             getIncidentDetails(res, req.body.result.parameters["incidentId"]);
         } else {
