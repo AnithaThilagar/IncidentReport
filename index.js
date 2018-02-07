@@ -42,9 +42,7 @@ app.post('/ai', (req, res) => {
         return res.json(incidentContactDetails(req.body.result.resolvedQuery.toLowerCase()));
     } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {
         userData.contactDetails = req.body.result.resolvedQuery;
-        let incidentId = saveIncident();
-        console.log(incidentId);
-        return res.json(incidentId);
+        let incidentId = saveIncident(res);
     } else if (req.body.result.action === 'getIncident') {
         return res.json(getIncidentDetails(req.body.result.parameters["incidentId"]));
     } else {
@@ -297,7 +295,7 @@ function incidentContactDetails(contactType) {
 }
 
 //To save the incident using the servicenow API
-function saveIncident() {
+function saveIncident(res) {
     var obj = {
         category: userData.category,
         subcategory: userData.subCategory,
@@ -309,18 +307,18 @@ function saveIncident() {
     record.insert(obj).then(function (response) {
         console.log("Incident Id is " + response.number);
         let message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
-        return {
+        return res.json({
             speech: message,
             displayText: message,
             source: 'reportIncidentBot'
-        }
+        });
     }).catch(function (error) {
         console.log("Error in result "+error);
-        return {
+        return res.json({
             speech: error,
             displayText: error,
             source: 'reportIncidentBot'
-        }
+        });
     });
 }
 
