@@ -48,6 +48,7 @@ app.post('/ai', (req, res) => {
             if (validateMobileNumber(req.body.result.parameters["phone-number"])) {
                 saveIncident(res);
             } else {
+                console.log("Trigger event ");
                 let message = 'Testing 1';
                 return res.json({
                     speech: message,
@@ -407,5 +408,6 @@ function getIncidentDetails(res, incidentId) {
 
 //To validate the mobile number
 function validateMobileNumber(mobileNumber) {
+    console.log("Mob Num validation " + mobileNumber.match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(mobileNumber.match(/0{5,}/)));
     return mobileNumber.match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(mobileNumber.match(/0{5,}/));
 }
