@@ -52,8 +52,8 @@ app.post('/ai', (req, res) => {
                     speech: message,
                     displayText: message,
                     followupEvent: {
-                        "name": "getMobileNumber",
-                        "data": {}
+                        "name": "modeOfContact",
+                        "data": { "modeOfContact": userData.modeOfContact }
                     }
                 });
             }
@@ -66,8 +66,8 @@ app.post('/ai', (req, res) => {
                     speech: message,
                     displayText: message,
                     followupEvent: {
-                        "name": "getMail",
-                        "data": {}
+                        "name": "modeOfContact",
+                        "data": { "modeOfContact": userData.modeOfContact }
                     }
                 });
             }
