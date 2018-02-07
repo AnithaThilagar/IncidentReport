@@ -62,7 +62,7 @@ app.post('/ai', (req, res) => {
             }
         } else {
             let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            if (re.test(email)){
+            if (re.test(req.body.result.parameters["email"])){
                 saveIncident(res);
             } else {
                 let message = 'Please enter the valid mail id';
@@ -386,7 +386,7 @@ function getIncidentDetails(res, incidentId) {
                     source: 'reportIncidentBot'
                 });
             } else if (response.statusCode == 404){
-                incidentDetails = 'The given incident is not found';
+                incidentDetails = 'There is no incident with the given id';
                 return res.json({
                     speech: incidentDetails,
                     displayText: incidentDetails,
