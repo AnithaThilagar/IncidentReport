@@ -335,15 +335,20 @@ function getIncidentDetails(res, incidentId) {
 			if (!error && response.statusCode == 200) {
 				let incidentJson = JSON.parse(response.body);
                 incidentDetails = "<table><tr><th>Incident Num</th><td> " + incidentJson.result[0].number + "</td></tr></table>"; 
+                return res.json({
+                    speech: incidentDetails,
+                    displayText: incidentDetails,
+                    source: 'reportIncidentBot'
+                });
 			} else {
 				console.log(error);
-				incidentDetails = 'Try again later';
+                incidentDetails = 'Try again later';
+                return res.json({
+                    speech: incidentDetails,
+                    displayText: incidentDetails,
+                    source: 'reportIncidentBot'
+                });
 			}
-			return res.json({
-				speech: incidentDetails,
-				displayText: incidentDetails,
-				source: 'reportIncidentBot'
-			});
 		});
 	} catch(e){
 		console.log("Exception in getIncidentDetails "+e);
