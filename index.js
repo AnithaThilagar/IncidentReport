@@ -46,7 +46,35 @@ app.post('/ai', (req, res) => {
         return res.json(incidentContactDetails(req.body.result.parameters["modeOfContact"].toLowerCase()));
     } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {
         userData.contactDetails = req.body.result.action === 'getPhoneNumber' ? req.body.result.parameters["phone-number"] : req.body.result.parameters["email"];
-        saveIncident(res);
+        if (req.body.result.action === 'getPhoneNumber'){
+            if (validateMobileNumber(req.body.result.parameters["phone-number"])) {
+                saveIncident(res);
+            } else {
+                let message = 'Testing 1';
+                return res.json({
+                    speech: message,
+                    displayText: message,
+                    followupEvent: {
+                        "name": "getMobileNumber",
+                        "data": {}
+                    }
+                });
+            }
+        } else {
+            if (validateMail(req.body.result.parameters["email"])) {
+                saveIncident(res);
+            } else {
+                let message = 'Testing 2';
+                return res.json({
+                    speech: message,
+                    displayText: message,
+                    followupEvent: {
+                        "name": "getMail",
+                        "data": {}
+                    }
+                });
+            }
+        }
     } else if (req.body.result.action === 'getIncident') {
         getIncidentDetails(res,req.body.result.parameters["incidentId"]);
     } else {
@@ -376,4 +404,10 @@ function getIncidentDetails(res, incidentId) {
 	} catch(e){
 		console.log("Exception in getIncidentDetails "+e);
 	}
+}
+
+
+//To validate the mobile number
+function validateMobileNumber(mobileNumber) {
+    return mobileNumber.match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(mobileNumber.match(/0{5,}/));
 }
