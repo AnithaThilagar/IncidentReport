@@ -40,9 +40,10 @@ app.post('/ai', (req, res) => {
         return res.json(incidentModeOfContact());
     } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact.IncidentSubcategory-modeOfContact-getModeOfContact') {
         userData.modeOfContact = req.body.result.parameters["modeOfContact"];
+        console.log("Mode of Contact 1 " + userData.modeOfContact);
         return res.json(incidentContactDetails(req.body.result.parameters["modeOfContact"].toLowerCase()));
-    } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {
-        console.log("Mode of Contact " + userData.modeOfContact);
+    } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {        
+        console.log("Mode of Contact 2 " + userData.modeOfContact);
         userData.contactDetails = req.body.result.action === 'getPhoneNumber' ? req.body.result.parameters["phone-number"] : req.body.result.parameters["email"];
         if (req.body.result.action === 'getPhoneNumber'){
             if (validateMobileNumber(req.body.result.parameters["phone-number"])) {
@@ -408,6 +409,5 @@ function getIncidentDetails(res, incidentId) {
 
 //To validate the mobile number
 function validateMobileNumber(mobileNumber) {
-    console.log("Mob Num validation " + mobileNumber.match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(mobileNumber.match(/0{5,}/)));
     return mobileNumber.match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(mobileNumber.match(/0{5,}/));
 }
