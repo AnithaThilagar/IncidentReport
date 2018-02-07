@@ -47,12 +47,10 @@ app.post('/ai', (req, res) => {
         console.log("Mode of Contact " + userData.modeOfContact);
         userData.contactDetails = req.body.result.action === 'getPhoneNumber' ? req.body.result.parameters["phone-number"] : req.body.result.parameters["email"];
         if (req.body.result.action === 'getPhoneNumber'){
-            //if (validateMobileNumber(req.body.result.parameters["phone-number"])) {
             if (req.body.result.parameters["phone-number"].match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(req.body.result.parameters["phone-number"].match(/0{5,}/))){
                 saveIncident(res);
             } else {
-                console.log("Trigger event ");
-                let message = 'Testing 1';
+                let message = 'Please enter the valid phone number';
                 return res.json({
                     speech: message,
                     displayText: message,
@@ -63,10 +61,11 @@ app.post('/ai', (req, res) => {
                 });
             }
         } else {
-            if (validateMail(req.body.result.parameters["email"])) {
+            let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (re.test(email)){
                 saveIncident(res);
             } else {
-                let message = 'Testing 2';
+                let message = 'Please enter the valid mail id';
                 return res.json({
                     speech: message,
                     displayText: message,
@@ -408,8 +407,3 @@ function getIncidentDetails(res, incidentId) {
 	}
 }
 
-
-//To validate the mobile number
-function validateMobileNumber(mobileNumber) {
-    return mobileNumber.match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(mobileNumber.match(/0{5,}/));
-}
