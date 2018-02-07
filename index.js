@@ -31,6 +31,7 @@ app.post('/ai', (req, res) => {
         userData.category = req.body.result.resolvedQuery;
         return res.json(incidentSubCategory(req.body.result.resolvedQuery.toLowerCase()));
     } else if (req.body.result.action === 'incident-subcategory') {
+        userData.description = req.body.result.parameters["description"];
         userData.subCategory = req.body.result.resolvedQuery;
         return res.json(incidentUrgencyType());
     } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact') {
@@ -41,7 +42,9 @@ app.post('/ai', (req, res) => {
         return res.json(incidentContactDetails(req.body.result.resolvedQuery.toLowerCase()));
     } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {
         userData.contactDetails = req.body.result.resolvedQuery;
-        return res.json(saveIncident());
+        let incidentId = saveIncident();
+        console.log(incidentId);
+        return res.json(incidentId);
     } else if (req.body.result.action === 'getIncident') {
         return res.json(getIncidentDetails(req.body.result.parameters["incidentId"]));
     } else {
@@ -299,13 +302,13 @@ function saveIncident() {
         category: userData.category,
         subcategory: userData.subCategory,
         urgency: userData.urgencyType,
-        contact_type: userData.contactDetails
+        contact_type: userData.contactDetails,
+        short_description: userData.description
     };
     //To insert the incident details
     record.insert(obj).then(function (response) {
-        console.log(response);
         console.log("Incident Id is " + response.number);
-        let message = "Your incident is noted. We will let you know after completing. Please note this Id - " + response.number + " for further reference";
+        let message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
         return {
             speech: message,
             displayText: message,
