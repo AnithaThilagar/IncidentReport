@@ -77,8 +77,8 @@ app.post('/ai', (req, res) => {
             }
         }
     } else if (req.body.result.action === 'getIncident') {
-        let regex = '^[a-zA-Z0-9]+$';
-        if (regex.test(req.body.result.parameters["incidentId"])){
+        let reg = '^[a-zA-Z0-9]+$';
+        if (reg.test(req.body.result.parameters["incidentId"])){
             getIncidentDetails(res, req.body.result.parameters["incidentId"]);
         } else {
             let message = 'Please enter the valid Incident id';
