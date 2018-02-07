@@ -38,15 +38,17 @@ app.post('/ai', (req, res) => {
         userData.urgencyType = req.body.result.parameters["urgencyType"].toLowerCase() == 'high' ? 1 : req.body.result.parameters["urgencyType"].toLowerCase() == 'medium'
             ? 2 : 3; //Set the urgency type based on the selected value
         return res.json(incidentModeOfContact());
-    } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact.IncidentSubcategory-modeOfContact-getModeOfContact') {
+    } /*else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact.IncidentSubcategory-modeOfContact-getModeOfContact') {
         userData.modeOfContact = req.body.result.parameters["modeOfContact"];
         console.log("Mode of Contact 1 " + userData.modeOfContact);
         return res.json(incidentContactDetails(req.body.result.parameters["modeOfContact"].toLowerCase()));
-    } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {        
-        console.log("Mode of Contact 2 " + userData.modeOfContact);
+    }*/ else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {    
+        userData.modeOfContact = req.body.result.parameters["modeOfContact"];
+        console.log("Mode of Contact " + userData.modeOfContact);
         userData.contactDetails = req.body.result.action === 'getPhoneNumber' ? req.body.result.parameters["phone-number"] : req.body.result.parameters["email"];
         if (req.body.result.action === 'getPhoneNumber'){
-            if (validateMobileNumber(req.body.result.parameters["phone-number"])) {
+            //if (validateMobileNumber(req.body.result.parameters["phone-number"])) {
+            if (req.body.result.parameters["phone-number"].match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(req.body.result.parameters["phone-number"].match(/0{5,}/))){
                 saveIncident(res);
             } else {
                 console.log("Trigger event ");
@@ -55,7 +57,7 @@ app.post('/ai', (req, res) => {
                     speech: message,
                     displayText: message,
                     followupEvent: {
-                        "name": "modeOfContact",
+                        "name": "getMobile",
                         "data": { "modeOfContact": userData.modeOfContact }
                     }
                 });
@@ -69,7 +71,7 @@ app.post('/ai', (req, res) => {
                     speech: message,
                     displayText: message,
                     followupEvent: {
-                        "name": "modeOfContact",
+                        "name": "getMail",
                         "data": { "modeOfContact": userData.modeOfContact }
                     }
                 });
