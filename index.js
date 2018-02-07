@@ -42,6 +42,7 @@ app.post('/ai', (req, res) => {
         userData.modeOfContact = req.body.result.parameters["modeOfContact"];
         return res.json(incidentContactDetails(req.body.result.parameters["modeOfContact"].toLowerCase()));
     } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {
+        console.log("Mode of Contact " + userData.modeOfContact);
         userData.contactDetails = req.body.result.action === 'getPhoneNumber' ? req.body.result.parameters["phone-number"] : req.body.result.parameters["email"];
         if (req.body.result.action === 'getPhoneNumber'){
             if (validateMobileNumber(req.body.result.parameters["phone-number"])) {
