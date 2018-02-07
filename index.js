@@ -42,9 +42,9 @@ app.post('/ai', (req, res) => {
         return res.json(incidentContactDetails(req.body.result.resolvedQuery.toLowerCase()));
     } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {
         userData.contactDetails = req.body.result.resolvedQuery;
-        let incidentId = saveIncident(res);
+        saveIncident(res);
     } else if (req.body.result.action === 'getIncident') {
-        return res.json(getIncidentDetails(req.body.result.parameters["incidentId"]));
+        getIncidentDetails(res,req.body.result.parameters["incidentId"]);
     } else {
         let msg = "Can't understand";
         return res.json({
@@ -323,28 +323,10 @@ function saveIncident(res) {
 }
 
 //To get the incident details using the incident Id
-function getIncidentDetails(incidentId) {
+function getIncidentDetails(res, incidentId) {
 	try{
 		console.log("Inside get incident");
-		let incidentMessage = '';
-		let options = {
-			url: 'https://dev18442.service-now.com/api/now/v1/table/incident?number=' + incidentId,
-			headers: { 'Authorization' : 'Basic MzMyMzg6YWJjMTIz' }
-		};
-		request.get(options, (err, response, body) => {
-			console.log(response);
-			if(!err && response.statusCode == 200){
-				incidentMessage = 'Response '+response;
-			} else {
-				incidentMessage = 'Error '+err;
-			}
-			return {
-			  speech: incidentMessage,
-			  displayText: incidentMessage,
-			  source: 'reportIncidentBot'
-			};
-		});
-		/*request({
+		request({
 			url: 'https://dev18442.service-now.com/api/now/v1/table/incident?number=' + incidentId,
 			headers: { 'Authorization' : 'Basic MzMyMzg6YWJjMTIz' },
 			method: 'GET'
@@ -352,18 +334,17 @@ function getIncidentDetails(incidentId) {
 			let incidentDetails = '';
 			if (!error && response.statusCode == 200) {
 				let incidentJson = JSON.parse(response.body);
-				//console.log(incidentJson.result[0].category);
-				incidentDetails = "Incident Number ";// + incidentJson.result[0].number
+                incidentDetails = "<table><tr><th>Incident Num</th><td> " + incidentJson.result[0].number + "</td></tr></table>"; 
 			} else {
 				console.log(error);
 				incidentDetails = 'Try again later';
 			}
-			return {
+			return res.json({
 				speech: incidentDetails,
 				displayText: incidentDetails,
 				source: 'reportIncidentBot'
-			};
-		});*/
+			});
+		});
 	} catch(e){
 		console.log("Exception in getIncidentDetails "+e);
 	}
