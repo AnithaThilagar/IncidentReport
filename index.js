@@ -304,10 +304,11 @@ function saveIncident() {
     //To insert the incident details
     record.insert(obj).then(function (response) {
         console.log(response);
-        console.log("Incident Id is "+response.number);
+        console.log("Incident Id is " + response.number);
+        let message = "Your incident is noted. We will let you know after completing. Please note this Id - " + response.number + " for further reference";
         return {
-            speech: response,
-            displayText: response,
+            speech: message,
+            displayText: message,
             source: 'reportIncidentBot'
         }
     }).catch(function (error) {
