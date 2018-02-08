@@ -92,7 +92,7 @@ app.post('/ai', (req, res) => {
         }
         
     } else {
-        let msg = "Can't understand";
+        let msg = "Can't understand. Please type 'report' to report an incident or 'view' to view the incident";
         return res.json({
             speech: msg,
             displayText: msg,
@@ -138,7 +138,7 @@ function welcomeIntent() {
             {
                 "type": 0,
                 "platform": "facebook",
-                "speech": "Hi, I am Report It Bot. \n I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents \n Please select any one of the following to continue"
+                "speech": "Hi, I am Report It Bot. <br> I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents \n Please select any one of the following to continue"
             },
             {
                 "type": 1,
@@ -380,12 +380,22 @@ function saveIncident(res) {
     //To insert the incident details
     record.insert(obj).then(function (response) {
         console.log("Incident Id is " + response.number);
-        let message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
-        return res.json({
-            speech: message,
-            displayText: message,
-            source: 'reportIncidentBot'
-        });
+        let message = '';
+        if (response.statusCode == 200) {
+            message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
+            return res.json({
+                speech: message,
+                displayText: message,
+                source: 'reportIncidentBot'
+            });
+        } else {
+            message = 'Your incident is not created yet. Try again later';
+            return res.json({
+                speech: message,
+                displayText: message,
+                source: 'reportIncidentBot'
+            });
+        }
     }).catch(function (error) {
         console.log("Error in result "+error);
         return res.json({
