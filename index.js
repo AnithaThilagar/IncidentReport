@@ -69,6 +69,7 @@ app.post('/ai', (req, res) => {
         if (req.body.result.action === 'getPhoneNumber') {
             if (req.body.result.parameters["phone-number"] != ""){
                 if (req.body.result.parameters["phone-number"].match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(req.body.result.parameters["phone-number"].match(/0{5,}/))) {
+                    console.log("Phone Num " + req.body.result.parameters["phone-number"]);
                     saveIncident(res);
                 } else {
                     let message = 'Please enter the valid phone number';
