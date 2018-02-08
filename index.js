@@ -113,7 +113,7 @@ function welcomeIntent() {
                     "type": "template",
                     "payload": {
                         "template_type": "button",
-                        "text":"Hi, welcome to incident Report Bot. \n I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents \n Please select any one of the following to continue",
+                        "text":"Hi, welcome to incident Report Bot. <br/> I can help you with the following.<br/> 1) To report an incident in your organization <br/> 2) To view the status of the incidents <br/> 3) Add comments to the incidents <br/> Please select any one of the following to continue",
                         "buttons": [
                             {
                                 "type": "postback",
