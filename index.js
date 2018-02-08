@@ -66,19 +66,21 @@ app.post('/ai', (req, res) => {
         userData.modeOfContact = req.body.result.parameters["modeOfContact"];
         console.log("Mode of Contact " + userData.modeOfContact);
         userData.contactDetails = req.body.result.action === 'getPhoneNumber' ? req.body.result.parameters["phone-number"] : req.body.result.parameters["email"];
-        if (req.body.result.action === 'getPhoneNumber'){
-            if (req.body.result.parameters["phone-number"].match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(req.body.result.parameters["phone-number"].match(/0{5,}/))){
-                saveIncident(res);
-            } else {
-                let message = 'Please enter the valid phone number';
-                return res.json({
-                    speech: message,
-                    displayText: message,
-                    followupEvent: {
-                        "name": "getMobile",
-                        "data": { "modeOfContact": userData.modeOfContact }
-                    }
-                });
+        if (req.body.result.action === 'getPhoneNumber') {
+            if (req.body.result.parameters["phone-number"] != ""){
+                if (req.body.result.parameters["phone-number"].match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(req.body.result.parameters["phone-number"].match(/0{5,}/))) {
+                    saveIncident(res);
+                } else {
+                    let message = 'Please enter the valid phone number';
+                    return res.json({
+                        speech: message,
+                        displayText: message,
+                        followupEvent: {
+                            "name": "getMobile",
+                            "data": { "modeOfContact": userData.modeOfContact }
+                        }
+                    });
+                }
             }
         } else {
             let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -407,22 +409,12 @@ function saveIncident(res) {
     //To insert the incident details
     record.insert(obj).then(function (response) {
         console.log("Incident Id is " + response.number);
-        let message = '';
-        if (response.statusCode == 200) {
-            message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
-            return res.json({
-                speech: message,
-                displayText: message,
-                source: 'reportIncidentBot'
-            });
-        } else {
-            message = 'Your incident is not created yet. Try again later';
-            return res.json({
-                speech: message,
-                displayText: message,
-                source: 'reportIncidentBot'
-            });
-        }
+        let message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
+        return res.json({
+            speech: message,
+            displayText: message,
+            source: 'reportIncidentBot'
+        });
     }).catch(function (error) {
         console.log("Error in result "+error);
         return res.json({
