@@ -31,7 +31,7 @@ var testOptions = {
     }
 }; 
 
-request.get(testOptions, (err, response, body){
+request.get(testOptions, (err, response, body) => {
     if (err) {
         console.log("Err is " + JSON.stringify(err));
     }
