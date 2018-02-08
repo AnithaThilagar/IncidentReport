@@ -33,16 +33,15 @@ app.post('/ai', (req, res) => {
     } else if (req.body.result.action === 'incident-subcategory') {
         userData.description = req.body.result.parameters["description"];
         userData.subCategory = req.body.result.parameters["subcategory"];
+        if (typeof userData.category == "undefined") {
+            userData.category = userData.subCategory == "New Device" || userData.subCategory == "Damaged Device" || userData.subCategory == "Replace Device" ? "Hardware" : "Software";
+        }
         return res.json(incidentUrgencyType());
     } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact') {
         userData.urgencyType = req.body.result.parameters["urgencyType"].toLowerCase() == 'high' ? 1 : req.body.result.parameters["urgencyType"].toLowerCase() == 'medium'
             ? 2 : 3; //Set the urgency type based on the selected value
         return res.json(incidentModeOfContact());
-    } /*else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact.IncidentSubcategory-modeOfContact-getModeOfContact') {
-        userData.modeOfContact = req.body.result.parameters["modeOfContact"];
-        console.log("Mode of Contact 1 " + userData.modeOfContact);
-        return res.json(incidentContactDetails(req.body.result.parameters["modeOfContact"].toLowerCase()));
-    }*/ else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {    
+    } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {    
         userData.modeOfContact = req.body.result.parameters["modeOfContact"];
         console.log("Mode of Contact " + userData.modeOfContact);
         userData.contactDetails = req.body.result.action === 'getPhoneNumber' ? req.body.result.parameters["phone-number"] : req.body.result.parameters["email"];
@@ -139,7 +138,7 @@ function welcomeIntent() {
             {
                 "type": 0,
                 "platform": "facebook",
-                "speech": "Hi, welcome to incident Report Bot. \n I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents \n Please select any one of the following to continue"
+                "speech": "Hi, I am Report It Bot. \n I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents \n Please select any one of the following to continue"
             },
             {
                 "type": 1,
