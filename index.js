@@ -19,6 +19,27 @@ const apiaiApp = apiai("1c5c2bd1f8b548b18f3782ca17420f2c");
 
 let userData = {};
 
+var testOptions = {
+    method: 'POST',
+    url: 'https://api.dialogflow.com/v1/entities',
+    qs: { v: '20150910' },
+    headers:
+    {
+        'cache-control': 'no-cache',
+        'content-type': 'application/json',
+        authorization: '7566abebef174e1dbd6199205352aeab'
+    }
+}; 
+
+request.get(testOptions, (err, response, body){
+    if (err) {
+        console.log("Err is " + JSON.stringify(err));
+    }
+    if (response) {
+        console.log("Response is " + JSON.stringify(response));
+    }
+});
+
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     if (req.body.result.action === 'input.welcome') {
@@ -77,8 +98,14 @@ app.post('/ai', (req, res) => {
         }
     } else if (req.body.result.action === 'getIncident') {
         let reg = /^[a-zA-Z0-9]+$/;
-        if (reg.test(req.body.result.parameters["incidentId"])){
-            getIncidentDetails(res, req.body.result.parameters["incidentId"]);
+        if (reg.test(req.body.result.parameters["incidentId"])) {
+            let regNumber = /^[a-zA-Z]+$/;
+            if (regNumber.test(req.body.result.parameters["incidentId"])) {
+                getIncidentDetails(res, req.body.result.parameters["incidentId"]);
+            } else {
+                getIncidentDetails(res, "INC"+req.body.result.parameters["incidentId"]);
+            }
+            
         } else {
             let message = 'Please enter the valid Incident id';
             return res.json({
