@@ -44,10 +44,9 @@ request.get(testOptions, (err, response, body) => {
 app.post('/ai', (req, res) => {
     if (req.body.result.action === 'input.welcome') {
         userData = {};
-        console.log(facebook.welcomeIntent());
-        return res.json(facebook.welcomeIntent);
+        return res.json(facebook.welcomeIntent());
     } else if (req.body.result.action === 'reportIncident') {
-        return res.json(facebook.incidentCategory);
+        return res.json(facebook.incidentCategory());
     } else if (req.body.result.action === 'incident-category') {
         userData = {};
         userData.category = req.body.result.parameters["incidentCategory"];
@@ -58,7 +57,7 @@ app.post('/ai', (req, res) => {
         if (typeof userData.category == "undefined") {
             userData.category = userData.subCategory == "New Device" || userData.subCategory == "Damaged Device" || userData.subCategory == "Replace Device" ? "Hardware" : "Software";
         }
-        return res.json(facebook.incidentUrgencyType);
+        return res.json(facebook.incidentUrgencyType());
     } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact') {
         userData.urgencyType = req.body.result.parameters["urgencyType"].toLowerCase() == 'high' ? 1 : req.body.result.parameters["urgencyType"].toLowerCase() == 'medium'
             ? 2 : 3; //Set the urgency type based on the selected value
@@ -72,7 +71,6 @@ app.post('/ai', (req, res) => {
             if (req.body.result.parameters["phone-number"] != "") {
                 if (req.body.result.parameters["phone-number"].match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(req.body.result.parameters["phone-number"].match(/0{5,}/))) {
                     console.log("Phone Num " + req.body.result.parameters["phone-number"]);
-                    //saveIncident(res);
                     serviceNow.saveIncident(res);
                 } else {
                     console.log("Inside else");
