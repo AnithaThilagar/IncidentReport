@@ -6,9 +6,10 @@ const express = require('express'),
     apiai = require('apiai'),
     config = require('./config'),
     GlideRecord = require('servicenow-rest').gliderecord,
-    record = new GlideRecord(config.serviceNowInstance, config.serviceNowTableName, config.serviceNowUserName, config.serviceNowPassword, config.serviceNowVersion);
+    record = new GlideRecord(config.serviceNowInstance, config.serviceNowTableName, config.serviceNowUserName, config.serviceNowPassword, config.serviceNowVersion),
+    facebook = require('./facebook');
 
-console.log(config.serviceNowInstance);
+console.log(facebook.welcomeIntent());
 
 const app = express();
 app.use(bodyParser.json());
@@ -435,8 +436,8 @@ function saveIncident(res) {
 function getIncidentDetails(res, incidentId) {
 	try{
 		console.log("Inside get incident");
-		request({
-			url: 'https://dev18442.service-now.com/api/now/v1/table/incident?number=' + incidentId,
+        request({
+            url: config.getIncidentUrl + incidentId,
 			headers: { 'Authorization' : 'Basic MzMyMzg6YWJjMTIz' },
 			method: 'GET'
 		}, (error, response) => {
