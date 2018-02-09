@@ -4,7 +4,7 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     request = require('request'),
     apiai = require('apiai'),
-    config = require('config'),
+    config = require('./config'),
     GlideRecord = require('servicenow-rest').gliderecord,
     record = new GlideRecord(config.serviceNowInstance, config.serviceNowTableName, config.serviceNowUserName, config.serviceNowPassword, config.serviceNowVersion);
 
