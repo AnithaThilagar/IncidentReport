@@ -42,7 +42,7 @@ request.get(testOptions, (err, response, body) => {
 
 //To handle the response to bot
 app.post('/ai', (req, res) => {
-    console.log(req);
+    console.log(req.body.originalRequest.source);
     if (req.body.result.action === 'input.welcome') {
         userData = {};
         return res.json(facebook.welcomeIntent());
