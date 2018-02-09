@@ -44,7 +44,7 @@ request.get(testOptions, (err, response, body) => {
 app.post('/ai', (req, res) => {
     if (req.body.result.action === 'input.welcome') {
         userData = {};
-        console.log(facebook.welcomeIntent);
+        console.log(facebook.welcomeIntent());
         return res.json(facebook.welcomeIntent);
     } else if (req.body.result.action === 'reportIncident') {
         return res.json(facebook.incidentCategory);
