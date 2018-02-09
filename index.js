@@ -72,6 +72,7 @@ app.post('/ai', (req, res) => {
                     console.log("Phone Num " + req.body.result.parameters["phone-number"]);
                     saveIncident(res);
                 } else {
+                    console.log("Inside else");
                     let message = 'Please enter the valid phone number';
                     return res.json({
                         speech: message,
