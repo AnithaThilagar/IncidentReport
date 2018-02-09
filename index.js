@@ -61,13 +61,13 @@ app.post('/ai', (req, res) => {
         userData.urgencyType = req.body.result.parameters["urgencyType"].toLowerCase() == 'high' ? 1 : req.body.result.parameters["urgencyType"].toLowerCase() == 'medium'
             ? 2 : 3; //Set the urgency type based on the selected value
         return res.json(incidentModeOfContact());
-    } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {    
+    } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {
         userData.modeOfContact = req.body.result.parameters["modeOfContact"];
         console.log("Mode of Contact " + userData.modeOfContact);
         userData.contactDetails = req.body.result.action === 'getPhoneNumber' ? req.body.result.parameters["phone-number"] : req.body.result.parameters["email"];
         if (req.body.result.action === 'getPhoneNumber') {
             console.log(req.body.result.parameters["phone-number"]);
-            if (req.body.result.parameters["phone-number"] != ""){
+            if (req.body.result.parameters["phone-number"] != "") {
                 if (req.body.result.parameters["phone-number"].match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(req.body.result.parameters["phone-number"].match(/0{5,}/))) {
                     console.log("Phone Num " + req.body.result.parameters["phone-number"]);
                     saveIncident(res);
@@ -86,7 +86,8 @@ app.post('/ai', (req, res) => {
             }
         } else {
             let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            if (re.test(req.body.result.parameters["email"])){
+            if (re.test(req.body.result.parameters["email"])) {
+                console.log(req.body.result.parameters["email"]));
                 saveIncident(res);
             } else {
                 let message = 'Please enter the valid mail id';
