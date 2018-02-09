@@ -31,3 +31,5 @@ var facebook = {
         }; 
     }
 };
+
+module.exports = facebook;
