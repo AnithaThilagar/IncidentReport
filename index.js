@@ -88,7 +88,18 @@ app.post('/ai', (req, res) => {
             let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             if (re.test(req.body.result.parameters["email"])) {
                 console.log(req.body.result.parameters["email"]);
-                saveIncident(res);
+                return res.json({
+                    speech: '',
+                    displayText: '',
+                    followupEvent: {
+                        "name": "getMail",
+                        "data": {
+                            "modeOfContact": userData.modeOfContact,
+                            "email": req.body.result.parameters["email"]
+                        }
+                    }
+                });
+                //saveIncident(res);
             } else {
                 let message = 'Please enter the valid mail id';
                 return res.json({
