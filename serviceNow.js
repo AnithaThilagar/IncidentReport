@@ -6,7 +6,7 @@ const request = require('request'),
 //To handle the service now request
 var serviceNow = {
     //To save the incident using the servicenow API
-    saveIncident: function (res) {
+    saveIncident: function (res, userData) {
         var obj = {
             category: userData.category,
             subcategory: userData.subCategory,
