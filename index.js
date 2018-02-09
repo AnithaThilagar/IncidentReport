@@ -20,7 +20,6 @@ const apiaiApp = apiai("1c5c2bd1f8b548b18f3782ca17420f2c");
 let userData = {};
 
 var testOptions = {
-    method: 'POST',
     url: 'https://api.dialogflow.com/v1/entities',
     qs: { v: '20150910' },
     headers:
@@ -169,7 +168,7 @@ function welcomeIntent() {
             {
                 "type": 0,
                 "platform": "facebook",
-                "speech": "Hi, I am Report It Bot. <br> I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents \n Please select any one of the following to continue"
+                "speech": "<b> Hi, I am Report It Bot.</b> <br/> I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents \n Please select any one of the following to continue"
             },
             {
                 "type": 1,
