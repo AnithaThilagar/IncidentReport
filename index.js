@@ -1,11 +1,14 @@
 ﻿'use strict';
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const request = require('request');
-const apiai = require('apiai');
-const GlideRecord = require('servicenow-rest').gliderecord;
-var record = new GlideRecord('dev18442', 'incident', '33238', 'abc123', 'v1');
+const express = require('express'), 
+    bodyParser = require('body-parser'),
+    request = require('request'),
+    apiai = require('apiai'),
+    config = require('config'),
+    GlideRecord = require('servicenow-rest').gliderecord,
+    record = new GlideRecord(config.serviceNowInstance, config.serviceNowTableName, config.serviceNowUserName, config.serviceNowPassword, config.serviceNowVersion);
+
+console.log(config.serviceNowInstance);
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,7 +22,7 @@ const apiaiApp = apiai("1c5c2bd1f8b548b18f3782ca17420f2c");
 
 let userData = {};
 
-var testOptions = {
+/*var testOptions = {
     url: 'https://api.dialogflow.com/v1/entities',
     qs: { v: '20150910' },
     headers:
@@ -37,7 +40,7 @@ request.get(testOptions, (err, response, body) => {
     if (response) {
         console.log("Response is " + JSON.stringify(response));
     }
-});
+});*/
 
 //To handle the response to bot
 app.post('/ai', (req, res) => {
@@ -88,18 +91,7 @@ app.post('/ai', (req, res) => {
             let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             if (re.test(req.body.result.parameters["email"])) {
                 console.log(req.body.result.parameters["email"]);
-                return res.json({
-                    speech: '',
-                    displayText: '',
-                    followupEvent: {
-                        "name": "getMail",
-                        "data": {
-                            "modeOfContact": userData.modeOfContact,
-                            "email": req.body.result.parameters["email"]
-                        }
-                    }
-                });
-                //saveIncident(res);
+                saveIncident(res);
             } else {
                 let message = 'Please enter the valid mail id';
                 return res.json({
