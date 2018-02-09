@@ -35,12 +35,13 @@ var serviceNow = {
     //To get the incident details using the incident Id
     getIncidentDetails: function (res, incidentId) {
         try {
-            console.log("Inside get incident");
+            console.log("Inside get incident " + incidentId);
             request({
                 url: config.getIncidentUrl + incidentId,
                 headers: { 'Authorization': 'Basic MzMyMzg6YWJjMTIz' },
                 method: 'GET'
             }, (error, response) => {
+                console.log('Resp is ' + JSON.stringify(response));
                 let incidentDetails = '';
                 if (!error && response.statusCode == 200) {
                     let incidentJson = JSON.parse(response.body);

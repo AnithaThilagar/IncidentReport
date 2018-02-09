@@ -61,7 +61,7 @@ app.post('/ai', (req, res) => {
     } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact') {
         userData.urgencyType = req.body.result.parameters["urgencyType"].toLowerCase() == 'high' ? 1 : req.body.result.parameters["urgencyType"].toLowerCase() == 'medium'
             ? 2 : 3; //Set the urgency type based on the selected value
-        return res.json(facebook.incidentModeOfContact);
+        return res.json(facebook.incidentModeOfContact());
     } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {
         userData.modeOfContact = req.body.result.parameters["modeOfContact"];
         console.log("Mode of Contact " + userData.modeOfContact);
