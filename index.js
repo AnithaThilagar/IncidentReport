@@ -6,7 +6,8 @@ const express = require('express'),
     apiai = require('apiai'),
     config = require('./config'),
     facebook = require('./facebook'),
-    serviceNow = require('./serviceNow');
+    serviceNow = require('./serviceNow'),
+    { actionSdkApp } = require('actions-on-google');
 
 const app = express();
 app.use(bodyParser.json());
@@ -43,6 +44,8 @@ request.get(testOptions, (err, response, body) => {
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     console.log(req.body.originalRequest.source);
+    googleAssistant = new actionSdkApp({ request: req, response: res });
+    console.log(googleAssistant);
     if (req.body.result.action === 'input.welcome') {
         userData = {};
         return res.json(facebook.welcomeIntent());
