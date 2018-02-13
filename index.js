@@ -45,7 +45,7 @@ request.get(testOptions, (err, response, body) => {
 app.post('/ai', (req, res) => {
     console.log(req.body);
     const googleAssistant = new DialogflowApp({ request: req, response: res });
-    console.log(googleAssistant);
+    console.log("GA-- " + JSON.stringify(googleAssistant));
     if (req.body.result.action === 'input.welcome') {
         userData = {};
         return res.json(facebook.welcomeIntent());
