@@ -47,9 +47,15 @@ request.get(testOptions, (err, response, body) => {
 app.post('/ai', (req, res) => {
     console.log("Inside the API handle ");
     console.log(req.body.originalRequest.source);
-    const assistant = new Assistant({ request: req, response: res });
-    console.log("Before GA---");
-    console.log(assistant);
+    switch (req.body.originalRequest.source) {
+        case facebook: handleFacebook(req, res); break;
+        case google: handleGoogleResponse(req, res);
+    }
+});
+
+
+function handleFacebook(req, res) {
+    console.log("Inside the handleFacebook");
     if (req.body.result.action === 'input.welcome') {
         userData = {};
         return res.json(facebook.welcomeIntent());
@@ -133,4 +139,12 @@ app.post('/ai', (req, res) => {
             source: 'reportIncidentBot'
         });
     }
-});
+}
+
+//To handle the google response
+function handleGoogleResponse(req, res) {
+    console.log("Inside the handleGoogleResponse");
+    const assistant = new Assistant({ request: req, response: res });
+    console.log("Before GA---");
+    console.log(assistant);
+}
