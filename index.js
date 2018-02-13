@@ -7,7 +7,7 @@ const express = require('express'),
     config = require('./config'),
     facebook = require('./facebook'),
     serviceNow = require('./serviceNow'),
-    { ActionsSdkApp } = require('actions-on-google');
+    { DialogflowApp } = require('actions-on-google');
 
 const app = express();
 app.use(bodyParser.json());
@@ -44,7 +44,7 @@ request.get(testOptions, (err, response, body) => {
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     console.log(req.body);
-    const googleAssistant = new ActionsSdkApp({ req, res });
+    const googleAssistant = new DialogflowApp({ request, response });
     console.log(googleAssistant);
     if (req.body.result.action === 'input.welcome') {
         userData = {};
