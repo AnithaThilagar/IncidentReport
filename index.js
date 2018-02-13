@@ -7,7 +7,8 @@ const express = require('express'),
     config = require('./config'),
     facebook = require('./facebook'),
     serviceNow = require('./serviceNow'),
-    Assistant = require('actions-on-google').ApiAiAssistant;
+    DialogflowApp = require('actions-on-google').DialogflowApp,
+	googleAssistant = require('./googleAssistant');
 
 const app = express();
 app.use(bodyParser.json());
@@ -144,21 +145,11 @@ function handleFacebook(req, res) {
 //To handle the google response
 function handleGoogleResponse(req, res) {
     console.log("Inside the handleGoogleResponse");
+	const assistant = new DialogflowApp({ request: req, response: res });
+	console.log("Before GA---");
+	console.log(assistant);
     if (req.body.result.action === 'input.welcome') {
-        const assistant = new Assistant({ request: req, response: res });
-        console.log("Before GA---");
-        console.log(assistant);
-        assistant.ask(assistant.buildRichResponse()
-            .addSimpleResponse({
-                speech: 'Hi welcome to Report It Bot!',
-                displayText: 'Hi welcome to Report It Bot!'
-            })
-            .addBasicCard(assistant.buildBasicCard('<b>I can help you with <ul><li>reporting incident</li><li>view the status for the incident</li></ul></b>')
-                .setTitle('Report It - To solve it')
-                .setImage('https://mgtvwlns.files.wordpress.com/2015/05/reportit-logo5b35d.jpg', 'Image alternate text')
-                .setImageDisplay('CROPPED')
-            )
-            .addSuggestions(['Report Incident', 'My Incidents']));
+        googleAssistant.welcomeIntent(assistant);
     } else if (req.body.result.action === 'reportIncident') {
 
     }
