@@ -18,6 +18,8 @@ const server = app.listen(process.env.PORT || 5000, () => {
 });
 
 const apiaiApp = apiai(config.clientAccessToken);
+console.log("Before API ");
+console.log(apiaiApp);
 
 let userData = {};
 
