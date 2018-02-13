@@ -46,7 +46,7 @@ request.get(testOptions, (err, response, body) => {
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     console.log("Inside the API handle ");
-    console.log(req.body);
+    console.log(req.body.originalRequest.source);
     const assistant = new Assistant({ request: req, response: res });
     console.log("Before GA---");
     console.log(assistant);
