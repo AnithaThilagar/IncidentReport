@@ -150,11 +150,11 @@ function handleGoogleResponse(req, res) {
         userData = {};
         googleAssistant.welcomeIntent(assistant);
     } else if (req.body.result.action === 'reportIncident') {
-        googleAssistant.incidentCategory(app);
+        googleAssistant.incidentCategory(assistant);
     } else if (req.body.result.action === 'incident-category') {
         userData = {};
         userData.category = req.body.result.parameters["incidentCategory"];
 		console.log("Cat-- "+req.body.result.parameters["incidentCategory"]);
-		googleAssistant.incidentSubCategory(app, userData.category.toLowerCase());
+		googleAssistant.incidentSubCategory(assistant, userData.category.toLowerCase());
     }
 }
