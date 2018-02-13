@@ -43,7 +43,7 @@ request.get(testOptions, (err, response, body) => {
 
 //To handle the response to bot
 app.post('/ai', (req, res) => {
-    console.log(req.body.originalRequest.source);
+    console.log(req.body);
     const googleAssistant = new ActionsSdkApp({ req, res });
     console.log(googleAssistant);
     if (req.body.result.action === 'input.welcome') {
