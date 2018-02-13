@@ -19,8 +19,6 @@ const server = app.listen(process.env.PORT || 5000, () => {
 });
 
 const apiaiApp = apiai(config.clientAccessToken);
-console.log("Before API ");
-console.log(apiaiApp);
 
 let userData = {};
 
@@ -148,9 +146,15 @@ function handleGoogleResponse(req, res) {
 	const assistant = new DialogflowApp({ request: req, response: res });
 	console.log("Before GA---");
 	console.log(assistant);
-    if (req.body.result.action === 'input.welcome') {
+	if (req.body.result.action === 'input.welcome') {
+        userData = {};
         googleAssistant.welcomeIntent(assistant);
     } else if (req.body.result.action === 'reportIncident') {
-
+        googleAssistant.incidentCategory(app);
+    } else if (req.body.result.action === 'incident-category') {
+        userData = {};
+        userData.category = req.body.result.parameters["incidentCategory"];
+		console.log("Cat-- "+req.body.result.parameters["incidentCategory"]);
+		googleAssistant.incidentSubCategory(app, userData.category.toLowerCase());
     }
 }
