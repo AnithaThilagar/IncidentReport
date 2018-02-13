@@ -13,9 +13,8 @@ var googleAssistant = {
                 .addButton('Report Incident', 'Report Incident')
 				.addButton('My Incidents', 'My Incidents')
 				.setImageDisplay('CROPPED')
-            )
-            //.addSuggestions(['Report Incident', 'My Incidents']));
+            );
 	}
 };
-
+//.addSuggestions(['Report Incident', 'My Incidents']));
 module.exports = googleAssistant;
