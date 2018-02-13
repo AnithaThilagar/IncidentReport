@@ -147,4 +147,8 @@ function handleGoogleResponse(req, res) {
     const assistant = new Assistant({ request: req, response: res });
     console.log("Before GA---");
     console.log(assistant);
+    assistant.ask({
+        speech: 'Hi welcome to Report It Bot!',
+        displayText: 'Hi welcome to Report It Bot!'
+    });
 }
