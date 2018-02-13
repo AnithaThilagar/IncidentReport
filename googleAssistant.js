@@ -15,3 +15,5 @@ var googleAssistant = {
             .addSuggestions(['Report Incident', 'My Incidents']));
 	}
 };
+
+module.exports = googleAssistant;
