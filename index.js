@@ -152,5 +152,10 @@ function handleGoogleResponse(req, res) {
             speech: 'Hi welcome to Report It Bot!',
             displayText: 'Hi welcome to Report It Bot!'
         })
+        .addBasicCard(app.buildBasicCard('')
+            .setTitle('Report It - To solve it')
+            .setImage('https://mgtvwlns.files.wordpress.com/2015/05/reportit-logo5b35d.jpg', 'Image alternate text')
+            .setImageDisplay('CROPPED')
+        )
         .addSuggestions(['Report Incident', 'My Incidents']));
 }
