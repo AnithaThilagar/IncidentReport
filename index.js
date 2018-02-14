@@ -156,5 +156,71 @@ function handleGoogleResponse(req, res) {
         userData.category = req.body.result.parameters["incidentCategory"];
 		console.log("Cat-- "+req.body.result.parameters["incidentCategory"]);
 		googleAssistant.incidentSubCategory(assistant, userData.category.toLowerCase());
+    } else if (req.body.result.action === 'incident-subcategory') {
+        userData.description = req.body.result.parameters["description"];
+        userData.subCategory = req.body.result.parameters["subcategory"];
+        if (typeof userData.category == "undefined") {
+            userData.category = userData.subCategory == "New Device" || userData.subCategory == "Damaged Device" || userData.subCategory == "Replace Device" ? "Hardware" : "Software";
+        }
+        googleAssistant.incidentUrgencyType(assistant);
+    } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact') {
+        userData.urgencyType = req.body.result.parameters["urgencyType"].toLowerCase() == 'high' ? 1 : req.body.result.parameters["urgencyType"].toLowerCase() == 'medium'
+            ? 2 : 3; //Set the urgency type based on the selected value
+        googleAssistant.incidentModeOfContact(assistant);
+    } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {
+        userData.modeOfContact = req.body.result.parameters["modeOfContact"];
+        console.log("Mode of Contact " + userData.modeOfContact);
+        userData.contactDetails = req.body.result.action === 'getPhoneNumber' ? req.body.result.parameters["phone-number"] : req.body.result.parameters["email"];
+        if (req.body.result.action === 'getPhoneNumber') {
+            console.log(req.body.result.parameters["phone-number"]);
+            if (req.body.result.parameters["phone-number"] != "") {
+                if (req.body.result.parameters["phone-number"].match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(req.body.result.parameters["phone-number"].match(/0{5,}/))) {
+                    console.log("Phone Num " + req.body.result.parameters["phone-number"]);
+                    serviceNow.saveIncident(res, userData);
+                } else {
+                    console.log("Inside else");
+                    let message = 'Please enter the valid phone number';
+                    googleAssistant.helpResponse(app);
+                }
+            }
+        } else {
+            let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (re.test(req.body.result.parameters["email"])) {
+                console.log(req.body.result.parameters["email"]);
+                saveIncident(res);
+            } else {
+                let message = 'Please enter the valid mail id';
+                return res.json({
+                    speech: message,
+                    displayText: message,
+                    followupEvent: {
+                        "name": "getMail",
+                        "data": { "modeOfContact": userData.modeOfContact }
+                    }
+                });
+            }
+        }
+    } else if (req.body.result.action === 'getIncident') {
+        let reg = /^[a-zA-Z0-9]+$/;
+        if (reg.test(req.body.result.parameters["incidentId"])) {
+            serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]);
+        } else {
+            let message = 'Please enter the valid Incident id';
+            return res.json({
+                speech: message,
+                displayText: message,
+                followupEvent: {
+                    "name": "getIncident",
+                    "data": {}
+                }
+            });
+        }
+    } else {
+        let msg = "Can't understand. Please type 'report' to report an incident or 'view' to view the incident";
+        return res.json({
+            speech: msg,
+            displayText: msg,
+            source: 'reportIncidentBot'
+        });
     }
 }

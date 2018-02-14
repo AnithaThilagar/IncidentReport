@@ -68,7 +68,35 @@ var googleAssistant = {
                     )
             );
         }
-	}
+    },
+    //To send the urgency type for the incidents as suggestion chips
+    incidentUrgencyType: function (app) {
+        app.ask(app.buildRichResponse()
+            .addSimpleResponse({
+                speech: 'Please select the urgency type or type skip to proceed',
+                displayText: 'Please select any one category'
+            })
+            .addSuggestions(['High', 'Medium', 'Low'])
+        );
+    },
+    //To send the mode of contact as quick replies
+    incidentModeOfContact: function (app) {
+        app.ask(app.buildRichResponse()
+            .addSimpleResponse({
+                speech: 'Please select the urgency type or type skip to proceed',
+                displayText: 'Please select any one category'
+            })
+            .addSuggestions(['Phone', 'Mail'])
+        );
+    },
+    //To send the response for default fallback intent as simple response
+    helpResponse: function (app) {
+        app.ask({
+            speech: "Can't understand. \nPlease try asking for incident status or report the incident \nType exit or goodbye to end the conversation",
+            displayText: 'Howdy! I can tell you fun facts about almost any ' +
+            'number. What do you have in mind?'
+        });
+    }
 };
 
 //"This is a basic card.  Text in a basic card can include \"quotes\" and most other unicode characters including emoji 📱.  
