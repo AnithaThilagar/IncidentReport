@@ -1,6 +1,6 @@
 //To send the response to the google assistant
 var googleAssistant = {
-	//To send the text and basic card as the welcome message
+    //To send the text and basic card as the welcome message
     welcomeIntent: function (app) {
         app.ask(app.buildRichResponse()
             .addSimpleResponse({
@@ -13,16 +13,18 @@ var googleAssistant = {
                 .setImageDisplay('CROPPED')
             )
             .addSuggestions(['Report Incident', 'My Incidents']));
-	},
-	//To send the incident category as suggestion chips
-    incidentCategory: function (app){
-		app.ask(app.buildRichResponse()
-			.addSimpleResponse({speech: 'Please select the category',
-                displayText: 'Please select the category'})
-			.addSuggestions(['Hardware', 'Software'])
-		);
-	},
-	//To send the sub category for the value for the incident category selected as Carousel
+    },
+    //To send the incident category as suggestion chips
+    incidentCategory: function (app) {
+        app.ask(app.buildRichResponse()
+            .addSimpleResponse({
+                speech: 'Please select the category',
+                displayText: 'Please select the category'
+            })
+            .addSuggestions(['Hardware', 'Software'])
+        );
+    },
+    //To send the sub category for the value for the incident category selected as Carousel
     incidentSubCategory: function (app, category) {
         if (category == 'hardware') {
             app.askWithCarousel('Please select the sub category',
@@ -93,8 +95,24 @@ var googleAssistant = {
     helpResponse: function (app) {
         app.ask({
             speech: "Can't understand. \nPlease try asking for incident status or report the incident \nType exit or goodbye to end the conversation",
-            displayText: 'Howdy! I can tell you fun facts about almost any ' +
-            'number. What do you have in mind?'
+            displayText: "Can't understand.\nPlease try asking for incident status or report the incident \nType exit or goodbye to end the conversation"
+        });
+    },
+    //To send the basic card with the incident details
+    incidentDetails: function (app, incidentId) {
+        app.ask(app.buildRichResponse()
+            // Create a basic card and add it to the rich response
+            .addSimpleResponse('Math and prime numbers it is!')
+            .addBasicCard(app.buildBasicCard(' Your incident is noted. We will let you know after completing. Please note this Id - ' + incidentId + ' for further reference ')
+                .setImageDisplay('CROPPED')
+            )
+        );
+    },
+    //To send the default message when error
+    defaultResponse: function (app) {
+        app.ask({
+            speech: "Please try again later",
+            displayText: "Please try again later"
         });
     }
 };

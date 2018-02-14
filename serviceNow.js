@@ -15,7 +15,7 @@ var serviceNow = {
             short_description: userData.description
         };
         //To insert the incident details
-        record.insert(obj).then(function (response) {
+        /*record.insert(obj).then(function (response) {
             console.log("Incident Id is " + response.number);
             let message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
             return res.json({
@@ -29,6 +29,14 @@ var serviceNow = {
                 speech: error,
                 displayText: error,
                 source: 'reportIncidentBot'
+            });
+        });*/
+        return new Promise((resolve, reject) => {
+            record.insert(obj).then(function (response) {
+                console.log("Incident Id is " + response.number);
+                return resolve(response);
+            }).catch(function (error) {
+                return reject('Incident is not created. Try again later');
             });
         });
     },

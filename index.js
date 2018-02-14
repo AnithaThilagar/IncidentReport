@@ -145,7 +145,6 @@ function handleGoogleResponse(req, res) {
     console.log("Inside the handleGoogleResponse");
 	const assistant = new DialogflowApp({ request: req, response: res });
     console.log("Before GA---");
-    console.log(actions.intent.PERMISSION);
 	if (req.body.result.action === 'input.welcome') {
         userData = {};
         googleAssistant.welcomeIntent(assistant);
@@ -176,7 +175,12 @@ function handleGoogleResponse(req, res) {
             if (req.body.result.parameters["phone-number"] != "") {
                 if (req.body.result.parameters["phone-number"].match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(req.body.result.parameters["phone-number"].match(/0{5,}/))) {
                     console.log("Phone Num " + req.body.result.parameters["phone-number"]);
-                    serviceNow.saveIncident(res, userData);
+                    serviceNow.saveIncident(res, userData).then((response) => {
+                        let message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
+                        googleAssistant.incidentDetails(assistant, response.number);
+                    }).catch((err) => {
+                        googleAssistant.defaultResponse(assistant);
+                    });
                 } else {
                     console.log("Inside else");
                     let message = 'Please enter the valid phone number';
