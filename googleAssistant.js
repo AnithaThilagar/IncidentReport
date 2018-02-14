@@ -4,6 +4,11 @@ var googleAssistant = {
     welcomeIntent: function (app) {
         let namePermission = app.SupportedPermissions.NAME;
         console.log(namePermission);
+        if (app.isPermissionGranted()) {
+            let displayName = app.getUserName().displayName;
+        } else {
+            console.log("No permissions");
+        }
         app.ask(app.buildRichResponse()
             .addSimpleResponse({
                 speech: 'Hi welcome to Report It Bot!',
