@@ -144,7 +144,8 @@ function handleFacebook(req, res) {
 function handleGoogleResponse(req, res) {
     console.log("Inside the handleGoogleResponse");
 	const assistant = new DialogflowApp({ request: req, response: res });
-	console.log("Before GA---");
+    console.log("Before GA---");
+    console.log(actions.intent.PERMISSION);
 	if (req.body.result.action === 'input.welcome') {
         userData = {};
         googleAssistant.welcomeIntent(assistant);
