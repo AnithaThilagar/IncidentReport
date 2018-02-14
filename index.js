@@ -102,7 +102,7 @@ function handleFacebook(req, res) {
             let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             if (re.test(req.body.result.parameters["email"])) {
                 console.log(req.body.result.parameters["email"]);
-                saveIncident(res);
+                serviceNow.saveIncident(res, userData);
             } else {
                 let message = 'Please enter the valid mail id';
                 return res.json({
@@ -145,7 +145,6 @@ function handleGoogleResponse(req, res) {
     console.log("Inside the handleGoogleResponse");
 	const assistant = new DialogflowApp({ request: req, response: res });
 	console.log("Before GA---");
-	console.log(assistant);
 	if (req.body.result.action === 'input.welcome') {
         userData = {};
         googleAssistant.welcomeIntent(assistant);
@@ -187,7 +186,7 @@ function handleGoogleResponse(req, res) {
             let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             if (re.test(req.body.result.parameters["email"])) {
                 console.log(req.body.result.parameters["email"]);
-                saveIncident(res);
+                serviceNow.saveIncident(res, userData);
             } else {
                 let message = 'Please enter the valid mail id';
                 return res.json({

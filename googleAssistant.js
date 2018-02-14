@@ -1,13 +1,15 @@
 //To send the response to the google assistant
 var googleAssistant = {
 	//To send the text and basic card as the welcome message
-	welcomeIntent: function(app){		
+    welcomeIntent: function (app) {
+        let namePermission = app.SupportedPermissions.NAME;
+        console.log(namePermission);
         app.ask(app.buildRichResponse()
             .addSimpleResponse({
                 speech: 'Hi welcome to Report It Bot!',
                 displayText: 'Hi welcome to Report It Bot!'
             })
-            .addBasicCard(app.buildBasicCard("I can help you with \n__Report a new Incident__ \n__View Incident status__ \nPlease select any one \nType exit or goodbye whenever you want to end the conversation")
+            .addBasicCard(app.buildBasicCard("I can help you with \n__Report a new Incident__ \n__View Incident status__ \nType exit or goodbye whenever you want to end the conversation \nPlease select any one")
                 .setTitle('Report It - To solve it')
                 .setImage('https://mgtvwlns.files.wordpress.com/2015/05/reportit-logo5b35d.jpg', 'Image alternate text')
                 .setImageDisplay('CROPPED')
@@ -18,7 +20,7 @@ var googleAssistant = {
     incidentCategory: function (app){
 		app.ask(app.buildRichResponse()
 			.addSimpleResponse({speech: 'Please select the category',
-			  displayText: 'Please select any one category'})
+                displayText: 'Please select the category'})
 			.addSuggestions(['Hardware', 'Software'])
 		);
 	},
@@ -74,7 +76,7 @@ var googleAssistant = {
         app.ask(app.buildRichResponse()
             .addSimpleResponse({
                 speech: 'Please select the urgency type or type skip to proceed',
-                displayText: 'Please select any one category'
+                displayText: 'Please select the urgency type or type skip to proceed'
             })
             .addSuggestions(['High', 'Medium', 'Low'])
         );
@@ -83,8 +85,8 @@ var googleAssistant = {
     incidentModeOfContact: function (app) {
         app.ask(app.buildRichResponse()
             .addSimpleResponse({
-                speech: 'Please select the urgency type or type skip to proceed',
-                displayText: 'Please select any one category'
+                speech: 'Please select the mode of contact',
+                displayText: 'Please select the mode of contact'
             })
             .addSuggestions(['Phone', 'Mail'])
         );
