@@ -31,7 +31,7 @@ var googleAssistant = {
                 // Build a carousel
                 app.buildCarousel()
                     // Add the first item to the carousel
-                    .addItems(app.buildOptionItem('NEW DEVICE',
+                    .addItems(app.buildOptionItem('New Device',
                         ['new device', 'add device', 'setup device'])
                         .setTitle('New Device')
                         .setDescription('For requesting new device')
@@ -51,6 +51,18 @@ var googleAssistant = {
                         .setImage('https://cdn3.iconfinder.com/data/icons/finance-and-money-1/512/arrows_currency_exchange_direction_flat_icon-512.png', 'Replace Device')
                     )
             );
+            let actionMap = new Map();
+            actionMap.set(app.StandardIntents.OPTION, () => {
+                const param = app.getSelectedOption();
+                if (!param) {
+                    app.ask('You did not select any item from the carousel');
+                } else if (param === 'New Device') {
+                    app.ask('Test');
+                } else {
+                    app.ask('You selected an unknown item from the list or carousel');
+                }
+            });
+            app.handleRequest(actionMap);
         } else {
             app.askWithCarousel('Please select the sub category',
                 // Build a carousel

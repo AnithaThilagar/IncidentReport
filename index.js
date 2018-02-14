@@ -144,15 +144,7 @@ function handleFacebook(req, res) {
     } else if (req.body.result.action === 'getIncident') {
         let reg = /^[a-zA-Z0-9]+$/;
         if (reg.test(req.body.result.parameters["incidentId"])) {
-            serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]).then((response) => {
-                facebook.sendIncidentDetails(res, response);
-            }).catch((error) => {
-                return res.json({
-                    speech: 'Try again later',
-                    displayText: 'Try again later',
-                    source: 'reportIncidentBot'
-                });
-            });
+            serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]);
         } else {
             let message = 'Please enter the valid Incident id';
             return res.json({
@@ -244,11 +236,7 @@ function handleGoogleResponse(req, res) {
     } else if (req.body.result.action === 'getIncident') {
         let reg = /^[a-zA-Z0-9]+$/;
         if (reg.test(req.body.result.parameters["incidentId"])) {
-            serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]).then((response) => {
-                googleAssistant.sendIncidentDetails(assistant, response);
-           }).catch((error) => {
-               googleAssistant.defaultResponse(assistant);
-           });
+            serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]);
         } else {
             let message = 'Please enter the valid Incident id';
             return res.json({
