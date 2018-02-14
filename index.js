@@ -182,6 +182,18 @@ function handleGoogleResponse(req, res) {
 		console.log("Cat-- "+req.body.result.parameters["incidentCategory"]);
 		googleAssistant.incidentSubCategory(assistant, userData.category.toLowerCase());
     } else if (req.body.result.action === 'incident-subcategory') {
+        let actionMap = new Map();
+        actionMap.set(app.StandardIntents.OPTION, () => {
+            const param = app.getSelectedOption();
+            if (!param) {
+                app.ask('You did not select any item from the carousel');
+            } else if (param === 'New Device') {
+                app.ask('Test');
+            } else {
+                app.ask('You selected an unknown item from the list or carousel');
+            }
+        });
+        app.handleRequest(actionMap);
         userData.description = req.body.result.parameters["description"];
         userData.subCategory = req.body.result.parameters["subcategory"];
         if (typeof userData.category == "undefined") {
