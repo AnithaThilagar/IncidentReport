@@ -102,9 +102,9 @@ var googleAssistant = {
     incidentDetails: function (app, incidentId) {
         app.ask(app.buildRichResponse()
             // Create a basic card and add it to the rich response
-            .addSimpleResponse('Math and prime numbers it is!')
+            .addSimpleResponse('Incident Recorded')
             .addBasicCard(app.buildBasicCard(' Your incident is noted. We will let you know after completing. Please note this Id - ' + incidentId + ' for further reference ')
-                .setImageDisplay('CROPPED')
+                .setImage('', incidentId)
             )
         );
     },
