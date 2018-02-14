@@ -84,7 +84,20 @@ function handleFacebook(req, res) {
             if (req.body.result.parameters["phone-number"] != "") {
                 if (req.body.result.parameters["phone-number"].match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(req.body.result.parameters["phone-number"].match(/0{5,}/))) {
                     console.log("Phone Num " + req.body.result.parameters["phone-number"]);
-                    serviceNow.saveIncident(res, userData);
+                    serviceNow.saveIncident(res, userData).then((response) => {
+                        let message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
+                        return res.json({
+                            speech: message,
+                            displayText: message,
+                            source: 'reportIncidentBot'
+                        });
+                    }).catch((error) => {
+                        return res.json({
+                            speech: 'Try again later',
+                            displayText: 'Try again later',
+                            source: 'reportIncidentBot'
+                        });
+                    });
                 } else {
                     console.log("Inside else");
                     let message = 'Please enter the valid phone number';
@@ -102,7 +115,20 @@ function handleFacebook(req, res) {
             let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             if (re.test(req.body.result.parameters["email"])) {
                 console.log(req.body.result.parameters["email"]);
-                serviceNow.saveIncident(res, userData);
+                serviceNow.saveIncident(res, userData).then((response) => {
+                    let message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
+                    return res.json({
+                        speech: message,
+                        displayText: message,
+                        source: 'reportIncidentBot'
+                    });
+                }).catch((error) => {
+                    return res.json({
+                        speech: 'Try again later',
+                        displayText: 'Try again later',
+                        source: 'reportIncidentBot'
+                    });
+                });
             } else {
                 let message = 'Please enter the valid mail id';
                 return res.json({
@@ -118,7 +144,15 @@ function handleFacebook(req, res) {
     } else if (req.body.result.action === 'getIncident') {
         let reg = /^[a-zA-Z0-9]+$/;
         if (reg.test(req.body.result.parameters["incidentId"])) {
-            serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]);
+            serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]).then((response) => {
+                facebook.sendIncidentDetails(res, response);
+            }).catch((error) => {
+                return res.json({
+                    speech: 'Try again later',
+                    displayText: 'Try again later',
+                    source: 'reportIncidentBot'
+                });
+            });
         } else {
             let message = 'Please enter the valid Incident id';
             return res.json({
@@ -176,7 +210,6 @@ function handleGoogleResponse(req, res) {
                 if (req.body.result.parameters["phone-number"].match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(req.body.result.parameters["phone-number"].match(/0{5,}/))) {
                     console.log("Phone Num " + req.body.result.parameters["phone-number"]);
                     serviceNow.saveIncident(res, userData).then((response) => {
-                        let message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
                         googleAssistant.incidentDetails(assistant, response.number);
                     }).catch((err) => {
                         googleAssistant.defaultResponse(assistant);
@@ -184,14 +217,18 @@ function handleGoogleResponse(req, res) {
                 } else {
                     console.log("Inside else");
                     let message = 'Please enter the valid phone number';
-                    googleAssistant.helpResponse(app);
+                    googleAssistant.helpResponse(assistant);
                 }
             }
         } else {
             let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             if (re.test(req.body.result.parameters["email"])) {
                 console.log(req.body.result.parameters["email"]);
-                serviceNow.saveIncident(res, userData);
+                serviceNow.saveIncident(res, userData).then((response) => {
+                    googleAssistant.incidentDetails(assistant, response.number);
+                }).catch((err) => {
+                    googleAssistant.defaultResponse(assistant);
+                });
             } else {
                 let message = 'Please enter the valid mail id';
                 return res.json({
@@ -207,7 +244,11 @@ function handleGoogleResponse(req, res) {
     } else if (req.body.result.action === 'getIncident') {
         let reg = /^[a-zA-Z0-9]+$/;
         if (reg.test(req.body.result.parameters["incidentId"])) {
-            serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]);
+            serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]).then((response) => {
+                googleAssistant.sendIncidentDetails(assistant, response);
+           }).catch((error) => {
+               googleAssistant.defaultResponse(assistant);
+           });
         } else {
             let message = 'Please enter the valid Incident id';
             return res.json({
