@@ -171,19 +171,6 @@ function handleGoogleResponse(req, res) {
     console.log("Inside the handleGoogleResponse");
 	const assistant = new DialogflowApp({ request: req, response: res });
     console.log("Before GA---");
-    let actionMap = new Map();
-    actionMap.set(app.StandardIntents.OPTION, () => {
-        const param = app.getSelectedOption();
-        console.log("Param " + param);
-        if (!param) {
-            app.ask('You did not select any item from the carousel');
-        } else if (param === 'New Device') {
-            app.ask('Test');
-        } else {
-            app.ask('You selected an unknown item from the list or carousel');
-        }
-    });
-    app.handleRequest(actionMap);
 	if (req.body.result.action === 'input.welcome') {
         userData = {};
         googleAssistant.welcomeIntent(assistant);
@@ -194,7 +181,20 @@ function handleGoogleResponse(req, res) {
         userData.category = req.body.result.parameters["incidentCategory"];
 		console.log("Cat-- "+req.body.result.parameters["incidentCategory"]);
 		googleAssistant.incidentSubCategory(assistant, userData.category.toLowerCase());
-    } else if (req.body.result.action === 'incident-subcategory') {        
+    } else if (req.body.result.action === 'incident-subcategory') {
+        let actionMap = new Map();
+        actionMap.set(assistant.StandardIntents.OPTION, () => {
+            const param = assistant.getSelectedOption();
+            console.log("Param " + param);
+            if (!param) {
+                assistant.ask('You did not select any item from the carousel');
+            } else if (param === 'New Device') {
+                assistant.ask('Test');
+            } else {
+                assistant.ask('You selected an unknown item from the list or carousel');
+            }
+        });
+        assistant.handleRequest(actionMap);
         userData.description = req.body.result.parameters["description"];
         userData.subCategory = req.body.result.parameters["subcategory"];
         if (typeof userData.category == "undefined") {
