@@ -235,7 +235,7 @@ function handleGoogleResponse(req, res) {
                     googleAssistant.defaultResponse(assistant);
                 });
             } else {
-                let message = 'Please enter the valid mail id';
+                let message = 'Please enter the valid mail i d';
                 return res.json({
                     speech: message,
                     displayText: message,
@@ -251,7 +251,7 @@ function handleGoogleResponse(req, res) {
         if (reg.test(req.body.result.parameters["incidentId"])) {
             serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]);
         } else {
-            let message = 'Please enter the valid Incident id';
+            let message = 'Please enter the valid Incident i d';
             return res.json({
                 speech: message,
                 displayText: message,
