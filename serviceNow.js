@@ -33,13 +33,10 @@ var serviceNow = {
                     url: config.getIncidentUrl + incidentId,
                     headers: { 'Authorization': 'Basic MzMyMzg6YWJjMTIz' },
                     method: 'GET'
-                }, (error, response) => {
-                    console.log("Inside the res");
-                    if (error) {
-                        return reject(error);
-                    } else {
-                        return resolve(response);
-                    }
+                }).then((response) => {
+                    return resolve(response);
+                }).catch((error) => {
+                    return reject(error);
                 });
             });
         } catch (e) {
