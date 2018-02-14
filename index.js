@@ -185,6 +185,7 @@ function handleGoogleResponse(req, res) {
         let actionMap = new Map();
         actionMap.set(app.StandardIntents.OPTION, () => {
             const param = app.getSelectedOption();
+            console.log("Param " + param);
             if (!param) {
                 app.ask('You did not select any item from the carousel');
             } else if (param === 'New Device') {
