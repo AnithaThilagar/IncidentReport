@@ -182,19 +182,6 @@ function handleGoogleResponse(req, res) {
 		console.log("Cat-- "+req.body.result.parameters["incidentCategory"]);
 		googleAssistant.incidentSubCategory(assistant, userData.category.toLowerCase());
     } else if (req.body.result.action === 'incident-subcategory') {
-        let actionMap = new Map();
-        actionMap.set(assistant.StandardIntents.OPTION, () => {
-            const param = assistant.getSelectedOption();
-            console.log("Param " + param);
-            if (!param) {
-                assistant.ask('You did not select any item from the carousel');
-            } else if (param === 'New Device') {
-                assistant.ask('Test');
-            } else {
-                assistant.ask('You selected an unknown item from the list or carousel');
-            }
-        });
-        assistant.handleRequest(actionMap);
         userData.description = req.body.result.parameters["description"];
         userData.subCategory = req.body.result.parameters["subcategory"];
         if (typeof userData.category == "undefined") {
@@ -235,7 +222,7 @@ function handleGoogleResponse(req, res) {
                     googleAssistant.defaultResponse(assistant);
                 });
             } else {
-                let message = 'Please enter the valid mail i d';
+                let message = 'Please enter the valid mail Id';
                 return res.json({
                     speech: message,
                     displayText: message,
@@ -251,7 +238,7 @@ function handleGoogleResponse(req, res) {
         if (reg.test(req.body.result.parameters["incidentId"])) {
             serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]);
         } else {
-            let message = 'Please enter the valid Incident i d';
+            let message = 'Please enter the valid Incident Id';
             return res.json({
                 speech: message,
                 displayText: message,
