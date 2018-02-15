@@ -181,7 +181,7 @@ function handleGoogleResponse(req, res) {
         userData.category = req.body.result.parameters["incidentCategory"];
 		console.log("Cat-- "+req.body.result.parameters["incidentCategory"]);
         googleAssistant.incidentSubCategory(assistant, userData.category.toLowerCase());
-    } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-custom') {
+    } else if (req.body.result.action === 'IncidentCategory.IncidentCategory-custom') {
         console.log('--Incident options trigger-- ');
         console.log(assistant.getSelectedOption());
     } else if (req.body.result.action === 'incident-subcategory') {
