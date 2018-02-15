@@ -1,12 +1,5 @@
 //To send the response to the google assistant
-
-exports.googleAssistant = function (req, res) {
-    console.log("Inside the handleGoogleResponse");
-    const assistant = new DialogflowApp({ request: req, response: res });
-    console.log("Before GA** ");
-};
-
-/*var googleAssistant = {
+var googleAssistant = {
     //To send the text and basic card as the welcome message
     welcomeIntent: function (app) {
         app.ask(app.buildRichResponse()
@@ -149,4 +142,4 @@ exports.googleAssistant = function (req, res) {
 //Basic cards also support some markdown formatting like * emphasis * or _italics_, **strong ** or __bold__, and ***bold itallic*** 
 //or ___strong emphasis___ as well as other things like line  \nbreaks",
 
-module.exports = googleAssistant;*/
+module.exports = googleAssistant;

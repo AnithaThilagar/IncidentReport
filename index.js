@@ -18,29 +18,7 @@ const server = app.listen(process.env.PORT || 5000, () => {
     console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
 
-const apiaiApp = apiai(config.clientAccessToken);
-
 let userData = {};
-
-/*var testOptions = {
-    url: 'https://api.dialogflow.com/v1/entities',
-    qs: { v: '20150910' },
-    headers:
-    {
-        'cache-control': 'no-cache',
-        'content-type': 'application/json',
-        authorization: '7566abebef174e1dbd6199205352aeab'
-    }
-}; 
-
-request.get(testOptions, (err, response, body) => {
-    if (err) {
-        console.log("Err is " + JSON.stringify(err));
-    }
-    if (response) {
-        console.log("Response is " + JSON.stringify(response));
-    }
-});*/
 
 //To handle the response to bot
 app.post('/ai', (req, res) => {
@@ -48,8 +26,7 @@ app.post('/ai', (req, res) => {
     console.log(req.body.originalRequest.source);
     switch (req.body.originalRequest.source) {
         case "facebook": handleFacebook(req, res); break;
-        case "google": //handleGoogleResponse(req, res);
-            googleAssistant.googleAssistant;
+        case "google": handleGoogleResponse(req, res);            
     }
 });
 
@@ -172,11 +149,10 @@ function handleGoogleResponse(req, res) {
     console.log("Inside the handleGoogleResponse");
 	const assistant = new DialogflowApp({ request: req, response: res });
     console.log("Before GA---");
-    let actionMap = new Map();
-    actionMap.set('input.welcome', googleAssistant.welcomeIntent(assistant));
-    console.log(actionMap);
-    assistant.handleRequest(actionMap);
-	if (req.body.result.action === 'reportIncident') {
+    if (req.body.result.action === 'input.welcome') {
+        userData = {};
+        googleAssistant.welcomeIntent(assistant);
+    } else if (req.body.result.action === 'reportIncident') {
         googleAssistant.incidentCategory(assistant);
     } else if (req.body.result.action === 'incident-category') {
         userData = {};
