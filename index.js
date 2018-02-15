@@ -184,17 +184,24 @@ function handleGoogleResponse(req, res) {
     } else if (req.body.result.action === 'IncidentCategory.IncidentCategory-custom') {
         console.log('--Incident options trigger-- ');
         userData.subCategory = assistant.getSelectedOption();
+        return res.json({
+            speech: message,
+            displayText: message,
+            followupEvent: {
+                "name": "subcategory",
+                "data": {}
+            }
+        });
     } else if (req.body.result.action === 'IncidentCategory.IncidentCategory-fallback') {
         console.log('Other than the given option is selected ');
-        assistant.ask(`Please select any one of the above options`,
-            ['Click on the card you want', 'Select the option you want',
-                'I am unable to proceed. Try again. Good bye']);
     } else if (req.body.result.action === 'incident-subcategory') {
         console.log('Incident options trigger ');
         console.log(assistant.getSelectedOption());
         console.log('Sub cat ' + req.body.result.parameters["subcategory"]);
         userData.description = req.body.result.parameters["description"];
-        userData.subCategory = req.body.result.parameters["subcategory"];
+        if (req.body.result.parameters["subcategory"] != '' && typeof req.body.result.parameters["subcategory"] != "undefined") {
+            userData.subCategory = req.body.result.parameters["subcategory"];
+        }
         if (typeof userData.category == "undefined") {
             userData.category = userData.subCategory == "New Device" || userData.subCategory == "Damaged Device" || userData.subCategory == "Replace Device" ? "Hardware" : "Software";
         }

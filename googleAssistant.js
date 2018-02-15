@@ -24,7 +24,7 @@ var googleAssistant = {
             .addSuggestions(['Hardware', 'Software'])
         );
     },
-    //To send the sub category for the value for the incident category selected as Carousel
+    //To send the sub category for the value for the incident category selected as Carousel when h/w and list when s/w
     incidentSubCategory: function (app, category) {
         if (category == 'hardware') {
             app.askWithCarousel('Please select the sub category',
@@ -52,10 +52,27 @@ var googleAssistant = {
                     )
             );
         } else {
-            app.askWithCarousel('Please select the sub category',
+            /*app.askWithCarousel('Please select the sub category',
                 // Build a carousel
                 app.buildCarousel()
                     // Add the first item to the carousel
+                    .addItems(app.buildOptionItem('Software Installation',
+                        ['new software', 'add software', 'install software'])
+                        .setTitle('Software Installation')
+                        .setDescription('For installing new software')
+                        .setImage('http://cmpg.unibe.ch/software/BayeScan/images/Download-icon.png', 'Software Installation'))
+                    // Add the second item to the carousel
+                    .addItems(app.buildOptionItem('Problem with installed software',
+                        ['software problem', 'software issue', 'issue with software'])
+                        .setTitle('Problem with installed software')
+                        .setDescription('To report if any problem in the software')
+                        .setImage('https://cdn0.iconfinder.com/data/icons/connection/512/icon-14.png', 'Problem with installed software')
+                    )
+            );*/
+            app.askWithList('Please select the sub category',
+                // Build a list
+                app.buildList('Sub Category')
+                    // Add the first item to the list
                     .addItems(app.buildOptionItem('Software Installation',
                         ['new software', 'add software', 'install software'])
                         .setTitle('Software Installation')
@@ -132,7 +149,7 @@ var googleAssistant = {
         app.ask(app.buildRichResponse()
             // Create a basic card and add it to the rich response
             .addSimpleResponse('Incident Recorded')
-            .addBasicCard(app.buildBasicCard(incidentDetails)                
+            .addBasicCard(app.buildBasicCard(incidentDetails)
             )
         );
     }
