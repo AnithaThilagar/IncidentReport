@@ -184,6 +184,7 @@ function handleGoogleResponse(req, res) {
     } else if (req.body.result.action === 'incident-subcategory') {
         console.log('Incident options trigger ');
         console.log(assistant);
+        console.log('Sub cat ' + req.body.result.parameters["subcategory"]);
         userData.description = req.body.result.parameters["description"];
         userData.subCategory = req.body.result.parameters["subcategory"];
         if (typeof userData.category == "undefined") {
