@@ -184,6 +184,8 @@ function handleGoogleResponse(req, res) {
     } else if (req.body.result.action === 'IncidentCategory.IncidentCategory-custom') {
         console.log('--Incident options trigger-- ');
         console.log(assistant.getSelectedOption());
+    } else if (req.body.result.action === 'IncidentCategory.IncidentCategory-fallback') {
+        console.log('Other than the given option is selected ');        
     } else if (req.body.result.action === 'incident-subcategory') {
         console.log('Incident options trigger ');
         console.log(assistant.getSelectedOption());
