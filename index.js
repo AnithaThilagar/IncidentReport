@@ -130,7 +130,7 @@ function handleFacebook(req, res) {
                     });
                 });
             } else {
-                let message = 'Please enter the valid mail id';
+                let message = 'Please enter the valid mail Id';
                 return res.json({
                     speech: message,
                     displayText: message,
@@ -146,7 +146,7 @@ function handleFacebook(req, res) {
         if (reg.test(req.body.result.parameters["incidentId"])) {
             serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]);
         } else {
-            let message = 'Please enter the valid Incident id';
+            let message = 'Please enter the valid Incident Id';
             return res.json({
                 speech: message,
                 displayText: message,
@@ -185,7 +185,10 @@ function handleGoogleResponse(req, res) {
         console.log('--Incident options trigger-- ');
         userData.subCategory = assistant.getSelectedOption();
     } else if (req.body.result.action === 'IncidentCategory.IncidentCategory-fallback') {
-        console.log('Other than the given option is selected ');        
+        console.log('Other than the given option is selected ');  
+        app.ask(`Please select any one of the above options`,
+            ['Click on the card you want', 'Select the option you want',
+                'I am unable to proceed. Try again. Good bye']);
     } else if (req.body.result.action === 'incident-subcategory') {
         console.log('Incident options trigger ');
         console.log(assistant.getSelectedOption());
