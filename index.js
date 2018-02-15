@@ -185,8 +185,8 @@ function handleGoogleResponse(req, res) {
         console.log('--Incident options trigger-- ');
         userData.subCategory = assistant.getSelectedOption();
     } else if (req.body.result.action === 'IncidentCategory.IncidentCategory-fallback') {
-        console.log('Other than the given option is selected ');  
-        app.ask(`Please select any one of the above options`,
+        console.log('Other than the given option is selected ');
+        assistant.ask(`Please select any one of the above options`,
             ['Click on the card you want', 'Select the option you want',
                 'I am unable to proceed. Try again. Good bye']);
     } else if (req.body.result.action === 'incident-subcategory') {
