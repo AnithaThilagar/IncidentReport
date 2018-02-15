@@ -185,8 +185,8 @@ function handleGoogleResponse(req, res) {
         console.log('--Incident options trigger-- ');
         userData.subCategory = assistant.getSelectedOption();
         return res.json({
-            speech: message,
-            displayText: message,
+            speech: '',
+            displayText: '',
             followupEvent: {
                 "name": "subcategory",
                 "data": {}
