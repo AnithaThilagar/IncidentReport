@@ -183,7 +183,7 @@ function handleGoogleResponse(req, res) {
         googleAssistant.incidentSubCategory(assistant, userData.category.toLowerCase());
     } else if (req.body.result.action === 'IncidentCategory.IncidentCategory-custom') {
         console.log('--Incident options trigger-- ');
-        console.log(assistant.getSelectedOption());
+        userData.subCategory = assistant.getSelectedOption();
     } else if (req.body.result.action === 'IncidentCategory.IncidentCategory-fallback') {
         console.log('Other than the given option is selected ');        
     } else if (req.body.result.action === 'incident-subcategory') {
