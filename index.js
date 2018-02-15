@@ -173,7 +173,7 @@ function handleGoogleResponse(req, res) {
     console.log("Before GA---");
     let actionMap = new Map();
     actionMap.set('input.welcome', googleAssistant.welcomeIntent(assistant));
-    app.handleRequest(actionMap);
+    assistant.handleRequest(actionMap);
 	if (req.body.result.action === 'reportIncident') {
         googleAssistant.incidentCategory(assistant);
     } else if (req.body.result.action === 'incident-category') {
