@@ -171,10 +171,10 @@ function handleGoogleResponse(req, res) {
     console.log("Inside the handleGoogleResponse");
 	const assistant = new DialogflowApp({ request: req, response: res });
     console.log("Before GA---");
-	if (req.body.result.action === 'input.welcome') {
-        userData = {};
-        googleAssistant.welcomeIntent(assistant);
-    } else if (req.body.result.action === 'reportIncident') {
+    let actionMap = new Map();
+    actionMap.set('input.welcome', googleAssistant.welcomeIntent(assistant));
+    app.handleRequest(actionMap);
+	if (req.body.result.action === 'reportIncident') {
         googleAssistant.incidentCategory(assistant);
     } else if (req.body.result.action === 'incident-category') {
         userData = {};
