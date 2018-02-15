@@ -180,7 +180,10 @@ function handleGoogleResponse(req, res) {
         userData = {};
         userData.category = req.body.result.parameters["incidentCategory"];
 		console.log("Cat-- "+req.body.result.parameters["incidentCategory"]);
-		googleAssistant.incidentSubCategory(assistant, userData.category.toLowerCase());
+        googleAssistant.incidentSubCategory(assistant, userData.category.toLowerCase());
+    } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-option') {
+        console.log('Incident options trigger ');
+        console.log(assistant.getSelectedOption());
     } else if (req.body.result.action === 'incident-subcategory') {
         userData.description = req.body.result.parameters["description"];
         userData.subCategory = req.body.result.parameters["subcategory"];
