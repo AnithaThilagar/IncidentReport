@@ -8,7 +8,7 @@ const express = require('express'),
     facebook = require('./facebook'),
     serviceNow = require('./serviceNow'),
     DialogflowApp = require('actions-on-google').DialogflowApp,
-	googleAssistant = require('./googleAssistant');
+    googleAssistant = require('./googleAssistant');
 
 const app = express();
 app.use(bodyParser.json());
@@ -48,7 +48,8 @@ app.post('/ai', (req, res) => {
     console.log(req.body.originalRequest.source);
     switch (req.body.originalRequest.source) {
         case "facebook": handleFacebook(req, res); break;
-        case "google": handleGoogleResponse(req, res);
+        case "google": //handleGoogleResponse(req, res);
+            googleAssistant.googleAssistant;
     }
 });
 

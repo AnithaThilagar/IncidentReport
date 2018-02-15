@@ -1,5 +1,12 @@
 //To send the response to the google assistant
-var googleAssistant = {
+
+exports.googleAssistant = function (req, res) {
+    console.log("Inside the handleGoogleResponse");
+    const assistant = new DialogflowApp({ request: req, response: res });
+    console.log("Before GA** ");
+};
+
+/*var googleAssistant = {
     //To send the text and basic card as the welcome message
     welcomeIntent: function (app) {
         app.ask(app.buildRichResponse()
@@ -52,23 +59,6 @@ var googleAssistant = {
                     )
             );
         } else {
-            /*app.askWithCarousel('Please select the sub category',
-                // Build a carousel
-                app.buildCarousel()
-                    // Add the first item to the carousel
-                    .addItems(app.buildOptionItem('Software Installation',
-                        ['new software', 'add software', 'install software'])
-                        .setTitle('Software Installation')
-                        .setDescription('For installing new software')
-                        .setImage('http://cmpg.unibe.ch/software/BayeScan/images/Download-icon.png', 'Software Installation'))
-                    // Add the second item to the carousel
-                    .addItems(app.buildOptionItem('Problem with installed software',
-                        ['software problem', 'software issue', 'issue with software'])
-                        .setTitle('Problem with installed software')
-                        .setDescription('To report if any problem in the software')
-                        .setImage('https://cdn0.iconfinder.com/data/icons/connection/512/icon-14.png', 'Problem with installed software')
-                    )
-            );*/
             app.askWithList('Please select the sub category',
                 // Build a list
                 app.buildList('Sub Category')
@@ -159,4 +149,4 @@ var googleAssistant = {
 //Basic cards also support some markdown formatting like * emphasis * or _italics_, **strong ** or __bold__, and ***bold itallic*** 
 //or ___strong emphasis___ as well as other things like line  \nbreaks",
 
-module.exports = googleAssistant;
+module.exports = googleAssistant;*/
