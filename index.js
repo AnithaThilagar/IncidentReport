@@ -33,6 +33,7 @@ app.post('/ai', (req, res) => {
 
 function handleFacebook(req, res) {
     console.log("Inside the handleFacebook");
+    
     if (req.body.result.action === 'input.welcome') {
         userData = {};
         return res.json(facebook.welcomeIntent());
@@ -149,10 +150,13 @@ function handleGoogleResponse(req, res) {
     console.log("Inside the handleGoogleResponse");
 	const assistant = new DialogflowApp({ request: req, response: res });
     console.log("Before GA---");
-    if (req.body.result.action === 'input.welcome') {
+    let actionMap = new Map();
+    actionMap.set('input.welcome', googleAssistant.welcomeIntent(assistant));
+    assistant.handleRequest(actionMap);
+    /*if (req.body.result.action === 'input.welcome') {
         userData = {};
         googleAssistant.welcomeIntent(assistant);
-    } else if (req.body.result.action === 'reportIncident') {
+    } else */if (req.body.result.action === 'reportIncident') {
         googleAssistant.incidentCategory(assistant);
     } else if (req.body.result.action === 'incident-category') {
         userData = {};
