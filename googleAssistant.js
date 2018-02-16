@@ -2,6 +2,7 @@
 var googleAssistant = {
     //To send the text and basic card as the welcome message
     welcomeIntent: function (app) {
+        console.log('Inside welcome intent ' + app);
         app.ask(app.buildRichResponse()
             .addSimpleResponse({
                 speech: 'Hi welcome to Report It Bot!',
@@ -26,6 +27,7 @@ var googleAssistant = {
     },
     //To send the sub category for the value for the incident category selected as Carousel when h/w and list when s/w
     incidentSubCategory: function (app, category) {
+        console.log('Inside sub category ' + category);
         if (category == 'hardware') {
             app.askWithCarousel('Please select the sub category',
                 // Build a carousel
