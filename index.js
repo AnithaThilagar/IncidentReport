@@ -25,8 +25,9 @@ app.post('/ai', (req, res) => {
     console.log("Inside the API handle ");
     console.log(req.body.originalRequest.source);
     switch (req.body.originalRequest.source) {
-        case "facebook": handleFacebook(req, res); break;
+        //case "facebook": handleFacebook(req, res); break;
         case "google": handleGoogleResponse(req, res);            
+        default: handleFacebook(req, res);
     }
 });
 
