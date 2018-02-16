@@ -151,7 +151,7 @@ function handleGoogleResponse(req, res) {
 	const assistant = new DialogflowApp({ request: req, response: res });
     console.log("Before GA---");
     let actionMap = new Map();
-    actionMap.set('input.welcome', googleAssistant.welcomeIntent(assistant));
+    actionMap.set('input.welcome', googleAssistant.welcomeIntent);
     assistant.handleRequest(actionMap);
     /*if (req.body.result.action === 'input.welcome') {
         userData = {};
