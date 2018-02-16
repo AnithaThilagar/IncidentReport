@@ -152,11 +152,13 @@ function handleGoogleResponse(req, res) {
     console.log("Before GA---");
     let actionMap = new Map();
     actionMap.set('input.welcome', googleAssistant.welcomeIntent);
+    actionMap.set('reportIncident', googleAssistant.incidentCategory);
+    actionMap.set('incident-category', googleAssistant.incidentSubCategory);
     assistant.handleRequest(actionMap);
     /*if (req.body.result.action === 'input.welcome') {
         userData = {};
         googleAssistant.welcomeIntent(assistant);
-    } else */if (req.body.result.action === 'reportIncident') {
+    } else if (req.body.result.action === 'reportIncident') {
         googleAssistant.incidentCategory(assistant);
     } else if (req.body.result.action === 'incident-category') {
         userData = {};
@@ -255,5 +257,5 @@ function handleGoogleResponse(req, res) {
             displayText: msg,
             source: 'reportIncidentBot'
         });
-    }
+    }*/
 }
