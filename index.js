@@ -27,7 +27,7 @@ app.post('/ai', (req, res) => {
     switch (req.body.originalRequest.source) {
         //case "facebook": handleFacebook(req, res); break;
         case "google": handleGoogleResponse(req, res);
-            break;        
+            break;
         default: handleFacebook(req, res);
     }
 });
@@ -35,8 +35,8 @@ app.post('/ai', (req, res) => {
 
 function handleFacebook(req, res) {
     console.log("Inside the handleFacebook");
-    
     if (req.body.result.action === 'input.welcome') {
+        console.log('Inside welcome intent');
         userData = {};
         return res.json(facebook.welcomeIntent());
     } else if (req.body.result.action === 'reportIncident') {
@@ -150,7 +150,7 @@ function handleFacebook(req, res) {
 //To handle the google response
 function handleGoogleResponse(req, res) {
     console.log("Inside the handleGoogleResponse");
-	const assistant = new DialogflowApp({ request: req, response: res });
+    const assistant = new DialogflowApp({ request: req, response: res });
     console.log("Before GA---");
     let actionMap = new Map();
     actionMap.set('input.welcome', googleAssistant.welcomeIntent);
@@ -260,4 +260,9 @@ function handleGoogleResponse(req, res) {
             source: 'reportIncidentBot'
         });
     }*/
+}
+
+//To handle the response to slack
+function handleSlackResponse(req, res) {
+    console.log("Inside the handleGoogleResponse");
 }
