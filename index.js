@@ -2,7 +2,6 @@
 
 const express = require('express'),
     bodyParser = require('body-parser'),
-    //request = require('request'),
     apiai = require('apiai'),
     config = require('./config'),
     facebook = require('./facebook'),
@@ -25,10 +24,8 @@ app.post('/ai', (req, res) => {
     console.log("Inside the API handle ");
     console.log(req.body.originalRequest.source);
     switch (req.body.originalRequest.source) {
-        //case "facebook": handleFacebook(req, res); break;
+        case "facebook": handleFacebook(req, res); break;
         case "google": handleGoogleResponse(req, res);
-            break;
-        default: handleFacebook(req, res);
     }
 });
 
@@ -152,12 +149,8 @@ function handleGoogleResponse(req, res) {
     console.log("Inside the handleGoogleResponse");
     const assistant = new DialogflowApp({ request: req, response: res });
     console.log("Before GA---");
-    let actionMap = new Map();
-    actionMap.set('input.welcome', googleAssistant.welcomeIntent);
-    actionMap.set('reportIncident', googleAssistant.incidentCategory);
-    actionMap.set('incident-category', googleAssistant.incidentSubCategory);
-    assistant.handleRequest(actionMap);
-    /*if (req.body.result.action === 'input.welcome') {
+
+    if (req.body.result.action === 'input.welcome') {
         userData = {};
         googleAssistant.welcomeIntent(assistant);
     } else if (req.body.result.action === 'reportIncident') {
@@ -165,7 +158,7 @@ function handleGoogleResponse(req, res) {
     } else if (req.body.result.action === 'incident-category') {
         userData = {};
         userData.category = req.body.result.parameters["incidentCategory"];
-		console.log("Cat-- "+req.body.result.parameters["incidentCategory"]);
+        console.log("Cat-- " + req.body.result.parameters["incidentCategory"]);
         googleAssistant.incidentSubCategory(assistant, userData.category.toLowerCase());
     } else if (req.body.result.action === 'IncidentCategory.IncidentCategory-custom') {
         console.log('--Incident options trigger-- ');
@@ -259,10 +252,11 @@ function handleGoogleResponse(req, res) {
             displayText: msg,
             source: 'reportIncidentBot'
         });
-    }*/
+    }
 }
 
-//To handle the response to slack
-function handleSlackResponse(req, res) {
-    console.log("Inside the handleGoogleResponse");
-}
+/*let actionMap = new Map();
+    actionMap.set('input.welcome', googleAssistant.welcomeIntent);
+    actionMap.set('reportIncident', googleAssistant.incidentCategory);
+    actionMap.set('incident-category', googleAssistant.incidentSubCategory);
+    assistant.handleRequest(actionMap);*/
