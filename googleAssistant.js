@@ -2,7 +2,8 @@
 var googleAssistant = {
     //To send the text and basic card as the welcome message
     welcomeIntent: function (app) {
-        console.log('Inside welcome intent ' + JSON.stringify(app));
+        console.log('Inside welcome intent ');
+        console.log(app);
         app.ask(app.buildRichResponse()
             .addSimpleResponse({
                 speech: 'Hi welcome to Report It Bot!',
