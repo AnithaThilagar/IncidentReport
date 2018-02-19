@@ -41,7 +41,7 @@ var serviceNow = {
                 }).catch(function (error) {
                     console.log('Error');
                     console.log(error);
-                    return reject('Incident is not created. Try again later');
+                    return reject(error);
                 });
             });
             /*request(, (error, response) => {

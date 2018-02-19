@@ -129,6 +129,7 @@ function handleFacebook(req, res) {
         let reg = /^[a-zA-Z0-9]+$/;
         if (reg.test(req.body.result.parameters["incidentId"])) {
             serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]).then((response) => {
+                console.log(response);
                 let message = 'Test';
                 return res.json({
                     speech: message,
@@ -136,6 +137,7 @@ function handleFacebook(req, res) {
                     source: 'reportIncidentBot'
                 });
             }).catch((error) => {
+                console.log(error);
                 return res.json({
                     speech: 'Try again later',
                     displayText: 'Try again later',
