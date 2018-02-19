@@ -29,7 +29,7 @@ app.post('/ai', (req, res) => {
             case "google": handleGoogleResponse(req, res);
         }
     } else {
-        console.log(req.body.originalRequest.source);
+        console.log('Req from other sources');
         handleFacebook(req, res);
     }
 });
