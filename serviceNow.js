@@ -34,56 +34,52 @@ var serviceNow = {
                 method: 'GET'
             };
             return new Promise((resolve, reject) => {
-                request(options).then(function (response) {
-                    console.log('Response ');
-                    console.log(response);
-                    return resolve(response);
-                }).catch(function (error) {
-                    console.log('Error');
-                    console.log(error);
-                    return reject(error);
+                request(options, (error, response) => {
+                    //console.log('Resp is ' + JSON.stringify(response));
+                    let incidentDetails = '';
+                    if (!error && response.statusCode == 200) {
+                        console.log('Inside success');
+                        return resolve(response);
+                        /*let incidentJson = JSON.parse(response.body);
+
+                        let incidentStatus = incidentJson.result[0].incident_state == '1' ? 'New' : incidentJson.result[0].incident_state == '2' ? 'In Progress' :
+                            incidentJson.result[0].incident_state == '3' ? 'On Hold' : incidentJson.result[0].incident_state == '4' ? 'Resolved' :
+                                incidentJson.result[0].incident_state == '5' ? 'Closed' : 'Cancelled';
+
+                        let reasonForHold = incidentJson.result[0].incident_state == '3' ? incidentJson.result[0].hold_reason == '1' ? 'Awaiting Caller' :
+                            incidentJson.result[0].hold_reason == '2' ? 'Awaiting Evidence' : incidentJson.result[0].hold_reason == '3' ? 'Awaiting Problem Resolution' : 'Awaiting Vendor' : '';
+
+                        incidentDetails = "Please find the incident details below \n 1) Incident Id - " + incidentJson.result[0].number +
+                            "\n 2) Category - " + incidentJson.result[0].category + " \n 3) Description - " + incidentJson.result[0].short_description +
+                            "\n 4) Urgency - " + (incidentJson.result[0].urgency == '1' ? 'High' : incidentJson.result[0].urgency == '2' ? 'Medium' : 'Low') +
+                            "\n 5) Status - " + incidentStatus + (reasonForHold != '' ? "\n 6) Reason For Hold - " + reasonForHold : '');
+
+                        return res.json({
+                            speech: incidentDetails,
+                            displayText: incidentDetails,
+                            source: 'reportIncidentBot'
+                        });*/
+                    } else if (response.statusCode == 404) {
+                        console.log('Inside No incident');
+                        return resolve(response);
+                        /*incidentDetails = 'There is no incident with the given id';
+                        return res.json({
+                            speech: incidentDetails,
+                            displayText: incidentDetails,
+                            source: 'reportIncidentBot'
+                        });*/
+                    } else {
+                        console.log(error);
+                        return reject(error);
+                        /*incidentDetails = 'Try again later';
+                        return res.json({
+                            speech: incidentDetails,
+                            displayText: incidentDetails,
+                            source: 'reportIncidentBot'
+                        });*/
+                    }
                 });
             });
-            /*request(, (error, response) => {
-                //console.log('Resp is ' + JSON.stringify(response));
-                let incidentDetails = '';
-                if (!error && response.statusCode == 200) {
-                    let incidentJson = JSON.parse(response.body);
-
-                    let incidentStatus = incidentJson.result[0].incident_state == '1' ? 'New' : incidentJson.result[0].incident_state == '2' ? 'In Progress' :
-                        incidentJson.result[0].incident_state == '3' ? 'On Hold' : incidentJson.result[0].incident_state == '4' ? 'Resolved' :
-                            incidentJson.result[0].incident_state == '5' ? 'Closed' : 'Cancelled';
-
-                    let reasonForHold = incidentJson.result[0].incident_state == '3' ? incidentJson.result[0].hold_reason == '1' ? 'Awaiting Caller' :
-                        incidentJson.result[0].hold_reason == '2' ? 'Awaiting Evidence' : incidentJson.result[0].hold_reason == '3' ? 'Awaiting Problem Resolution' : 'Awaiting Vendor' : '';
-
-                    incidentDetails = "Please find the incident details below \n 1) Incident Id - " + incidentJson.result[0].number +
-                        "\n 2) Category - " + incidentJson.result[0].category + " \n 3) Description - " + incidentJson.result[0].short_description +
-                        "\n 4) Urgency - " + (incidentJson.result[0].urgency == '1' ? 'High' : incidentJson.result[0].urgency == '2' ? 'Medium' : 'Low') +
-                        "\n 5) Status - " + incidentStatus + (reasonForHold != '' ? "\n 6) Reason For Hold - " + reasonForHold : '');
-
-                    return res.json({
-                        speech: incidentDetails,
-                        displayText: incidentDetails,
-                        source: 'reportIncidentBot'
-                    });
-                } else if (response.statusCode == 404) {
-                    incidentDetails = 'There is no incident with the given id';
-                    return res.json({
-                        speech: incidentDetails,
-                        displayText: incidentDetails,
-                        source: 'reportIncidentBot'
-                    });
-                } else {
-                    console.log(error);
-                    incidentDetails = 'Try again later';
-                    return res.json({
-                        speech: incidentDetails,
-                        displayText: incidentDetails,
-                        source: 'reportIncidentBot'
-                    });
-                }
-            });*/
         } catch (e) {
             console.log("Exception in getIncidentDetails " + e);
         }
