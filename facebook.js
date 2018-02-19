@@ -31,7 +31,52 @@ var facebook = {
             ],
             "data": {
                 "slack": {
-                    "text": "Hi, I am Report It Bot. <br/> I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents \n Please select any one of the following to continue"
+                    "text": "Hi, I am Report It Bot. <br/> I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents \n Please select any one of the following to continue",
+                    "attachments": {
+                        "type": "template",
+                        "payload": {
+                            "template_type": "list",
+                            "top_element_style": "large",
+                            "elements": [
+                                {
+                                    "title": "Device Request",
+                                    "image_url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png",
+                                    "subtitle": "For requesting new device",
+                                    "buttons": [
+                                        {
+                                            "type": "postback",
+                                            "title": "New Device",
+                                            "payload": "new_device"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "Damaged Device",
+                                    "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxod-I0fuatggTIxbnHFELF6y62zwXkrzthtoVAWOmOwNQuPJusw",
+                                    "subtitle": "To report if the device is damaged",
+                                    "buttons": [
+                                        {
+                                            "type": "postback",
+                                            "title": "Damaged Device",
+                                            "payload": "damaged_device"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "Replace Device",
+                                    "image_url": "https://cdn3.iconfinder.com/data/icons/finance-and-money-1/512/arrows_currency_exchange_direction_flat_icon-512.png",
+                                    "subtitle": "To replace the existing device",
+                                    "buttons": [
+                                        {
+                                            "type": "postback",
+                                            "title": "Replace Device",
+                                            "payload": "replace_device"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
                 }
             }
         };
