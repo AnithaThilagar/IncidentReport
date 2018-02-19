@@ -34,7 +34,7 @@ var serviceNow = {
                 method: 'GET'
             };
             return new Promise((resolve, reject) => {
-                request.get(options).then(function (response) {
+                request(options).then(function (response) {
                     console.log('Response ');
                     console.log(response);
                     return resolve(response);
