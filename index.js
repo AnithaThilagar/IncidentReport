@@ -25,7 +25,7 @@ app.post('/ai', (req, res) => {
     console.log("Inside the API handle ");
     if (typeof req.body.originalRequest != "undefined") {
         console.log(req.body.originalRequest.source);
-        let source = require(req.body.originalRequest.source);
+        let source = require('./'+req.body.originalRequest.source);
         console.log('Inside s/c');
         console.log(source);
         /*switch (req.body.originalRequest.source) {
