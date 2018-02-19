@@ -27,7 +27,7 @@ app.post('/ai', (req, res) => {
         console.log(req.body.originalRequest.source);
         let source = require('./'+req.body.originalRequest.source);
         console.log('Inside s/c');
-        console.log(source);
+        source.welcomeIntent();
         /*switch (req.body.originalRequest.source) {
             //case "facebook": handleFacebook(req, res); break;
             case "google": handleGoogleResponse(req, res); break;
