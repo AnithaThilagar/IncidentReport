@@ -41,13 +41,13 @@ var facebook = {
                             "callback_id": "main_menu",
                             "actions": [
                                 {
-                                    "name": "Report Incident",
+                                    "name": "mainMenu",
                                     "text": "Report Incident",
                                     "type": "button",
                                     "value": "Report Incident"
                                 },
                                 {
-                                    "name": "My Incidents",
+                                    "name": "mainMenu",
                                     "text": "My Incidents",
                                     "type": "button",
                                     "value": "My Incidents"
@@ -77,6 +77,30 @@ var facebook = {
                             "content_type": "text",
                             "title": "Software",
                             "payload": "software"
+                        }
+                    ]
+                },
+                "slack": {
+                    "attachments": [
+                        {
+                            "text": "Please select any one category",
+                            "fallback": "You are unable to choose a category",
+                            "callback_id": "category_menu",
+                            "attachment_type": "default",
+                            "actions": [
+                                {
+                                    "name": "catgeory",
+                                    "text": "Hardware",
+                                    "type": "button",
+                                    "value": "hardware"
+                                },
+                                {
+                                    "name": "catgeory",
+                                    "text": "Software",
+                                    "type": "button",
+                                    "value": "software"
+                                }
+                            ]
                         }
                     ]
                 }
