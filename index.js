@@ -25,19 +25,140 @@ app.post('/ai', (req, res) => {
     console.log("Inside the API handle ");
     if (typeof req.body.originalRequest != "undefined") {
         console.log(req.body.originalRequest.source);
-        let source = require('./'+req.body.originalRequest.source);
-        console.log('Inside s/c');
+        
         return res.json(source.welcomeIntent());
-        /*switch (req.body.originalRequest.source) {
-            //case "facebook": handleFacebook(req, res); break;
-            case "google": handleGoogleResponse(req, res); break;
-            default: handleFacebook(req, res);
-        }*/
     } else {
         console.log('Req from other sources');
-        handleFacebook(req, res);
+        handleRequest(req, res, '');
     }
 });
+
+//To handle the request from the Dialogflow
+function handleRequest(req, res, platform) {
+    console.log("Inside the handleFacebook");
+    let source = require('./' + platform);
+    if (req.body.result.action === 'input.welcome') {
+        console.log('Inside welcome intent');
+        userData = {};
+        if (platform == 'google') {
+            googleAssistant.welcomeIntent(assistant);
+        } else {
+            return res.json(source.welcomeIntent());
+        }
+    } else if (req.body.result.action === 'reportIncident') {
+        if (platform == 'google') {
+
+        } else {
+            return res.json(source.incidentCategory());
+        }
+    } else if (req.body.result.action === 'incident-category') {
+        userData = {};
+        userData.category = req.body.result.parameters["incidentCategory"];
+        if (platform == 'google') {
+
+        } else {
+            return res.json(source.incidentSubCategory(userData.category.toLowerCase()));
+        }
+    } else if (req.body.result.action === 'incident-subcategory') {
+        userData.description = req.body.result.parameters["description"];
+        userData.subCategory = req.body.result.parameters["subcategory"];
+        if (typeof userData.category == "undefined") {
+            userData.category = userData.subCategory == "New Device" || userData.subCategory == "Damaged Device" || userData.subCategory == "Replace Device" ? "Hardware" : "Software";
+        }
+        if (platform == 'google') {
+
+        } else {
+            return res.json(source.incidentUrgencyType());
+        }
+    } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact') {
+        userData.urgencyType = req.body.result.parameters["urgencyType"].toLowerCase() == 'high' ? 1 : req.body.result.parameters["urgencyType"].toLowerCase() == 'medium'
+            ? 2 : 3; //Set the urgency type based on the selected value
+        if (platform == 'google') {
+
+        } else {
+            return res.json(source.incidentModeOfContact());
+        }
+    } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {
+        userData.modeOfContact = req.body.result.parameters["modeOfContact"];
+        console.log("Mode of Contact " + userData.modeOfContact);
+        userData.contactDetails = req.body.result.action === 'getPhoneNumber' ? req.body.result.parameters["phone-number"] : req.body.result.parameters["email"];
+        if (req.body.result.action === 'getPhoneNumber') {
+            console.log(req.body.result.parameters["phone-number"]);
+            if (req.body.result.parameters["phone-number"] != "") {
+                if (req.body.result.parameters["phone-number"].match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(req.body.result.parameters["phone-number"].match(/0{5,}/))) {
+                    console.log("Phone Num " + req.body.result.parameters["phone-number"]);
+                    serviceNow.saveIncident(res, userData).then((response) => {
+                        let message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
+                        if (platform == 'google') {
+
+                        } else {
+                            return res.json(source.getTextResponse(message));
+                        }
+                    }).catch((error) => {
+                        let message = 'Unable to save the incident. Try again later';
+                        if (platform == 'google') {
+                            
+                        } else {
+                            return res.json(source.getTextResponse(message));
+                        }
+                    });
+                } else {
+                    console.log("Inside else");
+                    let message = 'Please enter the valid phone number';
+                    let options = {
+                        "name": "getMobile",
+                        "data": { "modeOfContact": userData.modeOfContact }
+                    };
+                    return res.json(source.triggerEvent(message, options));
+                }
+            }
+        } else {
+            let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (re.test(req.body.result.parameters["email"])) {
+                console.log(req.body.result.parameters["email"]);
+                serviceNow.saveIncident(res, userData).then((response) => {
+                    let message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
+                    return res.json(source.getTextResponse(message));
+                }).catch((error) => {
+                    let message = 'Unable to save the incident. Try again later';
+                    if (platform == 'google') {
+
+                    } else {
+                        return res.json(source.getTextResponse(message));
+                    }
+                });
+            } else {
+                let message = 'Please enter the valid mail Id';
+                let options = {
+                    "name": "getMail",
+                    "data": { "modeOfContact": userData.modeOfContact }
+                };
+                return res.json(source.triggerEvent(message, options));
+            }
+        }
+    } else if (req.body.result.action === 'getIncident') {
+        let reg = /^[a-zA-Z0-9]+$/;
+        if (reg.test(req.body.result.parameters["incidentId"])) {
+            serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]).then((response) => {
+                return res.json(source.sendIncidentDetails(response));
+            }).catch((error) => {
+                console.log(error);
+                let text = "Cannot get the incident details. Try again later";
+                return res.json(source.getTextResponse(text));
+            });
+        } else {
+            let message = 'Please enter the valid Incident Id';
+            let options = {
+                "name": "getIncident",
+                "data": {}
+            };
+            return res.json(source.triggerEvent(message, options));
+        }
+    } else {
+        let msg = "Can't understand. Please type 'report' to report an incident or 'view' to view the incident";
+        return res.json(source.getTextResponse(msg));
+    }
+}
 
 function handleFacebook(req, res) {
     console.log("Inside the handleFacebook");
@@ -132,11 +253,11 @@ function handleFacebook(req, res) {
         let reg = /^[a-zA-Z0-9]+$/;
         if (reg.test(req.body.result.parameters["incidentId"])) {
             serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]).then((response) => {
-                facebook.sendIncidentDetails(res, response);
+                facebook.sendIncidentDetails(response);
             }).catch((error) => {
                 console.log(error);
                 let text = "Cannot get the incident details. Try again later";
-                facebook.getTextResponse(res, text);
+                facebook.getTextResponse(text);
             });
         } else {
             let message = 'Please enter the valid Incident Id';
@@ -151,7 +272,7 @@ function handleFacebook(req, res) {
         }
     } else {
         let msg = "Can't understand. Please type 'report' to report an incident or 'view' to view the incident";
-        facebook.getTextResponse(res, msg);
+        facebook.getTextResponse(msg);
     }
 }
 

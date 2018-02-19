@@ -233,7 +233,7 @@ var facebook = {
             source: 'reportIncidentBot'
         };
     },
-    sendIncidentDetails: function (res, response) {
+    sendIncidentDetails: function (response) {
         let incidentJson = JSON.parse(response.body);
 
         let incidentStatus = incidentJson.result[0].incident_state == '1' ? 'New' : incidentJson.result[0].incident_state == '2' ? 'In Progress' :
@@ -248,18 +248,25 @@ var facebook = {
             "\n 4) Urgency - " + (incidentJson.result[0].urgency == '1' ? 'High' : incidentJson.result[0].urgency == '2' ? 'Medium' : 'Low') +
             "\n 5) Status - " + incidentStatus + (reasonForHold != '' ? "\n 6) Reason For Hold - " + reasonForHold : '');
 
-        return res.json({
+        return {
             speech: incidentDetails,
             displayText: incidentDetails,
             source: 'reportIncidentBot'
-        });
+        };
     },
-    getTextResponse: function (res, text) {
-        return res.json({
+    getTextResponse: function (text) {
+        return {
             speech: text,
             displayText: text,
             source: 'reportIncidentBot'
-        });
+        };
+    },
+    triggerEvent: function (text, eventObject) {
+        return {
+            speech: text,
+            displayText: text,
+            followupEvent: eventObject
+        };
     }
 };
 
