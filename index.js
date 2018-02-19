@@ -22,10 +22,15 @@ let userData = {};
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     console.log("Inside the API handle ");
-    console.log(req.body.originalRequest.source);
-    switch (req.body.originalRequest.source) {
-        case "facebook": handleFacebook(req, res); break;
-        case "google": handleGoogleResponse(req, res);
+    if (typeof req.body.originalRequest.source != "undefined") {
+        console.log(req.body.originalRequest.source);
+        switch (req.body.originalRequest.source) {
+            case "facebook": handleFacebook(req, res); break;
+            case "google": handleGoogleResponse(req, res);
+        }
+    } else {
+        console.log(req.body.originalRequest.source);
+        handleFacebook(req, res);
     }
 });
 
