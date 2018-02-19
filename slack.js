@@ -1,8 +1,7 @@
 //To handle the responses for slack
-module.exports = (req, res) => {
-    console.log('Inside slack');
+var slack = {
     //To send the welcome message for the bot with text, message buttons and image
-    function welcomeIntent() {
+    welcomeIntent: function () {
         return {
             speech: '',
             displayText: '',
@@ -38,9 +37,9 @@ module.exports = (req, res) => {
                 }
             }
         }
-    }
+    },
     //To send the incident category as message buttons
-    function incidentCategory() {
+    incidentCategory: function () {
         return {
             speech: '',
             displayText: "Hi, welcome to incident Report Bot",
@@ -71,9 +70,9 @@ module.exports = (req, res) => {
                 }
             }
         }
-    }
+    },
     //To send the sub category for the value for the incident category selected as menus and message buttons
-    function incidentSubCategory(category) {
+    incidentSubCategory: function (category) {
         if (category == 'hardware') {
             return {
                 speech: '',
@@ -145,9 +144,9 @@ module.exports = (req, res) => {
                 }
             }
         }
-    }
+    },
     //To send the urgency type for the incidents as quick replies
-    function incidentUrgencyType() {
+    incidentUrgencyType: function () {
         return {
             speech: '',
             displayText: "Hi, welcome to incident Report Bot",
@@ -184,9 +183,9 @@ module.exports = (req, res) => {
                 }
             }
         }
-    }
+    },
     //To send the mode of contact as quick replies
-    function incidentModeOfContact() {
+    incidentModeOfContact: function () {
         return {
             speech: '',
             displayText: "Hi, welcome to incident Report Bot",
@@ -217,9 +216,9 @@ module.exports = (req, res) => {
                 }
             }
         }
-    }
+    },
     //To send the contact details as text
-    function incidentContactDetails(contactType) {
+    incidentContactDetails: function (contactType) {
         let msg = '';
         if (contactType == 'phone') {
             msg = 'Please enter the Phone number';
@@ -233,3 +232,33 @@ module.exports = (req, res) => {
         };
     }
 };
+
+module.exports = slack;
+/*"data": {
+                "slack": {
+                    "text": "Hi, I am Report It Bot. \n I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents",
+                    "attachments": [
+                        {
+                            "image_url": "https://mgtvwlns.files.wordpress.com/2015/05/reportit-logo5b35d.jpg",
+                            "thumb_url": "https://mgtvwlns.files.wordpress.com/2015/05/reportit-logo5b35d.jpg",
+                            "title": "Report It - To Solve It",
+                            "text": "Please select any one",
+                            "callback_id": "main_menu",
+                            "actions": [
+                                {
+                                    "name": "mainMenu",
+                                    "text": "Report Incident",
+                                    "type": "button",
+                                    "value": "Report Incident"
+                                },
+                                {
+                                    "name": "mainMenu",
+                                    "text": "My Incidents",
+                                    "type": "button",
+                                    "value": "My Incidents"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }*/
