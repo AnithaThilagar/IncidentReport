@@ -28,7 +28,12 @@ var facebook = {
                         }
                     ]
                 }
-            ]
+            ],
+            "data": {
+                "slack": {
+                    "text": "The spent cents are tails\nI'll never see wag again"
+                }
+            }
         };
     },
     //To send the incident category as quick replies
