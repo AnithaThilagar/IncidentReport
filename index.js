@@ -23,6 +23,7 @@ let userData = {};
 app.post('/ai', (req, res) => {
     console.log("Inside the API handle ");
     const source = require('./slack');
+    source.welcomeIntent();
     /*if (typeof req.body.originalRequest != "undefined") {
         console.log(req.body.originalRequest.source);
         switch (req.body.originalRequest.source) {
