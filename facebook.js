@@ -28,35 +28,7 @@ var facebook = {
                         }
                     ]
                 }
-            ],
-            "data": {
-                "slack": {
-                    "text": "Hi, I am Report It Bot. \n I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents",
-                    "attachments": [
-                        {
-                            "image_url": "https://mgtvwlns.files.wordpress.com/2015/05/reportit-logo5b35d.jpg",
-                            "thumb_url": "https://mgtvwlns.files.wordpress.com/2015/05/reportit-logo5b35d.jpg",
-                            "title": "Report It - To Solve It",
-                            "text": "Please select any one",
-                            "callback_id": "main_menu",
-                            "actions": [
-                                {
-                                    "name": "mainMenu",
-                                    "text": "Report Incident",
-                                    "type": "button",
-                                    "value": "Report Incident"
-                                },
-                                {
-                                    "name": "mainMenu",
-                                    "text": "My Incidents",
-                                    "type": "button",
-                                    "value": "My Incidents"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
+            ]
         };
     },
     //To send the incident category as quick replies
@@ -77,30 +49,6 @@ var facebook = {
                             "content_type": "text",
                             "title": "Software",
                             "payload": "software"
-                        }
-                    ]
-                },
-                "slack": {
-                    "attachments": [
-                        {
-                            "text": "Please select any one category",
-                            "fallback": "You are unable to choose a category",
-                            "callback_id": "category_menu",
-                            "attachment_type": "default",
-                            "actions": [
-                                {
-                                    "name": "catgeory",
-                                    "text": "Hardware",
-                                    "type": "button",
-                                    "value": "hardware"
-                                },
-                                {
-                                    "name": "catgeory",
-                                    "text": "Software",
-                                    "type": "button",
-                                    "value": "software"
-                                }
-                            ]
                         }
                     ]
                 }
