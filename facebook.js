@@ -253,6 +253,13 @@ var facebook = {
             displayText: incidentDetails,
             source: 'reportIncidentBot'
         });
+    },
+    getTextResponse: function (res, text) {
+        return res.json({
+            speech: text,
+            displayText: text,
+            source: 'reportIncidentBot'
+        });
     }
 };
 

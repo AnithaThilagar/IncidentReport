@@ -7,7 +7,8 @@ const express = require('express'),
     facebook = require('./facebook'),
     serviceNow = require('./serviceNow'),
     DialogflowApp = require('actions-on-google').DialogflowApp,
-    googleAssistant = require('./googleAssistant');
+    googleAssistant = require('./googleAssistant'),
+    slack = require('./slack');
 
 const app = express();
 app.use(bodyParser.json());
@@ -24,17 +25,19 @@ app.post('/ai', (req, res) => {
     console.log("Inside the API handle ");
     if (typeof req.body.originalRequest != "undefined") {
         console.log(req.body.originalRequest.source);
-        switch (req.body.originalRequest.source) {
+        let source = require(req.body.originalRequest.source);
+        console.log('Inside s/c');
+        console.log(source);
+        /*switch (req.body.originalRequest.source) {
             //case "facebook": handleFacebook(req, res); break;
             case "google": handleGoogleResponse(req, res); break;
             default: handleFacebook(req, res);
-        }
+        }*/
     } else {
         console.log('Req from other sources');
         handleFacebook(req, res);
     }
 });
-
 
 function handleFacebook(req, res) {
     console.log("Inside the handleFacebook");
@@ -129,20 +132,11 @@ function handleFacebook(req, res) {
         let reg = /^[a-zA-Z0-9]+$/;
         if (reg.test(req.body.result.parameters["incidentId"])) {
             serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]).then((response) => {
-                console.log(response);
-                let message = 'Test';
-                return res.json({
-                    speech: message,
-                    displayText: message,
-                    source: 'reportIncidentBot'
-                });
+                facebook.sendIncidentDetails(res, response);
             }).catch((error) => {
                 console.log(error);
-                return res.json({
-                    speech: 'Try again later',
-                    displayText: 'Try again later',
-                    source: 'reportIncidentBot'
-                });
+                let text = "Cannot get the incident details. Try again later";
+                facebook.getTextResponse(res, text);
             });
         } else {
             let message = 'Please enter the valid Incident Id';
@@ -157,11 +151,7 @@ function handleFacebook(req, res) {
         }
     } else {
         let msg = "Can't understand. Please type 'report' to report an incident or 'view' to view the incident";
-        return res.json({
-            speech: msg,
-            displayText: msg,
-            source: 'reportIncidentBot'
-        });
+        facebook.getTextResponse(res, msg);
     }
 }
 

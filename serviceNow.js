@@ -35,7 +35,6 @@ var serviceNow = {
             };
             return new Promise((resolve, reject) => {
                 request(options, (error, response) => {
-                    //console.log('Resp is ' + JSON.stringify(response));
                     let incidentDetails = '';
                     if (!error && response.statusCode == 200) {
                         console.log('Inside success');
