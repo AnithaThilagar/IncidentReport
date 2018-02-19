@@ -9,7 +9,7 @@ var facebook = {
                 {
                     "type": 0,
                     "platform": "facebook",
-                    "speech": "Hi, I am Report It Bot. <br/> I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents \n Please select any one of the following to continue"
+                    "speech": "Hi, I am Report It Bot. \n I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents \n Please select any one of the following to continue"
                 },
                 {
                     "type": 1,
@@ -31,13 +31,14 @@ var facebook = {
             ],
             "data": {
                 "slack": {
-                    "text": "Report It",
+                    "text": "Hi, I am Report It Bot. \n I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents",
                     "attachments": [
                         {
                             "image_url": "https://mgtvwlns.files.wordpress.com/2015/05/reportit-logo5b35d.jpg",
                             "thumb_url": "https://mgtvwlns.files.wordpress.com/2015/05/reportit-logo5b35d.jpg",
                             "title": "Report It - To Solve It",
                             "text": "Please select any one",
+                            "callback_id": "main_menu",
                             "actions": [
                                 {
                                     "name": "Report Incident",
