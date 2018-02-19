@@ -22,8 +22,7 @@ let userData = {};
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     console.log("Inside the API handle ");
-    const source = require('./slack');
-    source.welcomeIntent();
+    const source = require('./slack')(req, res);
     /*if (typeof req.body.originalRequest != "undefined") {
         console.log(req.body.originalRequest.source);
         switch (req.body.originalRequest.source) {

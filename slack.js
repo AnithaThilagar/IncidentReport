@@ -1,5 +1,6 @@
 //To handle the responses for slack
 module.exports = (req, res) => {
+    console.log('Inside slack');
     //To send the welcome message for the bot with text, message buttons and image
     function welcomeIntent() {
         return {
