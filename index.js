@@ -25,8 +25,9 @@ app.post('/ai', (req, res) => {
     if (typeof req.body.originalRequest != "undefined") {
         console.log(req.body.originalRequest.source);
         switch (req.body.originalRequest.source) {
-            case "facebook": handleFacebook(req, res); break;
-            case "google": handleGoogleResponse(req, res);
+            //case "facebook": handleFacebook(req, res); break;
+            case "google": handleGoogleResponse(req, res); break;
+            default: handleFacebook(req, res);
         }
     } else {
         console.log('Req from other sources');
