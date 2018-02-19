@@ -1,3 +1,5 @@
+//const source = require('./slack')(req, res);
+
 //To handle the responses for slack
 module.exports = (req, res) => {
     console.log('Inside slack');

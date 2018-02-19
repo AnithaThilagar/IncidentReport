@@ -28,11 +28,23 @@ var serviceNow = {
     getIncidentDetails: function (res, incidentId) {
         try {
             console.log("Inside get incident " + incidentId);
-            request({
+            let options = {
                 url: config.getIncidentUrl + incidentId,
                 headers: { 'Authorization': 'Basic MzMyMzg6YWJjMTIz' },
                 method: 'GET'
-            }, (error, response) => {
+            };
+            return new Promise((resolve, reject) => {
+                request(options).then(function (response) {
+                    console.log('Response ');
+                    console.log(response);
+                    return resolve(response);
+                }).catch(function (error) {
+                    console.log('Error');
+                    console.log(error);
+                    return reject('Incident is not created. Try again later');
+                });
+            });
+            /*request(, (error, response) => {
                 //console.log('Resp is ' + JSON.stringify(response));
                 let incidentDetails = '';
                 if (!error && response.statusCode == 200) {
@@ -71,7 +83,7 @@ var serviceNow = {
                         source: 'reportIncidentBot'
                     });
                 }
-            });
+            });*/
         } catch (e) {
             console.log("Exception in getIncidentDetails " + e);
         }
