@@ -32,7 +32,7 @@ app.post('/ai', (req, res) => {
 });
 
 //To handle the message button click in the slack app
-app.post('/webhook', (req, res) => {
+app.post('/button', (req, res) => {
     console.log("Inside POST ");
     console.log(req);
     res.status(200).end();
