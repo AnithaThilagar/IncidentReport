@@ -152,19 +152,24 @@ function handleRequest(req, res, platform) {
         }
     } else if (req.body.result.action === 'getIncident') {
         let reg = /[A-Z]{3}\d{7}/i;
-        if (reg.test(req.body.result.parameters["incidentId"])) {
+        if (reg.test(req.body.result.parameters["incidentId"]) && req.body.result.parameters["incidentId"].length == 10) {
             console.log("Incident Id " + req.body.result.parameters["incidentId"]);
             serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]).then((response) => {
                 let message = '';
                 if (response == '') {
                     message = 'There is no incident found with the given incident Id';
+                    if (platform == 'google') {
+                        googleAssistant.getTextResponse(assistant, message);
+                    } else {
+                        return res.json(source.getTextResponse(message));
+                    }
                 } else {
                     message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
-                }
-                if (platform == 'google') {
-                    googleAssistant.getTextResponse(assistant, message);
-                } else {
-                    return res.json(source.sendIncidentDetails(response));
+                    if (platform == 'google') {
+                        googleAssistant.getTextResponse(assistant, message);
+                    } else {
+                        return res.json(source.sendIncidentDetails(response));
+                    }
                 }
             }).catch((error) => {
                 console.log(error);
