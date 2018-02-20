@@ -152,9 +152,9 @@ function handleRequest(req, res, platform) {
         }
     } else if (req.body.result.action === 'getIncident') {
         let reg = /[A-Z]{3}\d{7}/i;
-        if (reg.test(req.body.result.parameters["incidentId"]) && req.body.result.parameters["incidentId"].length == 10) {
-            console.log("Incident Id " + req.body.result.parameters["incidentId"]);
-            serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]).then((response) => {
+        if (reg.test(req.body.result.parameters["incidentId"]) && req.body.result.parameters["incidentId"].trim().length == 10) {
+            console.log("Incident Id " + req.body.result.parameters["incidentId"].trim());
+            serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"].trim()).then((response) => {
                 let message = '';
                 if (response == '') {
                     message = 'There is no incident found with the given incident Id';
