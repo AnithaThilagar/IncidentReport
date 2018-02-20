@@ -217,18 +217,49 @@ var slack = {
             }
         }
     },
-    //To send the contact details as text
-    incidentContactDetails: function (contactType) {
-        let msg = '';
-        if (contactType == 'phone') {
-            msg = 'Please enter the Phone number';
-        } else {
-            msg = 'Please enter the mail Id';
-        }
+    //To send the incident details as text
+    sendIncidentDetails: function (response) {
+        let incidentJson = JSON.parse(response.body);
+        let incidentStatus = incidentJson.result[0].incident_state == '1' ? 'New' : incidentJson.result[0].incident_state == '2' ? 'In Progress' :
+            incidentJson.result[0].incident_state == '3' ? 'On Hold' : incidentJson.result[0].incident_state == '4' ? 'Resolved' :
+                incidentJson.result[0].incident_state == '5' ? 'Closed' : 'Cancelled';
+
+        let reasonForHold = incidentJson.result[0].incident_state == '3' ? incidentJson.result[0].hold_reason == '1' ? 'Awaiting Caller' :
+            incidentJson.result[0].hold_reason == '2' ? 'Awaiting Evidence' : incidentJson.result[0].hold_reason == '3' ? 'Awaiting Problem Resolution' : 'Awaiting Vendor' : '';
+
+        incidentDetails = "Please find the incident details below \n 1) Incident Id - " + incidentJson.result[0].number +
+            "\n 2) Category - " + incidentJson.result[0].category + " \n 3) Description - " + incidentJson.result[0].short_description +
+            "\n 4) Urgency - " + (incidentJson.result[0].urgency == '1' ? 'High' : incidentJson.result[0].urgency == '2' ? 'Medium' : 'Low') +
+            "\n 5) Status - " + incidentStatus + (reasonForHold != '' ? "\n 6) Reason For Hold - " + reasonForHold : '');
+
         return {
-            speech: msg,
-            displayText: msg,
-            source: 'reportIncidentBot'
+            speech: '',
+            displayText: '',
+            "data": {
+                "slack": {
+                    "text": incidentDetails
+                }
+            }
+        };
+    },
+    //To send the text response with the given text
+    getTextResponse: function (text) {
+        return {
+            speech: '',
+            displayText: '',
+            "data": {
+                "slack": {
+                    "text": text
+                }
+            }
+        };
+    },
+    //To trigger the events with the given text and event parameters
+    triggerEvent: function (text, eventObject) {
+        return {
+            speech: text,
+            displayText: text,
+            followupEvent: eventObject
         };
     }
 };

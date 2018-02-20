@@ -219,9 +219,9 @@ var facebook = {
             source: 'reportIncidentBot'
         };
     },
+    //To send the incident details as text
     sendIncidentDetails: function (response) {
         let incidentJson = JSON.parse(response.body);
-
         let incidentStatus = incidentJson.result[0].incident_state == '1' ? 'New' : incidentJson.result[0].incident_state == '2' ? 'In Progress' :
             incidentJson.result[0].incident_state == '3' ? 'On Hold' : incidentJson.result[0].incident_state == '4' ? 'Resolved' :
                 incidentJson.result[0].incident_state == '5' ? 'Closed' : 'Cancelled';
@@ -235,7 +235,7 @@ var facebook = {
             "\n 5) Status - " + incidentStatus + (reasonForHold != '' ? "\n 6) Reason For Hold - " + reasonForHold : '');
 
         return {
-            speech: incidentDetails,
+            speech: 'Please find the incident details',
             displayText: incidentDetails,
             source: 'reportIncidentBot'
         };
