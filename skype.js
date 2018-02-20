@@ -33,37 +33,35 @@ var skype = {
     },
     //To send the incident category as quick replies
     incidentCategory: function () {
-        var heroCard = new HeroCard
-        {
-            Title = "BotFramework Hero Card",
-                Subtitle = "Your bots — wherever your users are talking",
-                Text = "Build and connect intelligent bots to interact with your users naturally wherever they are, from text/sms to Skype, Slack, Office 365 mail and other popular services.",
-                Images = new List < CardImage > { new CardImage("https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg") },
-                Buttons = new List < CardAction > { new CardAction(ActionTypes.OpenUrl, "Get Started", value: "https://docs.microsoft.com/bot-framework") }
-        };
-        return heroCard.ToAttachment();
-        /*return {
+        return {
             speech: '',
             displayText: "Hi, welcome to incident Report Bot",
             data: {
-                "skype": {
-                    "text": "Please select any one category",
-                    "quick_replies": [
-                        {
-                            "content_type": "text",
-                            "title": "Hardware",
-                            "payload": "hardware"
-                        },
-                        {
-                            "content_type": "text",
-                            "title": "Software",
-                            "payload": "software"
-                        }
-                    ]
-                }
-            },
+			  "type": "message",
+			  "attachmentLayout": "list",
+			  "text": "",
+			  "attachments": [
+				{
+				  "content": {
+					"text": "Please select any one category",
+					"buttons": [
+					  {
+						"type": "Hardware",
+						"title": "Hardware",
+						"value": "hardware"
+					  },
+					  {
+						"type": "Software",
+						"title": "Software",
+						"value": "software"
+					  }
+					]
+				  }
+				}
+			  ]
+			},
             source: 'reportIncidentBot'
-        };*/
+        };
     },
     //To send the sub category for the value for the incident category selected as list
     incidentSubCategory: function (category) {
