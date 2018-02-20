@@ -167,7 +167,7 @@ function handleRequest(req, res, platform) {
                 } else {
                     message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
                     if (platform == 'google') {
-                        googleAssistant.getTextResponse(assistant, message);
+                        googleAssistant.sendIncidentDetails(assistant, response);
                     } else {
                         return res.json(source.sendIncidentDetails(response));
                     }
