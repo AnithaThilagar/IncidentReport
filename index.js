@@ -23,14 +23,14 @@ let userData = {};
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     console.log("Inside the API handle ");
+    let source = '';
     if (typeof req.body.originalRequest != "undefined") {
         console.log(req.body.originalRequest.source);
-        
-        return res.json(source.welcomeIntent());
+        source = req.body.originalRequest.source;
     } else {
         console.log('Req from other sources');
-        handleRequest(req, res, '');
     }
+    handleRequest(req, res, source);
 });
 
 //To handle the request from the Dialogflow
