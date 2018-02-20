@@ -151,7 +151,7 @@ function handleRequest(req, res, platform) {
             }
         }
     } else if (req.body.result.action === 'getIncident') {
-        let reg = /^[a-zA-Z0-9]+$/;
+        let reg = /[A-Z]{3}\d{7}/i;
         if (reg.test(req.body.result.parameters["incidentId"])) {
             console.log("Incident Id " + req.body.result.parameters["incidentId"]);
             serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]).then((response) => {
