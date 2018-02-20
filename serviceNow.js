@@ -60,7 +60,7 @@ var serviceNow = {
                         });*/
                     } else if (response.statusCode == 404) {
                         console.log('Inside No incident');
-                        return resolve(response);
+                        return resolve('');
                         /*incidentDetails = 'There is no incident with the given id';
                         return res.json({
                             speech: incidentDetails,

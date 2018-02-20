@@ -153,8 +153,14 @@ function handleRequest(req, res, platform) {
     } else if (req.body.result.action === 'getIncident') {
         let reg = /^[a-zA-Z0-9]+$/;
         if (reg.test(req.body.result.parameters["incidentId"])) {
+            console.log("Incident Id " + req.body.result.parameters["incidentId"]);
             serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]).then((response) => {
-                let message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
+                let message = '';
+                if (response == '') {
+                    message = 'There is no incident found with the given incident Id';
+                } else {
+                    message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
+                }
                 if (platform == 'google') {
                     googleAssistant.getTextResponse(assistant, message);
                 } else {
