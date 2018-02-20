@@ -91,7 +91,6 @@ var slack = {
                                         "name": "subcategory",
                                         "text": "Select any one...",
                                         "type": "select",
-                                        "data_source": "external",
                                         "options": [
                                             {
                                                 "text": "New Device",
