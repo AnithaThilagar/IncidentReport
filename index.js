@@ -3,6 +3,7 @@
 const express = require('express'),
     bodyParser = require('body-parser'),
     apiai = require('apiai'),
+    request = require('request'),
     config = require('./config'),
     serviceNow = require('./serviceNow'),
     DialogflowApp = require('actions-on-google').DialogflowApp;
