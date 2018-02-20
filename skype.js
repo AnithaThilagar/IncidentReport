@@ -31,34 +31,37 @@ var skype = {
             ]
         };
     },
-    //To send the incident category as quick replies
+    //To send the incident category as hero card
     incidentCategory: function () {
         return {
             speech: '',
             displayText: "Hi, welcome to incident Report Bot",
             data: {
-			  "type": "message",
-			  "attachmentLayout": "list",
-			  "text": "",
-			  "attachments": [
-				{
-				  "content": {
-					"text": "Please select any one category",
-					"buttons": [
-					  {
-						"type": "Hardware",
-						"title": "Hardware",
-						"value": "hardware"
-					  },
-					  {
-						"type": "Software",
-						"title": "Software",
-						"value": "software"
+			  "skype": {
+				  "type": "message",
+				  "attachmentLayout": "list",
+				  "text": "",
+				  "attachments": [
+					{
+					  "contentType": "application/vnd.microsoft.card.hero",
+					  "content": {
+						"text": "Please select any one category",
+						"buttons": [
+						  {
+							"type": "imBack",
+							"title": "Hardware",
+							"value": "hardware"
+						  },
+						  {
+							"type": "imBack",
+							"title": "Software",
+							"value": "software"
+						  }
+						]
 					  }
-					]
-				  }
+					}
+				  ]
 				}
-			  ]
 			},
             source: 'reportIncidentBot'
         };
