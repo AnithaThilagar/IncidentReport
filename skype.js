@@ -1,5 +1,5 @@
-//To handle the responses for facebook
-var facebook = {
+//To handle the responses for skype
+var skype = {
     //To send the welcome message for the bot as the card
     welcomeIntent: function () {
         return {
@@ -8,12 +8,12 @@ var facebook = {
             messages: [
                 {
                     "type": 0,
-                    "platform": "facebook",
+                    "platform": "skype",
                     "speech": "Hi, I am Report It Bot. \n I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents \n Please select any one of the following to continue"
                 },
                 {
                     "type": 1,
-                    "platform": "facebook",
+                    "platform": "skype",
                     "title": "Report It",
                     "subtitle": "Report It - To sort it",
                     "imageUrl": "https://mgtvwlns.files.wordpress.com/2015/05/reportit-logo5b35d.jpg",
@@ -37,7 +37,7 @@ var facebook = {
             speech: '',
             displayText: "Hi, welcome to incident Report Bot",
             data: {
-                "facebook": {
+                "skype": {
                     "text": "Please select any one category",
                     "quick_replies": [
                         {
@@ -63,7 +63,7 @@ var facebook = {
                 speech: '',
                 displayText: "Hi, welcome to incident Report Bot",
                 data: {
-                    "facebook": {
+                    "skype": {
                         "attachment": {
                             "type": "template",
                             "payload": {
@@ -117,7 +117,7 @@ var facebook = {
                 speech: '',
                 displayText: "Hi, welcome to incident Report Bot",
                 data: {
-                    "facebook": {
+                    "skype": {
                         "attachment": {
                             "type": "template",
                             "payload": {
@@ -170,7 +170,7 @@ var facebook = {
             speech: '',
             displayText: "Hi, welcome to incident Report Bot",
             data: {
-                "facebook": {
+                "skype": {
                     "text": "Please select any one urgency or type skip to proceed",
                     "quick_replies": [
                         {
@@ -200,7 +200,7 @@ var facebook = {
             speech: '',
             displayText: "Hi, welcome to incident Report Bot",
             data: {
-                "facebook": {
+                "skype": {
                     "text": "Please select any one mode of contact",
                     "quick_replies": [
                         {
@@ -263,7 +263,7 @@ var facebook = {
         speech: '',
         displayText: "Hi, welcome to incident Report Bot",
         data: {
-            "facebook": {
+            "skype": {
                 "attachment": {
                     "type": "template",
                     "payload": {
@@ -290,7 +290,7 @@ var facebook = {
 
 //For generic templates
 /*return {
-        "facebook": {
+        "skype": {
             "attachment": {
                 "type": "template",
                 "payload": {
@@ -338,4 +338,4 @@ var facebook = {
         }
     };*/
 
-module.exports = facebook;
+module.exports = skype;
