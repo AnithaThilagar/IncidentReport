@@ -7,7 +7,7 @@ const express = require('express'),
     facebook = require('./facebook'),
     serviceNow = require('./serviceNow'),
     DialogflowApp = require('actions-on-google').DialogflowApp,
-    googleAssistant = require('./googleAssistant'),
+    googleAssistant = require('./google'),
     slack = require('./slack');
 
 const app = express();
