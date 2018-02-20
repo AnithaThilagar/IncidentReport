@@ -67,7 +67,7 @@ function handleRequest(req, res, platform) {
             "name": "subcategory",
             "data": {}
         };
-        return res.json(source.triggerEvent(assistant, message, options));
+        return res.json(source.triggerEvent(assistant, '', options));
     } else if (req.body.result.action === 'IncidentCategory.IncidentCategory-fallback') {
         console.log('Other than the given option is selected ');
     } else if (req.body.result.action === 'incident-subcategory') {
