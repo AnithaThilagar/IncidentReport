@@ -30,10 +30,32 @@ app.post('/ai', (req, res) => {
     handleRequest(req, res, source);
 });
 
-//To handle the response to bot
+//To handle the message button click in the slack app
 app.post('/webhook', (req, res) => {
     console.log("Inside POST ");
     console.log(req);
+    res.status(200).end();
+    var actionJSONPayload = JSON.parse(req.body.payload) // parse URL-encoded payload JSON string
+    var message = {
+        "text": actionJSONPayload.user.name + " clicked: " + actionJSONPayload.actions[0].name,
+        "replace_original": false
+    }
+    var postOptions = {
+        uri: actionJSONPayload.response_url,
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        json: message
+    }
+    request(postOptions, (error, response, body) => {
+        if (error) {
+            // handle errors as you see fit
+            console.log('Error');
+        } else {
+            console.log('Test');
+        }
+    })
 });
 
 //To handle the request from the Dialogflow
