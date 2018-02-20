@@ -95,12 +95,12 @@ var googleAssistant = {
         );
     },
     //To send the response for default fallback intent as simple response
-    helpResponse: function (app) {
+    /*helpResponse: function (app) {
         app.ask({
             speech: "Can't understand. \nPlease try asking for incident status or report the incident \nType exit or goodbye to end the conversation",
             displayText: "Can't understand.\nPlease try asking for incident status or report the incident \nType exit or goodbye to end the conversation"
         });
-    },
+    },*/
     //To send the basic card with the incident details
     incidentDetails: function (app, incidentId) {
         app.ask(app.buildRichResponse()
@@ -138,6 +138,21 @@ var googleAssistant = {
             .addBasicCard(app.buildBasicCard(incidentDetails)
             )
         );
+    },
+    //To send the text response with the given text
+    getTextResponse: function (app, text) {
+        app.ask({
+            speech: text,
+            displayText: text
+        });
+    },
+    //To trigger the events with the given text and event parameters
+    triggerEvent: function (app, text, eventObject) {
+        return {
+            speech: text,
+            displayText: text,
+            followupEvent: eventObject
+        };
     }
 };
 

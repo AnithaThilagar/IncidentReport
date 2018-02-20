@@ -219,20 +219,6 @@ var facebook = {
             source: 'reportIncidentBot'
         };
     },
-    //To send the contact details as text
-    incidentContactDetails: function (contactType) {
-        let msg = '';
-        if (contactType == 'phone') {
-            msg = 'Please enter the Phone number';
-        } else {
-            msg = 'Please enter the mail Id';
-        }
-        return {
-            speech: msg,
-            displayText: msg,
-            source: 'reportIncidentBot'
-        };
-    },
     sendIncidentDetails: function (response) {
         let incidentJson = JSON.parse(response.body);
 
@@ -254,6 +240,7 @@ var facebook = {
             source: 'reportIncidentBot'
         };
     },
+    //To send the text response with the given text
     getTextResponse: function (text) {
         return {
             speech: text,
@@ -261,6 +248,7 @@ var facebook = {
             source: 'reportIncidentBot'
         };
     },
+    //To trigger the events with the given text and event parameters
     triggerEvent: function (text, eventObject) {
         return {
             speech: text,

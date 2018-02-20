@@ -47,7 +47,7 @@ function handleRequest(req, res, platform) {
         }
     } else if (req.body.result.action === 'reportIncident') {
         if (platform == 'google') {
-
+            googleAssistant.incidentCategory(assistant);
         } else {
             return res.json(source.incidentCategory());
         }
@@ -55,10 +55,20 @@ function handleRequest(req, res, platform) {
         userData = {};
         userData.category = req.body.result.parameters["incidentCategory"];
         if (platform == 'google') {
-
+            googleAssistant.incidentSubCategory(assistant, userData.category.toLowerCase());
         } else {
             return res.json(source.incidentSubCategory(userData.category.toLowerCase()));
         }
+    } else if (req.body.result.action === 'IncidentCategory.IncidentCategory-custom') {
+        console.log('--Incident options trigger-- ');
+        userData.subCategory = assistant.getSelectedOption();
+        let options = {
+            "name": "subcategory",
+            "data": {}
+        };
+        return res.json(source.triggerEvent(assistant, message, options));
+    } else if (req.body.result.action === 'IncidentCategory.IncidentCategory-fallback') {
+        console.log('Other than the given option is selected ');
     } else if (req.body.result.action === 'incident-subcategory') {
         userData.description = req.body.result.parameters["description"];
         userData.subCategory = req.body.result.parameters["subcategory"];
@@ -66,7 +76,7 @@ function handleRequest(req, res, platform) {
             userData.category = userData.subCategory == "New Device" || userData.subCategory == "Damaged Device" || userData.subCategory == "Replace Device" ? "Hardware" : "Software";
         }
         if (platform == 'google') {
-
+            googleAssistant.incidentUrgencyType(assistant);
         } else {
             return res.json(source.incidentUrgencyType());
         }
@@ -74,7 +84,7 @@ function handleRequest(req, res, platform) {
         userData.urgencyType = req.body.result.parameters["urgencyType"].toLowerCase() == 'high' ? 1 : req.body.result.parameters["urgencyType"].toLowerCase() == 'medium'
             ? 2 : 3; //Set the urgency type based on the selected value
         if (platform == 'google') {
-
+            googleAssistant.incidentModeOfContact(assistant);
         } else {
             return res.json(source.incidentModeOfContact());
         }
@@ -90,14 +100,14 @@ function handleRequest(req, res, platform) {
                     serviceNow.saveIncident(res, userData).then((response) => {
                         let message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
                         if (platform == 'google') {
-
+                            googleAssistant.incidentDetails(assistant, response.number);
                         } else {
                             return res.json(source.getTextResponse(message));
                         }
                     }).catch((error) => {
                         let message = 'Unable to save the incident. Try again later';
                         if (platform == 'google') {
-                            
+                            googleAssistant.getTextResponse(assistant, message);
                         } else {
                             return res.json(source.getTextResponse(message));
                         }
@@ -118,11 +128,15 @@ function handleRequest(req, res, platform) {
                 console.log(req.body.result.parameters["email"]);
                 serviceNow.saveIncident(res, userData).then((response) => {
                     let message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
-                    return res.json(source.getTextResponse(message));
+                    if (platform == 'google') {
+                        googleAssistant.getTextResponse(assistant, message);
+                    } else {
+                        return res.json(source.getTextResponse(message));
+                    }
                 }).catch((error) => {
                     let message = 'Unable to save the incident. Try again later';
                     if (platform == 'google') {
-
+                        googleAssistant.getTextResponse(assistant, message);
                     } else {
                         return res.json(source.getTextResponse(message));
                     }
@@ -140,11 +154,20 @@ function handleRequest(req, res, platform) {
         let reg = /^[a-zA-Z0-9]+$/;
         if (reg.test(req.body.result.parameters["incidentId"])) {
             serviceNow.getIncidentDetails(res, req.body.result.parameters["incidentId"]).then((response) => {
-                return res.json(source.sendIncidentDetails(response));
+                let message = ' Your incident is noted. We will let you know after completing. Please note this Id - ' + response.number + ' for further reference ';
+                if (platform == 'google') {
+                    googleAssistant.getTextResponse(assistant, message);
+                } else {
+                    return res.json(source.sendIncidentDetails(response));
+                }
             }).catch((error) => {
                 console.log(error);
-                let text = "Cannot get the incident details. Try again later";
-                return res.json(source.getTextResponse(text));
+                let message = "Cannot get the incident details. Try again later";
+                if (platform == 'google') {
+                    googleAssistant.getTextResponse(assistant, message);
+                } else {
+                    return res.json(source.getTextResponse(message));
+                }
             });
         } else {
             let message = 'Please enter the valid Incident Id';
@@ -156,11 +179,15 @@ function handleRequest(req, res, platform) {
         }
     } else {
         let msg = "Can't understand. Please type 'report' to report an incident or 'view' to view the incident";
-        return res.json(source.getTextResponse(msg));
+        if (platform == 'google') {
+            googleAssistant.getTextResponse(assistant, msg);
+        } else {
+            return res.json(source.getTextResponse(msg));
+        }
     }
 }
 
-function handleFacebook(req, res) {
+/*function handleFacebook(req, res) {
     console.log("Inside the handleFacebook");
     if (req.body.result.action === 'input.welcome') {
         console.log('Inside welcome intent');
@@ -274,14 +301,13 @@ function handleFacebook(req, res) {
         let msg = "Can't understand. Please type 'report' to report an incident or 'view' to view the incident";
         facebook.getTextResponse(msg);
     }
-}
+}*/
 
 //To handle the google response
 function handleGoogleResponse(req, res) {
     console.log("Inside the handleGoogleResponse");
     const assistant = new DialogflowApp({ request: req, response: res });
     console.log("Before GA---");
-
     if (req.body.result.action === 'input.welcome') {
         userData = {};
         googleAssistant.welcomeIntent(assistant);
