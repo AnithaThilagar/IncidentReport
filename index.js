@@ -31,7 +31,7 @@ app.post('/ai', (req, res) => {
 });
 
 //To handle the response to bot
-app.post('/webhook/actions', (req, res) => {
+app.post('/webhook', (req, res) => {
     console.log("Inside POST ");
     console.log(req);
 });
