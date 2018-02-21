@@ -62,8 +62,7 @@ var skype = {
 					}
 				  ]
 				}
-			},
-            source: 'reportIncidentBot'
+			}
         };
     },
     //To send the sub category for the value for the incident category selected as carousel
