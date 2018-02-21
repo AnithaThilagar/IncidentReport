@@ -36,33 +36,40 @@ var skype = {
         return {
             speech: '',
             displayText: "Hi, welcome to incident Report Bot",
-            data: {
-			  "skype": {
-				  "type": "message",
-				  "attachmentLayout": "list",
-				  "text": "",
-				  "attachments": [
-					{
-					  "contentType": "application/vnd.microsoft.card.hero",
-					  "content": {
-						"text": "Please select any one category",
-						"buttons": [
-						  {
-							"type": "imBack",
-							"title": "Hardware",
-							"value": "hardware"
-						  },
-						  {
-							"type": "imBack",
-							"title": "Software",
-							"value": "software"
-						  }
-						]
-					  }
-					}
-				  ]
-				}
-			}
+            messages: [
+                {
+                    "type": 4,
+                    "platform": "skype",
+                    "payload": {
+                        "skype": {
+                            "type": "message",
+                            "attachmentLayout": "list",
+                            "text": "",
+                            "attachments": [
+                                {
+                                    "contentType": "application/vnd.microsoft.card.hero",
+                                    "content": {
+                                        "text": "Please select any one category",
+                                        "buttons": [
+                                            {
+                                                "type": "imBack",
+                                                "title": "Hardware",
+                                                "value": "hardware"
+                                            },
+                                            {
+                                                "type": "imBack",
+                                                "title": "Software",
+                                                "value": "software"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            ],
+            source: 'reportIncidentBot'
         };
     },
     //To send the sub category for the value for the incident category selected as carousel
