@@ -27,6 +27,7 @@ app.post('/ai', (req, res) => {
         source = req.body.originalRequest.source;
     } else {
         console.log('Req from other sources');
+        source = 'facebook';//By default send the facebook response
     }
     handleRequest(req, res, source);
 });
@@ -51,7 +52,7 @@ app.post('/button', (req, res) => {
     }
     request(postOptions, (error, response, body) => {
         if (error) {
-            // handle errors as you see fit
+            // handle errors
             console.log('Error');
         } else {
             console.log('Test');
@@ -63,7 +64,6 @@ app.post('/button', (req, res) => {
 function handleRequest(req, res, platform) {
     console.log("Inside the handleFacebook");
     let source = require('./' + platform);
-    console.log(source);
     const assistant = new DialogflowApp({ request: req, response: res });
     if (req.body.result.action === 'input.welcome') {
         console.log('Inside welcome intent');
@@ -77,6 +77,7 @@ function handleRequest(req, res, platform) {
         if (platform == 'google') {
             source.incidentCategory(assistant);
         } else {
+            console.log(source.incidentCategory());
             return res.json(source.incidentCategory());
         }
     } else if (req.body.result.action === 'incident-category') {
