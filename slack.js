@@ -265,6 +265,7 @@ var slack = {
 };
 
 module.exports = slack;
+//Type of card
 /*"data": {
                 "slack": {
                     "text": "Hi, I am Report It Bot. \n I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents",

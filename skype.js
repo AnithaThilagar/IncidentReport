@@ -303,7 +303,7 @@ var skype = {
             "\n 5) Status - " + incidentStatus + (reasonForHold != '' ? "\n 6) Reason For Hold - " + reasonForHold : '');
 
         return {
-            speech: 'Please find the incident details',
+            speech: incidentDetails,
             displayText: incidentDetails,
             source: 'reportIncidentBot'
         };

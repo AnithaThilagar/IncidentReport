@@ -77,7 +77,6 @@ function handleRequest(req, res, platform) {
         if (platform == 'google') {
             source.incidentCategory(assistant);
         } else {
-            console.log(source.incidentCategory());
             return res.json(source.incidentCategory());
         }
     } else if (req.body.result.action === 'incident-category') {
