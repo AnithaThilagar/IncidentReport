@@ -1,4 +1,5 @@
 //To handle the responses for skype
+//Use only messages, don't use data in json
 var skype = {
     //To send the welcome message for the bot as the card
     welcomeIntent: function () {
@@ -31,42 +32,20 @@ var skype = {
             ]
         };
     },
-    //To send the incident category as hero card
+    //To send the incident category as quick replies
     incidentCategory: function () {
         return {
             speech: '',
             displayText: "Hi, welcome to incident Report Bot",
             messages: [
                 {
-                    "type": 4,
+                    "type": 2,
                     "platform": "skype",
-                    "payload": {
-                        "skype": {
-                            "type": "message",
-                            "attachmentLayout": "list",
-                            "text": "",
-                            "attachments": [
-                                {
-                                    "contentType": "application/vnd.microsoft.card.hero",
-                                    "content": {
-                                        "text": "Please select any one category",
-                                        "buttons": [
-                                            {
-                                                "type": "imBack",
-                                                "title": "Hardware",
-                                                "value": "hardware"
-                                            },
-                                            {
-                                                "type": "imBack",
-                                                "title": "Software",
-                                                "value": "software"
-                                            }
-                                        ]
-                                    }
-                                }
-                            ]
-                        }
-                    }
+                    "title": "Please select any one category",
+                    "replies": [
+                        "Hardware",
+                        "Software"
+                    ]
                 }
             ],
             source: 'reportIncidentBot'
@@ -79,125 +58,137 @@ var skype = {
             return {
                 speech: '',
                 displayText: "Hi, welcome to incident Report Bot",
-                data: {
-                    "skype": {
-                        "type": "message",
-                        "attachmentLayout": "carousel",
-                        "text": "Please select the sub category",
-                        "attachments": [
-                            {
-                                "contentType": "application/vnd.microsoft.card.hero",
-                                "content": {
-                                    "title": "New Device",
-                                    "subtitle": "For requesting new device",
-                                    "images": [
-                                        {
-                                            "url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png"
-                                        }
-                                    ],
-                                    "buttons": [
-                                        {
-                                            "type": "imBack",
+                messages: [
+                    {
+                        "type": 4,
+                        "platform": "skype",
+                        "payload": {
+                            "skype": {
+                                "type": "message",
+                                "attachmentLayout": "carousel",
+                                "text": "Please select the sub category",
+                                "attachments": [
+                                    {
+                                        "contentType": "application/vnd.microsoft.card.hero",
+                                        "content": {
                                             "title": "New Device",
-                                            "value": "New Device"
+                                            "subtitle": "For requesting new device",
+                                            "images": [
+                                                {
+                                                    "url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png"
+                                                }
+                                            ],
+                                            "buttons": [
+                                                {
+                                                    "type": "imBack",
+                                                    "title": "New Device",
+                                                    "value": "New Device"
+                                                }
+                                            ]
                                         }
-                                    ]
-                                }
-                            },
-                            {
-                                "contentType": "application/vnd.microsoft.card.hero",
-                                "content": {
-                                    "title": "Damaged Device",
-                                    "subtitle": "To report if the device is damaged",
-                                    "images": [
-                                        {
-                                            "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxod-I0fuatggTIxbnHFELF6y62zwXkrzthtoVAWOmOwNQuPJusw"
-                                        }
-                                    ],
-                                    "buttons": [
-                                        {
-                                            "type": "imBack",
+                                    },
+                                    {
+                                        "contentType": "application/vnd.microsoft.card.hero",
+                                        "content": {
                                             "title": "Damaged Device",
-                                            "value": "Damaged Device"
+                                            "subtitle": "To report if the device is damaged",
+                                            "images": [
+                                                {
+                                                    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxod-I0fuatggTIxbnHFELF6y62zwXkrzthtoVAWOmOwNQuPJusw"
+                                                }
+                                            ],
+                                            "buttons": [
+                                                {
+                                                    "type": "imBack",
+                                                    "title": "Damaged Device",
+                                                    "value": "Damaged Device"
+                                                }
+                                            ]
                                         }
-                                    ]
-                                }
-                            },
-                            {
-                                "contentType": "application/vnd.microsoft.card.hero",
-                                "content": {
-                                    "title": "Replace Device",
-                                    "subtitle": "To replace the existing device",
-                                    "images": [
-                                        {
-                                            "url": "https://cdn3.iconfinder.com/data/icons/finance-and-money-1/512/arrows_currency_exchange_direction_flat_icon-512.png"
-                                        }
-                                    ],
-                                    "buttons": [
-                                        {
-                                            "type": "imBack",
+                                    },
+                                    {
+                                        "contentType": "application/vnd.microsoft.card.hero",
+                                        "content": {
                                             "title": "Replace Device",
-                                            "value": "Replace Device"
+                                            "subtitle": "To replace the existing device",
+                                            "images": [
+                                                {
+                                                    "url": "https://cdn3.iconfinder.com/data/icons/finance-and-money-1/512/arrows_currency_exchange_direction_flat_icon-512.png"
+                                                }
+                                            ],
+                                            "buttons": [
+                                                {
+                                                    "type": "imBack",
+                                                    "title": "Replace Device",
+                                                    "value": "Replace Device"
+                                                }
+                                            ]
                                         }
-                                    ]
-                                }
+                                    }
+                                ]
                             }
-                        ]
+                        }
                     }
-                }
+                ]
             };
         } else if (category == 'software') {
             //Thumbnail card
             return {
                 speech: '',
                 displayText: "Hi, welcome to incident Report Bot",
-                data: {
-                    "skype": {
-                        "type": "message",
-                        "attachmentLayout": "carousel",
-                        "text": "Please select the sub category",
-                        "attachments": [
-                            {
-                                "contentType": "application/vnd.microsoft.card.thumbnail",
-                                "content": {
-                                    "title": "Software Installation",
-                                    "subtitle": "For installing new software",
-                                    "images": [
-                                        {
-                                            "url": "http://cmpg.unibe.ch/software/BayeScan/images/Download-icon.png"
-                                        }
-                                    ],
-                                    "buttons": [
-                                        {
-                                            "type": "imBack",
+                messages: [
+                    {
+                        "type": 4,
+                        "platform": "skype",
+                        "payload": {
+                            "skype": {
+                                "type": "message",
+                                "attachmentLayout": "carousel",
+                                "text": "Please select the sub category",
+                                "attachments": [
+                                    {
+                                        "contentType": "application/vnd.microsoft.card.thumbnail",
+                                        "content": {
                                             "title": "Software Installation",
-                                            "value": "Software Installation"
+                                            "subtitle": "For installing new software",
+                                            "images": [
+                                                {
+                                                    "url": "http://cmpg.unibe.ch/software/BayeScan/images/Download-icon.png"
+                                                }
+                                            ],
+                                            "buttons": [
+                                                {
+                                                    "type": "imBack",
+                                                    "title": "Software Installation",
+                                                    "value": "Software Installation"
+                                                }
+                                            ]
                                         }
-                                    ]
-                                }
-                            },
-                            {
-                                "contentType": "application/vnd.microsoft.card.thumbnail",
-                                "content": {
-                                    "title": "Problem with installed software",
-                                    "subtitle": "To report if any problem in the software",
-                                    "images": [
-                                        {
-                                            "url": "https://cdn0.iconfinder.com/data/icons/connection/512/icon-14.png"
+                                    },
+                                    {
+                                        "contentType": "application/vnd.microsoft.card.thumbnail",
+                                        "content": {
+                                            "title": "Problem with installed software",
+                                            "subtitle": "To report if any problem in the software",
+                                            "images": [
+                                                {
+                                                    "url": "https://cdn0.iconfinder.com/data/icons/connection/512/icon-14.png"
+                                                }
+                                            ],
+                                            "buttons": [
+                                                {
+                                                    "type": "imBack",
+                                                    "title": "Software Problem",
+                                                    "value": "Software Problem"
+                                                }
+                                            ]
                                         }
-                                    ],
-                                    "buttons": [
-                                        {
-                                            "type": "imBack",
-                                            "title": "Software Problem",
-                                            "value": "Software Problem"
-                                        }
-                                    ]
-                                }
+                                    }
+                                ]
                             }
-                        ]
+                        }
                     }
-                }
+                ]
             };
         } else {
             let msg = "Others";
@@ -214,38 +205,44 @@ var skype = {
         return {
             speech: '',
             displayText: "Hi, welcome to incident Report Bot",
-            data: {
-                "skype": {
-                    "type": "message",
-                    "attachmentLayout": "list",
-                    "text": "",
-                    "attachments": [
-                        {
-                            "contentType": "application/vnd.microsoft.card.hero",
-                            "content": {
-                                "text": "Please select any one urgency or type skip to proceed",
-                                "buttons": [
-                                    {
-                                        "type": "imBack",
-                                        "title": "High",
-                                        "value": "High"
-                                    },
-                                    {
-                                        "type": "imBack",
-                                        "title": "Medium",
-                                        "value": "Medium"
-                                    },
-                                    {
-                                        "type": "imBack",
-                                        "title": "Low",
-                                        "value": "Low"
+            messages: [
+                {
+                    "type": 4,
+                    "platform": "skype",
+                    "payload": {
+                        "skype": {
+                            "type": "message",
+                            "attachmentLayout": "list",
+                            "text": "",
+                            "attachments": [
+                                {
+                                    "contentType": "application/vnd.microsoft.card.hero",
+                                    "content": {
+                                        "text": "Please select any one urgency or type skip to proceed",
+                                        "buttons": [
+                                            {
+                                                "type": "imBack",
+                                                "title": "High",
+                                                "value": "High"
+                                            },
+                                            {
+                                                "type": "imBack",
+                                                "title": "Medium",
+                                                "value": "Medium"
+                                            },
+                                            {
+                                                "type": "imBack",
+                                                "title": "Low",
+                                                "value": "Low"
+                                            }
+                                        ]
                                     }
-                                ]
-                            }
+                                }
+                            ]
                         }
-                    ]
+                    }
                 }
-            },
+            ],
             source: 'reportIncidentBot'
         };
     },
@@ -254,33 +251,39 @@ var skype = {
         return {
             speech: '',
             displayText: "Hi, welcome to incident Report Bot",
-            data: {
-                "skype": {
-                    "type": "message",
-                    "attachmentLayout": "list",
-                    "text": "",
-                    "attachments": [
-                        {
-                            "contentType": "application/vnd.microsoft.card.hero",
-                            "content": {
-                                "text": "Please select any one mode of contact",
-                                "buttons": [
-                                    {
-                                        "type": "imBack",
-                                        "title": "Phone",
-                                        "value": "Phone"
-                                    },
-                                    {
-                                        "type": "imBack",
-                                        "title": "Email",
-                                        "value": "Email"
+            messages: [
+                {
+                    "type": 4,
+                    "platform": "skype",
+                    "payload": {
+                        "skype": {
+                            "type": "message",
+                            "attachmentLayout": "list",
+                            "text": "",
+                            "attachments": [
+                                {
+                                    "contentType": "application/vnd.microsoft.card.hero",
+                                    "content": {
+                                        "text": "Please select any one mode of contact",
+                                        "buttons": [
+                                            {
+                                                "type": "imBack",
+                                                "title": "Phone",
+                                                "value": "Phone"
+                                            },
+                                            {
+                                                "type": "imBack",
+                                                "title": "Email",
+                                                "value": "Email"
+                                            }
+                                        ]
                                     }
-                                ]
-                            }
+                                }
+                            ]
                         }
-                    ]
+                    }
                 }
-            },
+            ],
             source: 'reportIncidentBot'
         };
     },
