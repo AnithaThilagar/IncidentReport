@@ -63,6 +63,7 @@ app.post('/button', (req, res) => {
 function handleRequest(req, res, platform) {
     console.log("Inside the handleFacebook");
     let source = require('./' + platform);
+    console.log(source);
     const assistant = new DialogflowApp({ request: req, response: res });
     if (req.body.result.action === 'input.welcome') {
         console.log('Inside welcome intent');
