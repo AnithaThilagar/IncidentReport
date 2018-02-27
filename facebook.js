@@ -17,14 +17,12 @@ var facebook = {
                                     "template_type": "generic",
                                     "elements": [
                                         {
-                                            "title": "Login",
+                                            "title": "Welcome to Account Linking",
                                             "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtQU8hwrsJr_AktjRvmILI65byo80C_o5-ajXxn05mEoIdqzs9ug",
-                                            "subtitle": "Login to Gmail",
                                             "buttons": [
                                                 {
-                                                    "type": "web_url",
-                                                    "url": "https://www.gmail.com/",
-                                                    "title": "Login"
+                                                    "type": "account_link",
+                                                    "url": "https://www.gmail.com/"
                                                 }
                                             ]
                                         }
