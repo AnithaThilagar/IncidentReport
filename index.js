@@ -21,7 +21,7 @@ let userData = {};
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     console.log("Inside the API handle ");
-    console.log(.body.originalRequest);
+    console.log(req.body.originalRequest);
     let source = '';
     if (typeof req.body.originalRequest != "undefined") {
         console.log(req.body.originalRequest.source);
