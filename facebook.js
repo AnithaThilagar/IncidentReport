@@ -18,7 +18,7 @@ var facebook = {
                                     "elements": [
                                         {
                                             "title": "Login",
-                                            "image_url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png",
+                                            "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtQU8hwrsJr_AktjRvmILI65byo80C_o5-ajXxn05mEoIdqzs9ug",
                                             "subtitle": "Login to Gmail",
                                             "buttons": [
                                                 {
