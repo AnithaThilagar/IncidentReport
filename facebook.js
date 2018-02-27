@@ -3,28 +3,38 @@ var facebook = {
     //To send the welcome message for the bot as the card
     welcomeIntent: function () {
         return {
-            "facebook": {
-                "attachment": {
-                    "type": "template",
+            speech: '',
+            displayText: '',
+            messages: [
+                {
+                    "type": 4,
+                    "platform": "facebook",
                     "payload": {
-                        "template_type": "generic",
-                        "elements": [
-                            {
-                                "title": "Login",
-                                "image_url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png",
-                                "subtitle": "Login to Gmail",
-                                "buttons": [
-                                    {
-                                        "type": "web_url",
-                                        "url": "https://accounts.google.com/signin",
-                                        "title": "Login"
-                                    }
-                                ]
+                        "facebook": {
+                            "attachment": {
+                                "type": "template",
+                                "payload": {
+                                    "template_type": "generic",
+                                    "elements": [
+                                        {
+                                            "title": "Login",
+                                            "image_url": "https://cdn3.iconfinder.com/data/icons/phones-set-2/512/27-512.png",
+                                            "subtitle": "Login to Gmail",
+                                            "buttons": [
+                                                {
+                                                    "type": "web_url",
+                                                    "url": "https://www.gmail.com/",
+                                                    "title": "Login"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                             }
-                        ]
+                        }
                     }
                 }
-            }
+            ]
         };
         /*return {
             speech: '',
