@@ -36,7 +36,7 @@ app.post('/ai', (req, res) => {
 //To handle the message button click in the slack app
 app.post('/button', (req, res) => {
     console.log("Inside POST ");
-    console.log(req);
+    console.log(req.body.originalRequest);
     res.status(200).end();
     var actionJSONPayload = JSON.parse(req.body.payload) // parse URL-encoded payload JSON string
     var message = {
