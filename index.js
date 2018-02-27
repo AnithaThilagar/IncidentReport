@@ -21,7 +21,7 @@ let userData = {};
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     console.log("Inside the API handle ");
-    console.log(req);
+    console.log(.body.originalRequest);
     let source = '';
     if (typeof req.body.originalRequest != "undefined") {
         console.log(req.body.originalRequest.source);
@@ -36,7 +36,7 @@ app.post('/ai', (req, res) => {
 //To handle the message button click in the slack app
 app.post('/button', (req, res) => {
     console.log("Inside POST ");
-    console.log(req.body.originalRequest);
+    console.log(req);
     res.status(200).end();
     var actionJSONPayload = JSON.parse(req.body.payload) // parse URL-encoded payload JSON string
     var message = {
