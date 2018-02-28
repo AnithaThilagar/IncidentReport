@@ -80,14 +80,12 @@ app.get('/login', passport.authenticate('auth0', {
 //To check the callback url
 app.get('/callback', (req, res) => {
     console.log("Inside the callback url!!!");
-    console.log(req);
-	/*passport.authenticate('auth0', {
-		failureRedirect: '/failure'
-	}),
+    passport.authenticate('auth0', {}),
 	function(req, res) {
 		console.log("After callback auth");
+		console.log(req);
 		res.redirect('/user');
-	}*/
+	}
 })
 
 //To handle the message button click in the slack app
