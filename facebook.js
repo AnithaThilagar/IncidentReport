@@ -3,7 +3,42 @@ var facebook = {
     //To send the welcome message for the bot as the card
     //"url": "https://report-it.auth0.com/login?client=4hm1dkhFoPFwBkCHYdvHqD2uAMtWdsKK"
     welcomeIntent: function () {
-        return {
+		return {
+            speech: '',
+            displayText: '',
+            messages: [
+                {
+                    "type": 0,
+                    "platform": "facebook",
+                    "speech": "Hi, I am Report It Bot. \n I can help you with the following.\n 1) To report an incident in your organization \n 2) To view the status of the incidents \n 3) Add comments to the incidents \n Please login to your google account"
+                },
+                {
+                    "type": 4,
+                    "platform": "facebook",
+                    "payload": {
+                        "facebook": {
+                            "attachment": {
+                                "type": "template",
+                                "payload": {
+                                    "template_type": "generic",
+                                    "elements": [
+                                        {
+                                            "buttons": [
+                                                {
+                                                    "type": "account_link",
+                                                    "url": "https://report-incident-bot.herokuapp.com/login"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        };
+        /*return {
             speech: '',
             displayText: '',
             messages: [
@@ -34,7 +69,7 @@ var facebook = {
                     }
                 }
             ]
-        };
+        };*/
         /*return {
             speech: '',
             displayText: '',
@@ -64,6 +99,37 @@ var facebook = {
             ]
         };*/
     },
+	//To send the options after login
+	sendOptions: function(userName){
+		return {
+            speech: '',
+            displayText: '',
+            messages: [
+                {
+                    "type": 0,
+                    "platform": "facebook",
+                    "speech": "Hi "+userName+", Please select any one of the following to continue"
+                },
+                {
+                    "type": 1,
+                    "platform": "facebook",
+                    "title": "Report It",
+                    "subtitle": "Report It - To sort it",
+                    "imageUrl": "https://mgtvwlns.files.wordpress.com/2015/05/reportit-logo5b35d.jpg",
+                    "buttons": [
+                        {
+                            "text": "Report Incident",
+                            "postback": "Report Incident"
+                        },
+                        {
+                            "text": "My Incident",
+                            "postback": "My Incident"
+                        }
+                    ]
+                }
+            ]
+        };
+	},
     //To send the incident category as quick replies
     incidentCategory: function () {
         return {

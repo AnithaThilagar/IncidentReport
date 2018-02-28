@@ -8,7 +8,6 @@ const express = require('express'),
     serviceNow = require('./serviceNow'),
     DialogflowApp = require('actions-on-google').DialogflowApp,
     passport = require('passport'),
-	passport2 = require('passport'),
     Auth0Strategy = require('passport-auth0');
 
 // This will configure Passport to use Auth0
@@ -67,7 +66,7 @@ app.post('/ai', (req, res) => {
 });
 
 //To handle the authentication
-app.get('/login', passport2.authenticate('auth0', {
+app.get('/login', passport.authenticate('auth0', {
     clientID: config.authOClientId,
     domain: config.authODomain,
     redirectUri: config.authOCallbackUrl,
@@ -83,7 +82,8 @@ app.get('/callback', passport.authenticate('auth0', {}),
 	function (req, res) {
 	console.log('Inside auth');
 	console.log(req);
-	res.redirect('/');
+	let facebook = require('./facebook');
+	facebook.sendOptions(req.user.name);
 });
 
 //To handle the message button click in the slack app
