@@ -79,6 +79,7 @@ app.get('/login', passport.authenticate('auth0', {
 app.get('/callback', (req, res) => {
     console.log("Inside the callback url!!!");
     passport.authenticate('auth0', {
+		console.log('Inside auth--');
 		failureRedirect: '/failure'
 	}),
 	function(req, res) {
