@@ -40,6 +40,8 @@ passport.deserializeUser(function (user, done) {
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 const server = app.listen(process.env.PORT || 5000, () => {
     console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
@@ -78,15 +80,14 @@ app.get('/login', passport.authenticate('auth0', {
 //To check the callback url
 app.get('/callback', (req, res) => {
     console.log("Inside the callback url!!!");
-    passport.authenticate('auth0', {
-		console.log('Inside auth--');
+    console.log(req);
+	/*passport.authenticate('auth0', {
 		failureRedirect: '/failure'
 	}),
 	function(req, res) {
 		console.log("After callback auth");
-		console.log(req);
 		res.redirect('/user');
-	}
+	}*/
 })
 
 //To handle the message button click in the slack app
