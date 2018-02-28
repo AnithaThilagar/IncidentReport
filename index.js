@@ -81,6 +81,8 @@ app.get('/login', passport2.authenticate('auth0', {
 //To check the callback url
 app.get('/callback', passport.authenticate('auth0', {}), 
 	function (req, res) {
+	console.log('Inside auth');
+	console.log(req);
 	res.redirect('/');
 });
 
