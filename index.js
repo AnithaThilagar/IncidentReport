@@ -23,7 +23,6 @@ let userData = {};
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     console.log("Inside the API handle ");
-    console.log(req);
     //console.log(req.body.originalRequest.data.sender.id);
     //https://graph.facebook.com/v2.6/1852986861441612?access_token=EAAFwXfBX3n4BAPyrwV5cq8pOHaYPu8KKOrAiyz14lDtTlBCgu3cbs5tqsFNd5HItSyng3qUZCecWMANWDorPDQvFkhsH0KZCqMiFLJEpf6l86PpKVFW0EiS40iHqi4T7F7pSVUgOSlDzonItWpSogOW7fwgzw0884PTeZBYUQZDZD
     let source = '';
@@ -40,6 +39,7 @@ app.post('/ai', (req, res) => {
 //To check the callback url
 app.get('/callback', (req, res) => {
     console.log("Inside the callback url!!!");
+    console.log(req);
 })
 
 //To handle the message button click in the slack app
