@@ -72,13 +72,15 @@ app.get('/login', passport.authenticate('auth0', {
     audience: 'https://' + config.authODomain + '/userinfo',
     scope: 'openid profile'
 }), function (req, res) {
-    res.direct(config.authOCallbackUrl);
+	res.direct(config.authOCallbackUrl);
 });
 
 //To check the callback url
 app.get('/callback', (req, res) => {
     console.log("Inside the callback url!!!");
     console.log(req);
+	console.log("After req**");
+	console.log(res);
 })
 
 //To handle the message button click in the slack app
