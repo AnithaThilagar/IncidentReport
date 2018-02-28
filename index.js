@@ -36,6 +36,18 @@ app.post('/ai', (req, res) => {
     handleRequest(req, res, source);
 });
 
+//To handle the authentication
+app.get('/login', passport.authenticate('auth0', {
+    clientID: config.authOClientId,
+    domain: config.authODomain,
+    redirectUri: config.authOCallbackUrl,
+    responseType: 'code',
+    audience: 'https://' + config.authODomain + '/userinfo',
+    scope: 'openid profile'
+}), function (req, res) {
+    res.direct(config.authOCallbackUrl);
+});
+
 //To check the callback url
 app.get('/callback', (req, res) => {
     console.log("Inside the callback url!!!");
