@@ -10,6 +10,33 @@ const express = require('express'),
     passport = require('passport'),
     Auth0Strategy = require('passport-auth0');
 
+// This will configure Passport to use Auth0
+const strategy = new Auth0Strategy(
+    {
+        domain: config.authODomain,
+        clientID: config.authOClientId,
+        clientSecret: config.authOClientSecretKey,
+        callbackURL:config.authOCallbackUrl
+    },
+    function (accessToken, refreshToken, extraParams, profile, done) {
+        // accessToken is the token to call Auth0 API (not needed in the most cases)
+        // extraParams.id_token has the JSON Web Token
+        // profile has all the information from the user
+        return done(null, profile);
+    }
+);
+
+passport.use(strategy);
+
+// you can use this section to keep a smaller payload
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+    done(null, user);
+});
+
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
