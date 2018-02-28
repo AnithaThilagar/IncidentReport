@@ -6,7 +6,9 @@ const express = require('express'),
     request = require('request'),
     config = require('./config'),
     serviceNow = require('./serviceNow'),
-    DialogflowApp = require('actions-on-google').DialogflowApp;
+    DialogflowApp = require('actions-on-google').DialogflowApp,
+    passport = require('passport'),
+    Auth0Strategy = require('passport-auth0');
 
 const app = express();
 app.use(bodyParser.json());
@@ -34,6 +36,11 @@ app.post('/ai', (req, res) => {
     }
     handleRequest(req, res, source);
 });
+
+//To check the callback url
+app.get('/callback', (req, res) => {
+    console.log("Inside the callback url!!!");
+})
 
 //To handle the message button click in the slack app
 app.post('/button', (req, res) => {

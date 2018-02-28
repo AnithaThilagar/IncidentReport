@@ -17,12 +17,12 @@ var facebook = {
                                     "template_type": "generic",
                                     "elements": [
                                         {
-                                            "title": "Welcome to Account Linking",
-                                            "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtQU8hwrsJr_AktjRvmILI65byo80C_o5-ajXxn05mEoIdqzs9ug",
+                                            "title": "Google",
+                                            "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Google-plus-circle-icon-png.png",
                                             "buttons": [
                                                 {
                                                     "type": "account_link",
-                                                    "url": "https://www.gmail.com/"
+                                                    "url": "https://report-it.auth0.com/login?client=4hm1dkhFoPFwBkCHYdvHqD2uAMtWdsKK"
                                                 }
                                             ]
                                         }
