@@ -21,8 +21,8 @@ var facebook = {
                                             "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Google-plus-circle-icon-png.png",
                                             "buttons": [
                                                 {
-                                                    "type": "web_url",
-                                                    "url": "https://report-it.auth0.com/login?client=4hm1dkhFoPFwBkCHYdvHqD2uAMtWdsKK&redirect_uri=https://report-incident-bot.herokuapp.com/callback"
+                                                    "type": "account_link",
+                                                    "url": "https://report-it.auth0.com/login?client=4hm1dkhFoPFwBkCHYdvHqD2uAMtWdsKK"
                                                 }
                                             ]
                                         }
