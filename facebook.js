@@ -29,7 +29,7 @@ var facebook = {
                                             "buttons": [
                                                 {
                                                     "type": "account_link",
-                                                    "url": "https://report-it.auth0.com/login?client=4hm1dkhFoPFwBkCHYdvHqD2uAMtWdsKK"
+                                                    "url": "https://report-incident-bot.herokuapp.com/login"
                                                 }
                                             ]
                                         }
