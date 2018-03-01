@@ -89,8 +89,8 @@ app.get('/authorize', passport.authenticate('auth0', {
 }));
 
 app.get('/login', function (req, res) {
-    senderId = req.body.originalRequest.data.sender.id;
-    console.log('Body '+req.body);
+    //senderId = req.body.originalRequest.data.sender.id;
+    console.log('Body ' + req.body.originalRequest);
     console.log('Query '+req.query);
     accountLinkingToken = req.query.account_linking_token;
     redirectURI = req.query.redirect_uri;
