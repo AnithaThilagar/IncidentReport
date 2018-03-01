@@ -111,7 +111,7 @@ app.get('/callback', passport.authenticate('auth0', {}),
         //facebook.sendOptions(req.user.name);
         //console.log(redirectURI + "&authorization_code=34s4f545");
         //res.redirect(redirectURI + "&authorization_code=34s4f545");
-        const query = Object.assign({ access_token: config.facebookPageAccessToken }, {});
+        const query = Object.assign({ access_token: 'EAAFwXfBX3n4BAPyrwV5cq8pOHaYPu8KKOrAiyz14lDtTlBCgu3cbs5tqsFNd5HItSyng3qUZCecWMANWDorPDQvFkhsH0KZCqMiFLJEpf6l86PpKVFW0EiS40iHqi4T7F7pSVUgOSlDzonItWpSogOW7fwgzw0884PTeZBYUQZDZD' }, {});
         /* eslint-enable camelcase */
         request({
             uri: config.facebookMessageUri,
