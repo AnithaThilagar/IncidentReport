@@ -8,8 +8,7 @@ const express = require('express'),
     serviceNow = require('./serviceNow'),
     DialogflowApp = require('actions-on-google').DialogflowApp,
     passport = require('passport'),
-    Auth0Strategy = require('passport-auth0'),
-    request = require('request');
+    Auth0Strategy = require('passport-auth0');
 
 // This will configure Passport to use Auth0
 const strategy = new Auth0Strategy(
