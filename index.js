@@ -85,7 +85,7 @@ app.post('/ai', (req, res) => {
 app.get('/login', function (req, res) {
     accountLinkingToken = req.query.account_linking_token;
     redirectURI = req.query.redirect_uri;
-    res.direct('https://report-it.auth0.com/login?client=4hm1dkhFoPFwBkCHYdvHqD2uAMtWdsKK');
+    res.redirect('https://report-it.auth0.com/login?client=4hm1dkhFoPFwBkCHYdvHqD2uAMtWdsKK');
 });
 
 //To check the callback url
