@@ -92,6 +92,7 @@ app.get('/login', function (req, res) {
 app.get('/callback', function (req, res) {
     console.log('Inside callback!!!');
     console.log(req);
+    res.redirect(redirectURI +"&authorization_code=34s4f545");
 });
 
 /*app.get('/callback', passport.authenticate('auth0', {}), 
