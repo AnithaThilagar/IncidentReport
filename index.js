@@ -127,7 +127,7 @@ app.get('/callback', passport.authenticate('auth0', {}),
                     {
                         "type": 0,
                         "platform": "facebook",
-                        "speech": "Hi " + req.user.Profile.displayName + ", Please select any one of the following to continue"
+                        "speech": "Hi " + JSON.stringify(req.user.Profile) + ", Please select any one of the following to continue"
                     },
                     {
                         "type": 1,
