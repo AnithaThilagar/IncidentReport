@@ -65,7 +65,7 @@ app.post('/webhook', function (req, res) {
 app.post('/ai', (req, res) => {
     console.log("Inside the API handle ");
     //https://www.facebook.com/messenger_platform/account_linking/?account_linking_token=ARTSn2TcyrAdNLZWWcYzqzdyYqGXVe9Bk1cZ6r2P3joyh46VIGglcrYl3Wo5b3YaA0LS5a6SXldNUPpB0ENqklVYP7gx4oG94A632rPl4HPuTw&code=EhbKDHlakAzGmjbt#
-    //console.log(req.body.originalRequest.data.sender.id);
+    console.log(req.body.originalRequest.data.sender.id);
     //https://graph.facebook.com/v2.6/1852986861441612?access_token=EAAFwXfBX3n4BAPyrwV5cq8pOHaYPu8KKOrAiyz14lDtTlBCgu3cbs5tqsFNd5HItSyng3qUZCecWMANWDorPDQvFkhsH0KZCqMiFLJEpf6l86PpKVFW0EiS40iHqi4T7F7pSVUgOSlDzonItWpSogOW7fwgzw0884PTeZBYUQZDZD
     let source = '';
     if (typeof req.body.originalRequest != "undefined") {
@@ -89,7 +89,7 @@ app.get('/authorize', passport.authenticate('auth0', {
 }));
 
 app.get('/login', function (req, res) {
-    senderId = req.body.originalRequest.data.sender.id;
+    //senderId = req.body.originalRequest.data.sender.id;
     console.log('Query ' + JSON.stringify(req.query));
     accountLinkingToken = req.query.account_linking_token;
     redirectURI = req.query.redirect_uri;
