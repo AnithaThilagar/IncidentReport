@@ -49,7 +49,7 @@ const server = app.listen(process.env.PORT || 5000, () => {
 
 let userData = {};
 
-const accountLinkingToken, redirectURI;
+let accountLinkingToken, redirectURI;
 
 //To handle the response to bot
 app.post('/ai', (req, res) => {
