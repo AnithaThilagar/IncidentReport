@@ -122,6 +122,7 @@ app.get('/callback', passport.authenticate('auth0', {}),
                 recipient: {
                     id: senderId,
                 },
+                message: "Hi " + JSON.stringify(req.user.Profile),
                 speech: '',
                 displayText: '',
                 messages: [
@@ -129,23 +130,6 @@ app.get('/callback', passport.authenticate('auth0', {}),
                         "type": 0,
                         "platform": "facebook",
                         "speech": "Hi " + JSON.stringify(req.user.Profile) + ", Please select any one of the following to continue"
-                    },
-                    {
-                        "type": 1,
-                        "platform": "facebook",
-                        "title": "Report It",
-                        "subtitle": "Report It - To sort it",
-                        "imageUrl": "https://mgtvwlns.files.wordpress.com/2015/05/reportit-logo5b35d.jpg",
-                        "buttons": [
-                            {
-                                "text": "Report Incident",
-                                "postback": "Report Incident"
-                            },
-                            {
-                                "text": "My Incident",
-                                "postback": "My Incident"
-                            }
-                        ]
                     }
                 ]
             },
