@@ -49,7 +49,7 @@ const server = app.listen(process.env.PORT || 5000, () => {
 
 let userData = {};
 
-let accountLinkingToken, redirectURI;
+let accountLinkingToken, redirectURI, requestObject;
 
 app.get('/', function (req, res) {
     console.log('Inside get method');
@@ -89,6 +89,7 @@ app.get('/authorize', passport.authenticate('auth0', {
 }));
 
 app.get('/login', function (req, res) {
+    requestObject = res;
     console.log('Body '+req.body);
     console.log('Query '+req.query);
     accountLinkingToken = req.query.account_linking_token;
@@ -110,7 +111,8 @@ app.get('/callback', passport.authenticate('auth0', {}),
 	//let facebook = require('./facebook');
     //facebook.sendOptions(req.user.name);
     console.log(redirectURI + "&authorization_code=34s4f545");
-    res.redirect(redirectURI +"&authorization_code=34s4f545");
+    res.redirect(redirectURI + "&authorization_code=34s4f545");
+    requestObject.json(facebook.sendOptions(req.user.Profile.displayName));
 });
 
 //To handle the message button click in the slack app
