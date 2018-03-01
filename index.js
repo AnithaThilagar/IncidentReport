@@ -100,7 +100,8 @@ app.get('/callback', passport.authenticate('auth0', {}),
 	console.log('Inside auth');
 	console.log(req);
 	//let facebook = require('./facebook');
-	//facebook.sendOptions(req.user.name);
+    //facebook.sendOptions(req.user.name);
+    console.log(redirectURI + "&authorization_code=34s4f545");
     res.redirect(redirectURI +"&authorization_code=34s4f545");
 });
 
