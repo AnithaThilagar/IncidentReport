@@ -122,7 +122,9 @@ app.get('/callback', passport.authenticate('auth0', {}),
                 recipient: {
                     id: senderId,
                 },
-                message: "Hi " + JSON.stringify(req.user.Profile),
+                message: {
+                    text: "Hi " + JSON.stringify(req.user.Profile),
+                },
                 speech: '',
                 displayText: '',
                 messages: [
