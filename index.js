@@ -162,8 +162,7 @@ app.get('/callback', passport.authenticate('auth0', {}),
                     `Failed calling Messenger API endpoint messages`,
                     response.statusCode,
                     response.statusMessage,
-                    body.error,
-                    queryParams
+                    body.error
                 );
             }
         }
