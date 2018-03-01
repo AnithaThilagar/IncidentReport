@@ -67,7 +67,7 @@ app.post('/ai', (req, res) => {
 });
 
 //To handle the authentication
-app.get('/login', passport.authenticate('auth0', {
+/*app.get('/login', passport.authenticate('auth0', {
     clientID: config.authOClientId,
     domain: config.authODomain,
     redirectUri: config.authOCallbackUrl,
@@ -78,6 +78,19 @@ app.get('/login', passport.authenticate('auth0', {
     console.log('Inside login');
     console.log(req);
 	res.direct(config.authOCallbackUrl);
+});*/
+
+app.get('/login', function (req, res) {
+    console.log('Inside login');
+    console.log(req);
+    passport.authenticate('auth0', {
+        clientID: config.authOClientId,
+        domain: config.authODomain,
+        redirectUri: config.authOCallbackUrl,
+        responseType: 'code',
+        audience: 'https://' + config.authODomain + '/userinfo',
+        scope: 'openid profile'
+    });
 });
 
 //To check the callback url
