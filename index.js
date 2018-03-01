@@ -69,7 +69,7 @@ app.post('/ai', (req, res) => {
 });
 
 //To handle the authentication
-/*app.get('/login', passport.authenticate('auth0', {
+app.get('/authorize', passport.authenticate('auth0', {
     clientID: config.authOClientId,
     domain: config.authODomain,
     redirectUri: config.authOCallbackUrl,
@@ -80,28 +80,29 @@ app.post('/ai', (req, res) => {
     console.log('Inside login');
     console.log(req);
 	res.direct(config.authOCallbackUrl);
-});*/
+});
 
 app.get('/login', function (req, res) {
     accountLinkingToken = req.query.account_linking_token;
     redirectURI = req.query.redirect_uri;
-    res.redirect('https://report-it.auth0.com/login?client=4hm1dkhFoPFwBkCHYdvHqD2uAMtWdsKK');
+    res.redirect('/authorize');
 });
 
 //To check the callback url
-app.get('/callback', function (req, res) {
+/*app.get('/callback', function (req, res) {
     console.log('Inside callback!!!');
     console.log(req);
     res.redirect(redirectURI +"&authorization_code=34s4f545");
-});
+});*/
 
-/*app.get('/callback', passport.authenticate('auth0', {}), 
+app.get('/callback', passport.authenticate('auth0', {}), 
 	function (req, res) {
 	console.log('Inside auth');
 	console.log(req);
-	let facebook = require('./facebook');
-	facebook.sendOptions(req.user.name);
-});*/
+	//let facebook = require('./facebook');
+	//facebook.sendOptions(req.user.name);
+    res.redirect(redirectURI +"&authorization_code=34s4f545");
+});
 
 //To handle the message button click in the slack app
 app.post('/button', (req, res) => {
