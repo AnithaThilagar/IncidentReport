@@ -104,71 +104,72 @@ app.get('/login', function (req, res) {
     res.redirect(redirectURI +"&authorization_code=34s4f545");
 });*/
 
-app.get('/callback', passport.authenticate('auth0', {}), 
-	function (req, res) {
-	console.log('Inside auth');
-	console.log(req);
-	//let facebook = require('./facebook');
-    //facebook.sendOptions(req.user.name);
-    //console.log(redirectURI + "&authorization_code=34s4f545");
-    //res.redirect(redirectURI + "&authorization_code=34s4f545");
-    const query = Object.assign({ access_token: config.facebookPageAccessToken }, {});
-    /* eslint-enable camelcase */    
-    request({
-        uri: config.facebookMessageUri,
-        qs: query,
-        method: 'POST',
-        json: {
-            recipient: {
-                id: senderId,
-            },
-            speech: '',
-            displayText: '',
-            messages: [
-                {
-                    "type": 0,
-                    "platform": "facebook",
-                    "speech": "Hi " + req.user.Profile.displayName + ", Please select any one of the following to continue"
+app.get('/callback', passport.authenticate('auth0', {}),
+    function (req, res) {
+        console.log('Inside auth');
+        console.log(req);
+        //let facebook = require('./facebook');
+        //facebook.sendOptions(req.user.name);
+        //console.log(redirectURI + "&authorization_code=34s4f545");
+        //res.redirect(redirectURI + "&authorization_code=34s4f545");
+        const query = Object.assign({ access_token: config.facebookPageAccessToken }, {});
+        /* eslint-enable camelcase */
+        request({
+            uri: config.facebookMessageUri,
+            qs: query,
+            method: 'POST',
+            json: {
+                recipient: {
+                    id: senderId,
                 },
-                {
-                    "type": 1,
-                    "platform": "facebook",
-                    "title": "Report It",
-                    "subtitle": "Report It - To sort it",
-                    "imageUrl": "https://mgtvwlns.files.wordpress.com/2015/05/reportit-logo5b35d.jpg",
-                    "buttons": [
-                        {
-                            "text": "Report Incident",
-                            "postback": "Report Incident"
-                        },
-                        {
-                            "text": "My Incident",
-                            "postback": "My Incident"
-                        }
-                    ]
-                }
-            ]
-        },
+                speech: '',
+                displayText: '',
+                messages: [
+                    {
+                        "type": 0,
+                        "platform": "facebook",
+                        "speech": "Hi " + req.user.Profile.displayName + ", Please select any one of the following to continue"
+                    },
+                    {
+                        "type": 1,
+                        "platform": "facebook",
+                        "title": "Report It",
+                        "subtitle": "Report It - To sort it",
+                        "imageUrl": "https://mgtvwlns.files.wordpress.com/2015/05/reportit-logo5b35d.jpg",
+                        "buttons": [
+                            {
+                                "text": "Report Incident",
+                                "postback": "Report Incident"
+                            },
+                            {
+                                "text": "My Incident",
+                                "postback": "My Incident"
+                            }
+                        ]
+                    }
+                ]
+            },
 
-    }, (error, response, body) => {
-        if (!error && response.statusCode === 200) {
-            // Message has been successfully received by Facebook.
-            console.log(
-                `Successfully sent message to messages endpoint: `,
-                JSON.stringify(body)
-            );
-        } else {
-            // Message has not been successfully received by Facebook.
-            console.error(
-                `Failed calling Messenger API endpoint messages`,
-                response.statusCode,
-                response.statusMessage,
-                body.error,
-                queryParams
-            );
+        }, (error, response, body) => {
+            if (!error && response.statusCode === 200) {
+                // Message has been successfully received by Facebook.
+                console.log(
+                    `Successfully sent message to messages endpoint: `,
+                    JSON.stringify(body)
+                );
+            } else {
+                // Message has not been successfully received by Facebook.
+                console.error(
+                    `Failed calling Messenger API endpoint messages`,
+                    response.statusCode,
+                    response.statusMessage,
+                    body.error,
+                    queryParams
+                );
+            }
         }
-        }
-    );
+        );
+    });
 
 //To handle the message button click in the slack app
 app.post('/button', (req, res) => {
