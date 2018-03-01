@@ -51,12 +51,12 @@ let userData = {};
 
 let accountLinkingToken, redirectURI, requestObject;
 
-app.get('/', function (req, res) {
+app.get('/webhook', function (req, res) {
     console.log('Inside get method');
     console.log(req);
 });
 
-app.post('/', function (req, res) {
+app.post('/webhook', function (req, res) {
     console.log('Inside post method');
     console.log(req.body);
 });
