@@ -93,6 +93,7 @@ app.get('/callback', function (req, res) {
     console.log('Inside callback!!!');
     console.log(req);
 });
+
 /*app.get('/callback', passport.authenticate('auth0', {}), 
 	function (req, res) {
 	console.log('Inside auth');
