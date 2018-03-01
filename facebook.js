@@ -30,6 +30,9 @@ var facebook = {
                                                 {
                                                     "type": "account_link",
                                                     "url": "https://report-incident-bot.herokuapp.com/login"
+                                                },
+                                                {
+                                                    "type": "account_unlink"
                                                 }
                                             ]
                                         }
