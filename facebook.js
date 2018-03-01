@@ -24,6 +24,8 @@ var facebook = {
                                     "template_type": "generic",
                                     "elements": [
                                         {
+                                            "title": "Google",
+                                            "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Google-plus-circle-icon-png.png",
                                             "buttons": [
                                                 {
                                                     "type": "account_link",
