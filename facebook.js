@@ -1,10 +1,8 @@
 //To handle the responses for facebook
 var facebook = {
     //To send the welcome message for the bot as the card
-    //"url": "https://report-it.auth0.com/login?client=4hm1dkhFoPFwBkCHYdvHqD2uAMtWdsKK"
-    //"url": "https://report-incident-bot.herokuapp.com/login"
     welcomeIntent: function () {
-		return {
+		/*return {
             speech: '',
             displayText: '',
             messages: [
@@ -43,40 +41,8 @@ var facebook = {
                     }
                 }
             ]
-        };
-        /*return {
-            speech: '',
-            displayText: '',
-            messages: [
-                {
-                    "type": 4,
-                    "platform": "facebook",
-                    "payload": {
-                        "facebook": {
-                            "attachment": {
-                                "type": "template",
-                                "payload": {
-                                    "template_type": "generic",
-                                    "elements": [
-                                        {
-                                            "title": "Google",
-                                            "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Google-plus-circle-icon-png.png",
-                                            "buttons": [
-                                                {
-                                                    "type": "account_link",
-                                                    "url": "https://report-incident-bot.herokuapp.com/login"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            ]
         };*/
-        /*return {
+        return {
             speech: '',
             displayText: '',
             messages: [
@@ -103,7 +69,7 @@ var facebook = {
                     ]
                 }
             ]
-        };*/
+        };
     },
 	//To send the options after login
 	sendOptions: function(userName){
