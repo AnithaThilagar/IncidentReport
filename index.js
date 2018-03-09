@@ -89,34 +89,17 @@ app.get('/login', function (req, res) {
 //To check the callback url
 app.get('/callback', passport.authenticate('auth0', {}),
     function (req, res) {
-        console.log('Inside auth ' + req.user.displayName);
+        console.log('Inside auth ');
         //let facebook = require('./facebook');
         //facebook.sendOptions(req.user.name);
-        //console.log(redirectURI + "&authorization_code=34s4f545");
-        //res.redirect(redirectURI + "&authorization_code=34s4f545");
+        console.log(redirectURI + "&authorization_code=34s4f545");
         const query = Object.assign({ access_token: 'EAAFwXfBX3n4BAPyrwV5cq8pOHaYPu8KKOrAiyz14lDtTlBCgu3cbs5tqsFNd5HItSyng3qUZCecWMANWDorPDQvFkhsH0KZCqMiFLJEpf6l86PpKVFW0EiS40iHqi4T7F7pSVUgOSlDzonItWpSogOW7fwgzw0884PTeZBYUQZDZD' }, {});
         /* eslint-enable camelcase */
         request({
             uri: config.facebookMessageUri,
             qs: query,
             method: 'POST',
-            json: {
-                recipient: {
-                    id: senderId,
-                },
-                message: {
-                    text: "Hi " + JSON.stringify(req.user.Profile),
-                },
-                speech: '',
-                displayText: '',
-                messages: [
-                    {
-                        "type": 0,
-                        "platform": "facebook",
-                        "speech": "Hi " + JSON.stringify(req.user.Profile) + ", Please select any one of the following to continue"
-                    }
-                ]
-            },
+            json: facebook.sendOptions(req.user.name),
 
         }, (error, response, body) => {
             if (!error && response.statusCode === 200) {
@@ -135,6 +118,7 @@ app.get('/callback', passport.authenticate('auth0', {}),
                 );
             }
         });
+        res.redirect(redirectURI + "&authorization_code=34s4f545");
     });
 
 //To handle the message button click in the slack app
