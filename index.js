@@ -8,9 +8,16 @@ const express = require('express'),
     serviceNow = require('./serviceNow'),
     DialogflowApp = require('actions-on-google').DialogflowApp,
     passport = require('passport'),
-    Auth0Strategy = require('passport-auth0');
+    Auth0Strategy = require('passport-auth0'),
+    winston = require('winston');
 
 const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
+
+var date = new date();
+winston.add(winston.transports.File, { filename: date + '.log' });
+winston.level = 'debug';
+winston.log('info', 'Hello distributed log files!');
+winston.info('Hello again distributed logs');
 
 // This will configure Passport to use Auth0
 const strategy = new Auth0Strategy(
