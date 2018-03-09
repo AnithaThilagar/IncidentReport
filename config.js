@@ -11,7 +11,9 @@ var config = {
     "authODomain": "report-it.auth0.com",
     "authOCallbackUrl": "https://report-incident-bot.herokuapp.com/callback",
     "facebookPageAccessToken": "EAAFwXfBX3n4BAPyrwV5cq8pOHaYPu8KKOrAiyz14lDtTlBCgu3cbs5tqsFNd5HItSyng3qUZCecWMANWDorPDQvFkhsH0KZCqMiFLJEpf6l86PpKVFW0EiS40iHqi4T7F7pSVUgOSlDzonItWpSogOW7fwgzw0884PTeZBYUQZDZD",
-    "facebookMessageUri":"https://graph.facebook.com/v2.6/me/messages"
+    "facebookMessageUri": "https://graph.facebook.com/v2.6/me/messages",
+    "apiaiId": "1c5c2bd1f8b548b18f3782ca17420f2c",
+    "apiaiVerificationToken": "incidentBot"
 };
 
 module.exports = config;

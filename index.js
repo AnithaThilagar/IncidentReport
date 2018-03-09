@@ -8,7 +8,10 @@ const express = require('express'),
     serviceNow = require('./serviceNow'),
     DialogflowApp = require('actions-on-google').DialogflowApp,
     passport = require('passport'),
-    Auth0Strategy = require('passport-auth0');
+    Auth0Strategy = require('passport-auth0'),
+    apiai = require('apiai');
+
+const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
 // This will configure Passport to use Auth0
 const strategy = new Auth0Strategy(
@@ -50,6 +53,16 @@ const server = app.listen(process.env.PORT || 5000, () => {
 let userData = {};
 
 let accountLinkingToken, redirectURI, senderId;
+
+/* For Facebook Validation */
+app.get('/ai', (req, res) => {
+    console.log("Inside get method");
+    if (req.query['hub.mode'] && req.query['hub.verify_token'] === config.apiaiVerificationToken) {
+        res.send(req.query['hub.challenge']);
+    } else {
+        res.status(403).end();
+    }
+});
 
 //To handle the response to bot
 app.post('/ai', (req, res) => {
