@@ -13,8 +13,7 @@ const express = require('express'),
 
 const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
-var date = new date();
-winston.add(winston.transports.File, { filename: date + '.log' });
+winston.add(winston.transports.File, { filename: 'sample.log' });
 winston.level = 'debug';
 winston.log('info', 'Hello distributed log files!');
 winston.info('Hello again distributed logs');
