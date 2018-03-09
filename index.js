@@ -8,8 +8,7 @@ const express = require('express'),
     serviceNow = require('./serviceNow'),
     DialogflowApp = require('actions-on-google').DialogflowApp,
     passport = require('passport'),
-    Auth0Strategy = require('passport-auth0'),
-    apiai = require('apiai');
+    Auth0Strategy = require('passport-auth0');
 
 const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
