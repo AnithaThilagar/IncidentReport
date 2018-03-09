@@ -13,10 +13,28 @@ const express = require('express'),
 
 const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
-winston.add(winston.transports.File, { filename: './sample.log' });
-winston.level = 'debug';
-winston.log('info', 'Hello distributed log files!');
-winston.info('Hello again distributed logs');
+var logger = new winston.Logger({
+    level: 'info',
+    transports: [
+        new (winston.transports.Console)(),
+        new (winston.transports.File)({ filename: '/sample.log' })
+    ]
+});
+//winston.level = 'debug';
+//Default - console level
+//winston.log('info', 'Hello distributed log files!');
+//winston.info('Hello again distributed logs');
+//To the configured file
+logger.log('info', 'Hello distributed log files!');
+logger.emerg('Emerg Test');                  // Level 0
+logger.alert('Alert Test');                  // Level 1
+logger.crit('Crit Test');                    // Level 2
+logger.error('Error Test');                  // Level 3
+logger.warning('Warning Test');              // Level 4
+logger.notice('Notice Test');                // Level 5
+logger.info('Hello again distributed logs'); // Level 6
+logger.debug('Test debug line');             // Level 7
+
 
 // This will configure Passport to use Auth0
 const strategy = new Auth0Strategy(
