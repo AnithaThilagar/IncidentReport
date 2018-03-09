@@ -53,7 +53,7 @@ let accountLinkingToken, redirectURI, senderId;
 
 //To handle the response to bot
 app.post('/ai', (req, res) => {
-    console.log("Inside the API handle "+req.body.entry);
+    console.log("Inside the API handle " + JSON.stringify(req.body));
     //https://www.facebook.com/messenger_platform/account_linking/?account_linking_token=ARTSn2TcyrAdNLZWWcYzqzdyYqGXVe9Bk1cZ6r2P3joyh46VIGglcrYl3Wo5b3YaA0LS5a6SXldNUPpB0ENqklVYP7gx4oG94A632rPl4HPuTw&code=EhbKDHlakAzGmjbt#
     console.log(req.body.originalRequest.data.sender.id);
     senderId = req.body.originalRequest.data.sender.id;
