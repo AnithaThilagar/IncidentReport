@@ -99,7 +99,40 @@ app.get('/callback', passport.authenticate('auth0', {}),
             uri: config.facebookMessageUri,
             qs: query,
             method: 'POST',
-            json: facebook.sendOptions(req.user.name),
+            json: {
+                recipient: {
+                    id: senderId,
+                },
+                message: {
+                    text: "Hi " + req.user.displayName,
+                },
+                speech: '',
+                displayText: '',
+                messages: [
+                    {
+                        "type": 0,
+                        "platform": "facebook",
+                        "speech": "Hi " + req.user.displayName + ", Please select any one of the following to continue"
+                    },
+                    {
+                        "type": 1,
+                        "platform": "facebook",
+                        "title": "Report It",
+                        "subtitle": "Report It - To sort it",
+                        "imageUrl": "https://mgtvwlns.files.wordpress.com/2015/05/reportit-logo5b35d.jpg",
+                        "buttons": [
+                            {
+                                "text": "Report Incident",
+                                "postback": "Report Incident"
+                            },
+                            {
+                                "text": "My Incident",
+                                "postback": "My Incident"
+                            }
+                        ]
+                    }
+                ]
+            },
 
         }, (error, response, body) => {
             if (!error && response.statusCode === 200) {
