@@ -89,7 +89,7 @@ app.get('/login', function (req, res) {
 //To check the callback url
 app.get('/callback', passport.authenticate('auth0', {}),
     function (req, res) {
-        console.log('Inside auth ' + req);
+        console.log('Inside auth ' + req.user);
         //let facebook = require('./facebook');
         //facebook.sendOptions(req.user.name);
         //console.log(redirectURI + "&authorization_code=34s4f545");
