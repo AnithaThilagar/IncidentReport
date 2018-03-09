@@ -51,19 +51,9 @@ let userData = {};
 
 let accountLinkingToken, redirectURI, senderId;
 
-app.get('/webhook', function (req, res) {
-    console.log('Inside get method');
-    console.log(req);
-});
-
-app.post('/webhook', function (req, res) {
-    console.log('Inside post method');
-    console.log(req.body);
-});
-
 //To handle the response to bot
 app.post('/ai', (req, res) => {
-    console.log("Inside the API handle ");
+    console.log("Inside the API handle "+req.body.entry);
     //https://www.facebook.com/messenger_platform/account_linking/?account_linking_token=ARTSn2TcyrAdNLZWWcYzqzdyYqGXVe9Bk1cZ6r2P3joyh46VIGglcrYl3Wo5b3YaA0LS5a6SXldNUPpB0ENqklVYP7gx4oG94A632rPl4HPuTw&code=EhbKDHlakAzGmjbt#
     console.log(req.body.originalRequest.data.sender.id);
     senderId = req.body.originalRequest.data.sender.id;
@@ -90,7 +80,6 @@ app.get('/authorize', passport.authenticate('auth0', {
 }));
 
 app.get('/login', function (req, res) {
-    //senderId = req.body.originalRequest.data.sender.id;
     console.log('Query ' + JSON.stringify(req.query));
     accountLinkingToken = req.query.account_linking_token;
     redirectURI = req.query.redirect_uri;
@@ -98,12 +87,6 @@ app.get('/login', function (req, res) {
 });
 
 //To check the callback url
-/*app.get('/callback', function (req, res) {
-    console.log('Inside callback!!!');
-    console.log(req);
-    res.redirect(redirectURI +"&authorization_code=34s4f545");
-});*/
-
 app.get('/callback', passport.authenticate('auth0', {}),
     function (req, res) {
         console.log('Inside auth');
@@ -152,8 +135,7 @@ app.get('/callback', passport.authenticate('auth0', {}),
                     body.error
                 );
             }
-        }
-        );
+        });
     });
 
 //To handle the message button click in the slack app
