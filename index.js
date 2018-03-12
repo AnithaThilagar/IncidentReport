@@ -33,6 +33,11 @@ try {
             new (winston.transports.Console)({
                 timestamp: timeFormat,
                 colorize: true
+            }),
+            new (winston.Logger)({
+                filename: `${logPath}/results.log`,
+                timestamp: timeFormat,
+                level: 'info'
             })
         ]
     });
