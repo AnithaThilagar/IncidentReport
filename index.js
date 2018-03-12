@@ -34,11 +34,6 @@ try {
                 timestamp: timeFormat,
                 colorize: true,
                 level: 'info'
-            }),
-            new (winston.Logger)({
-                filename: `${logPath}/results.log`,
-                timestamp: timeFormat,
-                level: 'info'
             })
         ]
     });
