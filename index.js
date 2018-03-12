@@ -24,7 +24,7 @@ try {
                 colorize: true
             }),
             new (winston.Logger)({
-                filename: 'results.log',
+                filename: './results.log',
                 timestamp: timeFormat,
                 level: 'info'
             })
