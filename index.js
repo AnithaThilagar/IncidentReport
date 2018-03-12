@@ -20,7 +20,7 @@ winston.info('Hello again distributed logs');*/
 
 //To the configured file
 var logger = new winston.Logger({
-    level: 'info',
+    level: 'debug',
     transports: [
         new (winston.transports.Console)()
         //new (winston.transports.File)({ filename: './sample.log' })
