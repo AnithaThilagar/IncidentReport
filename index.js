@@ -22,11 +22,16 @@ try {
             new (winston.transports.Console)({
                 timestamp: timeFormat,
                 colorize: true
+            }),
+            new (winston.Logger)({
+                filename: 'results.log',
+                timestamp: timeFormat,
+                level: 'info'
             })
         ]
     });
-    logger.level = 'debug';
     logger.info('Hello world');
+    logger.warn('Warning message');
     logger.debug('Debugging info');    
 } catch (e){
     console.log("Exception in write log " + e);
