@@ -10,9 +10,16 @@ const express = require('express'),
     passport = require('passport'),
     Auth0Strategy = require('passport-auth0'),
     winston = require('winston'),
-    timeFormat = () => (new Date()).toLocaleTimeString();
+    fs = require('fs'),
+    timeFormat = () => (new Date()).toLocaleTimeString(),
+    logName = 'log';
 
 const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
+
+//To create the log directory
+if (!fs.existsSync(logName)) {
+    fs.mkdirSync(logName);
+}
 
 try {
     //Default - console level
@@ -24,7 +31,7 @@ try {
                 colorize: true
             }),
             new (winston.Logger)({
-                filename: './results.log',
+                filename: `${logName}/results.log`,
                 timestamp: timeFormat,
                 level: 'info'
             })
