@@ -17,37 +17,28 @@ const express = require('express'),
 const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
 try {
+    winston.emitErrs = true;
 
-    //To create the log directory if not exists
-    if (!fs.existsSync(logPath)) {
-        console.log("Inside create log Path " + logPath + " -- " + __dirname);
-        fs.mkdirSync(logPath);
-    }
-
-    console.info("After dir creation " + fs.existsSync(logPath));
-
-    //Default - console level
-    const logger = new (winston.Logger)({
+    var logger = new winston.Logger({
         transports: [
-            // colorize the output to the console
-            new (winston.transports.Console)({
-                timestamp: timeFormat,
-                colorize: true,
-                level: 'info'
+            new winston.transports.File({
+                level: 'info',
+                filename: './log/sample.log',
+                handleExceptions: true,
+                json: true,
+                maxsize: 5242880, //5MB
+                colorize: true
             }),
-            new (winston.Logger)({
-                filename: `${logPath}/results.log`,
-                timestamp: timeFormat,
-                level: 'info'
+            new winston.transports.Console({
+                level: 'debug',
+                handleExceptions: true,
+                json: false,
+                colorize: true
             })
-        ]
+        ],
+        exitOnError: false
     });
-    console.log("After config " + fs.existsSync(logPath +'/results.log'));
-    logger.debug('Debugging info');
-    logger.verbose('Verbose info');
-    logger.info('Hello world');
-    logger.warn('Warning message');
-    logger.error('Error info');   
+
 } catch (e){
     console.log("Exception in write log " + e);
 }
