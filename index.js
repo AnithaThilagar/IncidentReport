@@ -17,7 +17,7 @@ try {
     //Default - console level
     const logger = new (winston.Logger)({
         transports: [
-            //colorize the o/p
+            // colorize the output to the console
             new (winston.transports.Console)({ colorize: true })
         ]
     });
