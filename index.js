@@ -9,7 +9,8 @@ const express = require('express'),
     DialogflowApp = require('actions-on-google').DialogflowApp,
     passport = require('passport'),
     Auth0Strategy = require('passport-auth0'),
-    winston = require('winston');
+    winston = require('winston'),
+    timeFormat = () => (new Date()).toLocaleTimeString();
 
 const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
@@ -18,7 +19,10 @@ try {
     const logger = new (winston.Logger)({
         transports: [
             // colorize the output to the console
-            new (winston.transports.Console)({ colorize: true })
+            new (winston.transports.Console)({
+                timestamp: timeFormat,
+                colorize: true
+            })
         ]
     });
     logger.level = 'debug';
