@@ -13,18 +13,19 @@ const express = require('express'),
 
 const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
+//Default - console level
+/*winston.level = 'debug';
+winston.log('info', 'Hello distributed log files!');
+winston.info('Hello again distributed logs');*/
+
+//To the configured file
 var logger = new winston.Logger({
     level: 'info',
     transports: [
-        new (winston.transports.Console)(),
-        new (winston.transports.File)({ filename: '/sample.log' })
+        new (winston.transports.Console)()
+        //new (winston.transports.File)({ filename: './sample.log' })
     ]
 });
-//winston.level = 'debug';
-//Default - console level
-//winston.log('info', 'Hello distributed log files!');
-//winston.info('Hello again distributed logs');
-//To the configured file
 logger.log('info', 'Hello distributed log files!');
 logger.emerg('Emerg Test');                  // Level 0
 logger.alert('Alert Test');                  // Level 1

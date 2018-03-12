@@ -25,6 +25,7 @@
     "actions-on-google": "^1.8.2",
     "passport": "^0.3.0",
     "passport-auth0": "^0.6.0",
-    "winston": "^2.4.0"
+    "winston": "^2.4.0",
+    "fs":  "^0.0.1-security"
   }
 }
