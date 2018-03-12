@@ -1,0 +1,9 @@
+{"level":"error","message":"Error Line","timestamp":"2018-03-12T07:09:15.175Z"}
+{"level":"info","message":"Info Line","timestamp":"2018-03-12T07:09:15.190Z"}
+{"level":"debug","message":"Debug line","timestamp":"2018-03-12T07:09:15.190Z"}
+{"level":"error","message":"Error Line","timestamp":"2018-03-12T07:10:31.576Z"}
+{"level":"info","message":"Info Line","timestamp":"2018-03-12T07:10:31.576Z"}
+{"level":"debug","message":"Debug line","timestamp":"2018-03-12T07:10:31.576Z"}
+{"level":"error","message":"Error Line","timestamp":"2018-03-12T07:12:16.436Z"}
+{"level":"info","message":"Info Line","timestamp":"2018-03-12T07:12:16.441Z"}
+{"level":"debug","message":"Debug line","timestamp":"2018-03-12T07:12:16.441Z"}

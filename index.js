@@ -48,18 +48,9 @@ try {
     logger.info('Info Line');
     logger.debug('Debug line');
 
-    console.log("After writing to file " + fs.existsSync(logPath+'/sample.log'));
-
-    fs.readFile(logPath + '/sample.log', { encoding: 'utf-8' }, function (err, data) {
-        if (!err) {
-            console.log('received data: ' + data);
-            response.writeHead(200);
-            response.write(data);
-            response.end();
-        } else {
-            console.log(err);
-        }
-    })
+    console.log("After writing to file " + fs.existsSync(`${logPath}/sample.log`));
+    var data = fs.readFileSync(`${logPath}/sample.log`, 'utf8');
+    console.log(data); 
 } catch (e){
     console.log("Exception in write log " + e);
 }
