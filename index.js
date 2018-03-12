@@ -22,7 +22,7 @@ try {
     var logger = new winston.Logger({
         transports: [
             new winston.transports.File({
-                level: 'info',
+                level: 'debug',
                 filename: './log/sample.log',
                 handleExceptions: true,
                 json: true,
@@ -38,6 +38,10 @@ try {
         ],
         exitOnError: false
     });
+
+    logger.error('Error Line');
+    logger.info('Info Line');
+    logger.debug('Debug line');
 
 } catch (e){
     console.log("Exception in write log " + e);
