@@ -24,7 +24,7 @@ try {
         level: 'debug',
         transports: [
             new (winston.transports.Console)()
-            //new (winston.transports.File)({ filename: './sample.log' })
+            new (winston.transports.File)({ filename: './sample.log' })
         ]
     });
     logger.log('info', 'Hello distributed log files!');
