@@ -16,6 +16,11 @@ const express = require('express'),
 
 const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
+if (!fs.existsSync(logPath)) {
+    console.log("Inside create log Path " + logPath);
+    fs.mkdirSync(logPath);
+}
+
 try {
     winston.emitErrs = true;
 
@@ -23,7 +28,7 @@ try {
         transports: [
             new winston.transports.File({
                 level: 'debug',
-                filename: './log/sample.log',
+                filename: `${logPath}/sample.log`,
                 handleExceptions: true,
                 json: true,
                 maxsize: 5242880, //5MB
