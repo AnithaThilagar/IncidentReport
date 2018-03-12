@@ -18,8 +18,8 @@ const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
 //To create the log directory
 if (!fs.existsSync(logName)) {
-    console.log("Inside create log Path " + logName);
-    fs.mkdirSync(logName);
+    console.log("Inside create log Path " + logName + " -- " + __dirname);
+    fs.mkdirSync(__dirname + logName);
 }
 
 try {
@@ -32,7 +32,7 @@ try {
                 colorize: true
             }),
             new (winston.Logger)({
-                filename: `./${logName}/results.log`,
+                filename: __dirname + `/${logName}/results.log`,
                 timestamp: timeFormat,
                 level: 'info'
             })
