@@ -12,14 +12,14 @@ const express = require('express'),
     winston = require('winston'),
     fs = require('fs'),
     timeFormat = () => (new Date()).toLocaleTimeString(),
-    logName = 'log';
+    logPath = __dirname + 'log';
 
 const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
 //To create the log directory
-if (!fs.existsSync(logName)) {
-    console.log("Inside create log Path " + logName + " -- " + __dirname);
-    fs.mkdirSync(__dirname + logName);
+if (!fs.existsSync(logPath)) {
+    console.log("Inside create log Path " + logPath + " -- " + __dirname);
+    fs.mkdirSync(logPath);
 }
 
 try {
@@ -32,7 +32,7 @@ try {
                 colorize: true
             }),
             new (winston.Logger)({
-                filename: __dirname + `/${logName}/results.log`,
+                filename: `/${logPath}/results.log`,
                 timestamp: timeFormat,
                 level: 'info'
             })
