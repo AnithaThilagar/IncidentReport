@@ -32,7 +32,7 @@ try {
                 colorize: true
             }),
             new (winston.Logger)({
-                filename: `${logName}/results.log`,
+                filename: `./${logName}/results.log`,
                 timestamp: timeFormat,
                 level: 'info'
             })
