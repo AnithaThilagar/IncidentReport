@@ -18,6 +18,7 @@ const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
 //To create the log directory
 if (!fs.existsSync(logName)) {
+    console.log("Inside create log Path " + logName);
     fs.mkdirSync(logName);
 }
 
