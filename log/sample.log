@@ -1,5 +1,0 @@
-{"level":"error","message":"Error Test","timestamp":"2018-03-12T06:37:02.349Z"}
-{"level":"error","message":"Error Test","timestamp":"2018-03-12T06:38:58.609Z"}
-{"level":"error","message":"Error Test","timestamp":"2018-03-12T06:40:02.186Z"}
-{"level":"info","message":"Hello again distributed logs","timestamp":"2018-03-12T06:40:02.191Z"}
-{"level":"debug","message":"Test debug line","timestamp":"2018-03-12T06:40:02.194Z"}
