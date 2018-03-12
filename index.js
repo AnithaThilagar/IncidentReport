@@ -32,7 +32,8 @@ try {
             // colorize the output to the console
             new (winston.transports.Console)({
                 timestamp: timeFormat,
-                colorize: true
+                colorize: true,
+                level: 'info'
             }),
             new (winston.Logger)({
                 filename: `${logPath}/results.log`,
@@ -41,10 +42,12 @@ try {
             })
         ]
     });
-    console.log("After config " + fs.existsSync(logPath +'/results.log'));
+    console.log("After config " + fs.existsSync(`${logPath}/results.log`));
+    logger.debug('Debugging info');
+    logger.verbose('Verbose info');
     logger.info('Hello world');
     logger.warn('Warning message');
-    logger.debug('Debugging info');    
+    logger.error('Error info');   
 } catch (e){
     console.log("Exception in write log " + e);
 }
