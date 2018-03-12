@@ -12,7 +12,7 @@ const express = require('express'),
     winston = require('winston'),
     fs = require('fs'),
     timeFormat = () => (new Date()).toLocaleTimeString(),
-    logPath = __dirname + 'log';
+    logPath = __dirname + '/log';
 
 const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
@@ -33,7 +33,7 @@ try {
                 colorize: true
             }),
             new (winston.Logger)({
-                filename: `/${logPath}/results.log`,
+                filename: `${logPath}/results.log`,
                 timestamp: timeFormat,
                 level: 'info'
             })
