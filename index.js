@@ -41,6 +41,7 @@ try {
             })
         ]
     });
+    console.log("After config " + fs.existsSync(logPath +'/results.log'));
     logger.info('Hello world');
     logger.warn('Warning message');
     logger.debug('Debugging info');    
