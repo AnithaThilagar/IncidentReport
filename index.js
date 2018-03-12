@@ -16,12 +16,12 @@ const express = require('express'),
 
 const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
-if (!fs.existsSync(logPath)) {
-    console.log("Inside create log Path " + logPath);
-    fs.mkdirSync(logPath);
-}
+function writeLog() {
+    if (!fs.existsSync(logPath)) {
+        console.log("Inside create log Path " + logPath);
+        fs.mkdirSync(logPath);
+    }
 
-try {
     winston.emitErrs = true;
 
     var logger = new winston.Logger({
@@ -43,17 +43,19 @@ try {
         ],
         exitOnError: false
     });
-
     logger.error('Error Line');
     logger.info('Info Line');
     logger.debug('Debug line');
-
-    console.log("After writing to file " + fs.existsSync(`${logPath}/sample.log`));
-    var data = fs.readFileSync(`${logPath}/sample.log`, 'utf8');
-    console.log(data); 
-} catch (e){
-    console.log("Exception in write log " + e);
 }
+
+function readLog() {
+    console.log("After writing to file2 " + fs.existsSync(`${logPath}/sample.log`));
+    var data = fs.readFileSync(`${logPath}/sample.log`, 'utf8');
+    console.log(data);
+}
+
+writeLog();
+setTimeout(readLog, 2500);
 
 // This will configure Passport to use Auth0
 const strategy = new Auth0Strategy(
