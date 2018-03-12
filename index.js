@@ -15,9 +15,15 @@ const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
 try {
     //Default - console level
-    winston.level = 'debug';
-    winston.info('Hello world');
-    winston.debug('Debugging info');    
+    const logger = new (winston.Logger)({
+        transports: [
+            //colorize the o/p
+            new (winston.transports.Console)({ colorize: true })
+        ]
+    });
+    logger.level = 'debug';
+    logger.info('Hello world');
+    logger.debug('Debugging info');    
 } catch (e){
     console.log("Exception in write log " + e);
 }
