@@ -34,10 +34,15 @@ try {
                 timestamp: timeFormat,
                 colorize: true,
                 level: 'info'
+            }),
+            new (winston.Logger)({
+                filename: `${logPath}/results.log`,
+                timestamp: timeFormat,
+                level: 'info'
             })
         ]
     });
-    console.log("After config " + fs.existsSync(`${logPath}/results.log`));
+    console.log("After config " + fs.existsSync(logPath +'/results.log'));
     logger.debug('Debugging info');
     logger.verbose('Verbose info');
     logger.info('Hello world');
