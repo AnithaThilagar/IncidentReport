@@ -15,27 +15,9 @@ const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
 try {
     //Default - console level
-    /*winston.level = 'debug';
-    winston.log('info', 'Hello distributed log files!');
-    winston.info('Hello again distributed logs');*/
-
-    //To the configured file
-    var logger = new winston.Logger({
-        level: 'debug',
-        transports: [
-            new (winston.transports.Console)(),
-            new (winston.transports.File)({ filename: './sample.log' })
-        ]
-    });
-    logger.log('info', 'Hello distributed log files!');
-    logger.emerg('Emerg Test');                  // Level 0
-    logger.alert('Alert Test');                  // Level 1
-    logger.crit('Crit Test');                    // Level 2
-    logger.error('Error Test');                  // Level 3
-    logger.warning('Warning Test');              // Level 4
-    logger.notice('Notice Test');                // Level 5
-    logger.info('Hello again distributed logs'); // Level 6
-    logger.debug('Test debug line');             // Level 7
+    winston.level = 'debug';
+    winston.info('Hello world');
+    winston.debug('Debugging info');    
 } catch (e){
     console.log("Exception in write log " + e);
 }
