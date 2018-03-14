@@ -9,40 +9,13 @@ const express = require('express'),
     DialogflowApp = require('actions-on-google').DialogflowApp,
     passport = require('passport'),
     Auth0Strategy = require('passport-auth0'),
-    winston = require('winston'),
     fs = require('fs'),
-    timeFormat = () => (new Date()).toLocaleTimeString(),
+    logger = require('./logger'),
     logPath = __dirname + '/log';
 
 const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
 function writeLog() {
-    if (!fs.existsSync(logPath)) {
-        console.log("Inside create log Path " + logPath);
-        fs.mkdirSync(logPath);
-    }
-
-    winston.emitErrs = true;
-
-    var logger = new winston.Logger({
-        transports: [
-            new winston.transports.File({
-                level: 'debug',
-                filename: `${logPath}/sample.log`,
-                handleExceptions: true,
-                json: true,
-                maxsize: 5242880, //5MB
-                colorize: true
-            }),
-            new winston.transports.Console({
-                level: 'debug',
-                handleExceptions: true,
-                json: false,
-                colorize: true
-            })
-        ],
-        exitOnError: false
-    });
     logger.error('Error Line');
     logger.info('Info Line');
     logger.debug('Debug line');
@@ -112,8 +85,8 @@ app.get('/ai', (req, res) => {
 app.post('/ai', (req, res) => {
     console.log("Inside the API handle " + JSON.stringify(req.body));
     //https://www.facebook.com/messenger_platform/account_linking/?account_linking_token=ARTSn2TcyrAdNLZWWcYzqzdyYqGXVe9Bk1cZ6r2P3joyh46VIGglcrYl3Wo5b3YaA0LS5a6SXldNUPpB0ENqklVYP7gx4oG94A632rPl4HPuTw&code=EhbKDHlakAzGmjbt#
-    console.log(req.body.originalRequest.data.sender.id);
-    senderId = req.body.originalRequest.data.sender.id;
+    //console.log(req.body.originalRequest.data.sender.id);
+    //senderId = req.body.originalRequest.data.sender.id;
     //https://graph.facebook.com/v2.6/1852986861441612?access_token=EAAFwXfBX3n4BAPyrwV5cq8pOHaYPu8KKOrAiyz14lDtTlBCgu3cbs5tqsFNd5HItSyng3qUZCecWMANWDorPDQvFkhsH0KZCqMiFLJEpf6l86PpKVFW0EiS40iHqi4T7F7pSVUgOSlDzonItWpSogOW7fwgzw0884PTeZBYUQZDZD
     let source = '';
     if (typeof req.body.originalRequest != "undefined") {
