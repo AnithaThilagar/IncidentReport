@@ -16,9 +16,9 @@ const express = require('express'),
 const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
 
 function writeLog() {
-    logger.error('Error Line');
-    logger.info('Info Line');
-    logger.debug('Debug line');
+    logger.addName('Bot').error('Error Line');
+    logger.addName('User').info('Info Line');
+    logger.addName('Bot').debug('Debug line');
 }
 
 function readLog() {
@@ -27,8 +27,8 @@ function readLog() {
     console.log(data);
 }
 
-writeLog();
-setTimeout(readLog, 2500);
+//writeLog();
+//setTimeout(readLog, 2500);
 
 // This will configure Passport to use Auth0
 const strategy = new Auth0Strategy(
@@ -84,15 +84,19 @@ app.get('/ai', (req, res) => {
 //To handle the response to bot
 app.post('/ai', (req, res) => {
     console.log("Inside the API handle " + JSON.stringify(req.body));
+    logger.addName('').info('Inside Bot request');
+    
     //https://www.facebook.com/messenger_platform/account_linking/?account_linking_token=ARTSn2TcyrAdNLZWWcYzqzdyYqGXVe9Bk1cZ6r2P3joyh46VIGglcrYl3Wo5b3YaA0LS5a6SXldNUPpB0ENqklVYP7gx4oG94A632rPl4HPuTw&code=EhbKDHlakAzGmjbt#
     //console.log(req.body.originalRequest.data.sender.id);
     //senderId = req.body.originalRequest.data.sender.id;
     //https://graph.facebook.com/v2.6/1852986861441612?access_token=EAAFwXfBX3n4BAPyrwV5cq8pOHaYPu8KKOrAiyz14lDtTlBCgu3cbs5tqsFNd5HItSyng3qUZCecWMANWDorPDQvFkhsH0KZCqMiFLJEpf6l86PpKVFW0EiS40iHqi4T7F7pSVUgOSlDzonItWpSogOW7fwgzw0884PTeZBYUQZDZD
     let source = '';
     if (typeof req.body.originalRequest != "undefined") {
+        logger.addName('Platform').info(req.body.originalRequest.source);
         console.log(req.body.originalRequest.source);
         source = req.body.originalRequest.source;
     } else {
+        logger.addName('Platform').info('No info');
         console.log('Req from other sources');
         source = 'facebook';//By default send the facebook response
     }
@@ -214,7 +218,9 @@ app.post('/button', (req, res) => {
 
 //To handle the request from the Dialogflow
 function handleRequest(req, res, platform) {
+    readLog();
     console.log("Inside the handleFacebook");
+    logger.addName('User').info(req.body.result.resolvedQuery);
     let source = require('./' + platform);
     const assistant = new DialogflowApp({ request: req, response: res });
     if (req.body.result.action === 'input.welcome') {
@@ -223,12 +229,14 @@ function handleRequest(req, res, platform) {
         if (platform == 'google') {
             source.welcomeIntent(assistant);
         } else {
+            logger.addName('Bot').info(source.welcomeIntent());
             return res.json(source.welcomeIntent());
         }
     } else if (req.body.result.action === 'reportIncident') {
         if (platform == 'google') {
             source.incidentCategory(assistant);
         } else {
+            logger.addName('Bot').info(source.incidentCategory());
             return res.json(source.incidentCategory());
         }
     } else if (req.body.result.action === 'incident-category') {
@@ -237,6 +245,7 @@ function handleRequest(req, res, platform) {
         if (platform == 'google') {
             source.incidentSubCategory(assistant, userData.category.toLowerCase());
         } else {
+            logger.addName('Bot').info(source.incidentSubCategory(userData.category.toLowerCase()));
             return res.json(source.incidentSubCategory(userData.category.toLowerCase()));
         }
     } else if (req.body.result.action === 'IncidentCategory.IncidentCategory-custom') {
