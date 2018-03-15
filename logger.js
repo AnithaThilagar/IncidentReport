@@ -38,7 +38,7 @@ module.exports = logger;
 
 
 //Log using log4js
-const log4js = require('log4js'),
+/*const log4js = require('log4js'),
     fs = require('fs'),
     logPath = __dirname + '/log';
 
@@ -54,4 +54,30 @@ log4js.configure({
 
 module.exports.addName = function (appendName) {
     return log4js.getLogger(appendName);
-};
+};*/
+
+try {
+    const winston = require('winston'),
+        config = require('./config'),
+        S3StreamLogger = require('s3-streamlogger').S3StreamLogger,
+        s3_stream = new S3StreamLogger({
+            bucket: config.s3bucketName,
+            access_key_id: config.accessKeyId,
+            secret_access_key: config.secretKey,
+            name_format: "%Y-%m-%d-%H-%M-%S-%L-chatlogs-reportIncident.log"
+            //compress: true                       //To compress to log.gz format
+        });
+
+    var logger = new (winston.Logger)({
+        transports: [
+            new (winston.transports.File)({
+                stream: s3_stream,
+                json: false
+            })
+        ]
+    });
+} catch (e) {
+    console.log(e);
+}
+
+module.exports = logger;
