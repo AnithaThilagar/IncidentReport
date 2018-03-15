@@ -229,14 +229,14 @@ function handleRequest(req, res, platform) {
         if (platform == 'google') {
             source.welcomeIntent(assistant);
         } else {
-            logger.info("Bot - "+source.welcomeIntent());
+            logger.info("Bot - " + JSON.stringify(source.welcomeIntent()));
             return res.json(source.welcomeIntent());
         }
     } else if (req.body.result.action === 'reportIncident') {
         if (platform == 'google') {
             source.incidentCategory(assistant);
         } else {
-            logger.info("Bot - "+source.incidentCategory());
+            logger.info("Bot - " + JSON.stringify(source.incidentCategory()));
             return res.json(source.incidentCategory());
         }
     } else if (req.body.result.action === 'incident-category') {
@@ -245,7 +245,7 @@ function handleRequest(req, res, platform) {
         if (platform == 'google') {
             source.incidentSubCategory(assistant, userData.category.toLowerCase());
         } else {
-            logger.info("Bot - " +source.incidentSubCategory(userData.category.toLowerCase()));
+            logger.info("Bot - " + JSON.stringify(source.incidentSubCategory(userData.category.toLowerCase())));
             return res.json(source.incidentSubCategory(userData.category.toLowerCase()));
         }
     } else if (req.body.result.action === 'IncidentCategory.IncidentCategory-custom') {
@@ -267,6 +267,7 @@ function handleRequest(req, res, platform) {
         if (platform == 'google') {
             source.incidentUrgencyType(assistant);
         } else {
+            logger.info("Bot - " + JSON.stringify(source.incidentUrgencyType()));
             return res.json(source.incidentUrgencyType());
         }
     } else if (req.body.result.action === 'IncidentSubcategory.IncidentSubcategory-modeOfContact') {
@@ -275,6 +276,7 @@ function handleRequest(req, res, platform) {
         if (platform == 'google') {
             source.incidentModeOfContact(assistant);
         } else {
+            logger.info("Bot - " + JSON.stringify(source.incidentModeOfContact()));
             return res.json(source.incidentModeOfContact());
         }
     } else if (typeof userData.category != "undefined" && (req.body.result.action === 'getPhoneNumber' || req.body.result.action === 'getMailId')) {
@@ -282,7 +284,6 @@ function handleRequest(req, res, platform) {
         console.log("Mode of Contact " + userData.modeOfContact);
         userData.contactDetails = req.body.result.action === 'getPhoneNumber' ? req.body.result.parameters["phone-number"] : req.body.result.parameters["email"];
         if (req.body.result.action === 'getPhoneNumber') {
-            console.log(req.body.result.parameters["phone-number"]);
             if (req.body.result.parameters["phone-number"] != "") {
                 if (req.body.result.parameters["phone-number"].match(/^(\+\d{1,3}[- ]?)?\d{10}$/) && !(req.body.result.parameters["phone-number"].match(/0{5,}/))) {
                     console.log("Phone Num " + req.body.result.parameters["phone-number"]);
@@ -291,6 +292,7 @@ function handleRequest(req, res, platform) {
                         if (platform == 'google') {
                             source.incidentDetails(assistant, response.number);
                         } else {
+                            logger.info("Bot - " + JSON.stringify(source.getTextResponse(message)));
                             return res.json(source.getTextResponse(message));
                         }
                     }).catch((error) => {
@@ -298,6 +300,7 @@ function handleRequest(req, res, platform) {
                         if (platform == 'google') {
                             source.getTextResponse(assistant, message);
                         } else {
+                            logger.error("Bot - " + JSON.stringify(source.getTextResponse(message)));
                             return res.json(source.getTextResponse(message));
                         }
                     });
@@ -308,6 +311,7 @@ function handleRequest(req, res, platform) {
                         "name": "getMobile",
                         "data": { "modeOfContact": userData.modeOfContact }
                     };
+                    logger.info("Bot - " + JSON.stringify(source.triggerEvent(message, options)));
                     return res.json(source.triggerEvent(message, options));
                 }
             }
@@ -320,6 +324,7 @@ function handleRequest(req, res, platform) {
                     if (platform == 'google') {
                         source.getTextResponse(assistant, message);
                     } else {
+                        logger.info("Bot - " + JSON.stringify(source.getTextResponse(message)));
                         return res.json(source.getTextResponse(message));
                     }
                 }).catch((error) => {
@@ -327,6 +332,7 @@ function handleRequest(req, res, platform) {
                     if (platform == 'google') {
                         source.getTextResponse(assistant, message);
                     } else {
+                        logger.info("Bot - " + JSON.stringify(source.getTextResponse(message)));
                         return res.json(source.getTextResponse(message));
                     }
                 });
@@ -336,6 +342,7 @@ function handleRequest(req, res, platform) {
                     "name": "getMail",
                     "data": { "modeOfContact": userData.modeOfContact }
                 };
+                logger.info("Bot - " + JSON.stringify(source.triggerEvent(message, options)));
                 return res.json(source.triggerEvent(message, options));
             }
         }
@@ -350,6 +357,7 @@ function handleRequest(req, res, platform) {
                     if (platform == 'google') {
                         source.getTextResponse(assistant, message);
                     } else {
+                        logger.info("Bot - " + JSON.stringify(source.getTextResponse(message)));
                         return res.json(source.getTextResponse(message));
                     }
                 } else {
@@ -357,6 +365,7 @@ function handleRequest(req, res, platform) {
                     if (platform == 'google') {
                         source.sendIncidentDetails(assistant, response);
                     } else {
+                        logger.info("Bot - " + JSON.stringify(source.sendIncidentDetails(response)));
                         return res.json(source.sendIncidentDetails(response));
                     }
                 }
@@ -366,6 +375,7 @@ function handleRequest(req, res, platform) {
                 if (platform == 'google') {
                     source.getTextResponse(assistant, message);
                 } else {
+                    logger.error("Bot - " + JSON.stringify(source.getTextResponse(message)));
                     return res.json(source.getTextResponse(message));
                 }
             });
@@ -375,6 +385,7 @@ function handleRequest(req, res, platform) {
                 "name": "getIncident",
                 "data": {}
             };
+            logger.info("Bot - " + JSON.stringify(source.triggerEvent(message, options)));
             return res.json(source.triggerEvent(message, options));
         }
     } else {
@@ -382,6 +393,7 @@ function handleRequest(req, res, platform) {
         if (platform == 'google') {
             source.getTextResponse(assistant, msg);
         } else {
+            logger.info("Bot - " + JSON.stringify(source.getTextResponse(msg)));
             return res.json(source.getTextResponse(msg));
         }
     }
