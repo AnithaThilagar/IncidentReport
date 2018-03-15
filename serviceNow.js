@@ -1,7 +1,9 @@
 const request = require('request'),
     config = require('./config'),
     GlideRecord = require('servicenow-rest').gliderecord,
-    record = new GlideRecord(config.serviceNowInstance, config.serviceNowTableName, config.serviceNowUserName, config.serviceNowPassword, config.serviceNowVersion);
+    record = new GlideRecord(process.env.SERVICE_NOW_INSTANCE, config.serviceNowTableName, process.env.SERVICE_NOW_USER_NAME, process.env.SERVICE_NOW_PASSWORD, config.serviceNowVersion);
+
+require('dotenv').config();
 
 //To handle the service now request
 var serviceNow = {

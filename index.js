@@ -13,7 +13,9 @@ const express = require('express'),
     logger = require('./logger'),
     logPath = __dirname + '/log';
 
-const apiaiApp = apiai(config.apiaiId); //Client Access Token in the dialog flow
+require('dotenv').config();
+
+const apiaiApp = apiai(process.env.DIALOGFLOW_ID); //Client Access Token in the dialog flow
 
 function writeLog() {
     logger.error('Error Line');
@@ -33,9 +35,9 @@ writeLog();
 // This will configure Passport to use Auth0
 const strategy = new Auth0Strategy(
     {
-        domain: config.authODomain,
-        clientID: config.authOClientId,
-        clientSecret: config.authOClientSecretKey,
+        domain: process.env.AUTH0_DOMAIN,
+        clientID: process.env.AUTH0_CLIENT_ID,
+        clientSecret: process.env.AUTH0_SECRET_KEY,
         callbackURL:config.authOCallbackUrl
     },
     function (accessToken, refreshToken, extraParams, profile, done) {
@@ -66,9 +68,6 @@ app.use(passport.session());
 const server = app.listen(process.env.PORT || 5000, () => {
     console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
-
-console.log(process.env.AWS_ACCESS_KEY);
-console.log(process.env.AWS_SECRET_KEY);
 
 let userData = {};
 
@@ -107,11 +106,11 @@ app.post('/ai', (req, res) => {
 
 //To handle the authentication
 app.get('/authorize', passport.authenticate('auth0', {
-    clientID: config.authOClientId,
-    domain: config.authODomain,
+    clientID: process.env.AUTH0_CLIENT_ID,
+    domain: process.env.AUTH0_DOMAIN,
     redirectUri: config.authOCallbackUrl,
     responseType: 'code',
-    audience: 'https://' + config.authODomain + '/userinfo',
+    audience: 'https://' + process.env.AUTH0_DOMAIN + '/userinfo',
     scope: 'openid profile'
 }));
 

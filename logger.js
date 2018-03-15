@@ -56,14 +56,16 @@ module.exports.addName = function (appendName) {
     return log4js.getLogger(appendName);
 };*/
 
+require('dotenv').config();
+
 try {
     const winston = require('winston'),
         config = require('./config'),
         S3StreamLogger = require('s3-streamlogger').S3StreamLogger,
         s3_stream = new S3StreamLogger({
-            bucket: config.s3bucketName,
-            access_key_id: config.accessKeyId,
-            secret_access_key: config.secretKey,
+            bucket: process.env.AWS_BUCKET_NAME,
+            access_key_id: process.env.AWS_ACCESS_KEY,
+            secret_access_key: process.env.AWS_SECRET_KEY,
             name_format: "%Y-%m-%d-%H-%M-%S-%L-chatlogs-reportIncident.log"
             //compress: true                       //To compress to log.gz format
         });
