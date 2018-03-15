@@ -219,7 +219,6 @@ app.post('/button', (req, res) => {
 
 //To handle the request from the Dialogflow
 function handleRequest(req, res, platform) {
-    readLog();
     console.log("Inside the handleFacebook");
     logger.info("User - "+req.body.result.resolvedQuery);
     let source = require('./' + platform);
