@@ -67,6 +67,9 @@ const server = app.listen(process.env.PORT || 5000, () => {
     console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
 });
 
+console.log(process.env.AWS_ACCESS_KEY);
+console.log(process.env.AWS_SECRET_KEY);
+
 let userData = {};
 
 let accountLinkingToken, redirectURI, senderId;
