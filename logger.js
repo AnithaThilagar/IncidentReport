@@ -63,6 +63,7 @@ try {
         config = require('./config'),
         S3StreamLogger = require('s3-streamlogger').S3StreamLogger,
         s3_stream = new S3StreamLogger({
+            signatureVersion: 'v4',
             bucket: process.env.AWS_BUCKET_NAME,
             access_key_id: process.env.AWS_ACCESS_KEY,
             secret_access_key: process.env.AWS_SECRET_KEY,

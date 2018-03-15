@@ -19,6 +19,7 @@
   "dependencies": {
     "actions-on-google": "^1.8.2",
     "apiai": "^3.0.3",
+    "aws-sdk": "^2.209.0",
     "body-parser": "^1.18.2",
     "dotenv": "^5.0.1",
     "express": "^4.16.2",
