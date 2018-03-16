@@ -220,7 +220,7 @@ app.post('/button', (req, res) => {
 //To handle the request from the Dialogflow
 function handleRequest(req, res, platform) {
     console.log("Inside the handleFacebook");
-    logger.info("User - "+req.body.result.resolvedQuery);
+    logger.info("User - " + req.body.result.resolvedQuery);
     let source = require('./' + platform);
     const assistant = new DialogflowApp({ request: req, response: res });
     if (req.body.result.action === 'input.welcome') {
@@ -267,6 +267,8 @@ function handleRequest(req, res, platform) {
         if (platform == 'google') {
             source.incidentUrgencyType(assistant);
         } else {
+            logger.info("User - " + userData.subCategory);
+            logger.info("Bot - Please enter the description");
             logger.info("Bot - " + JSON.stringify(source.incidentUrgencyType()));
             return res.json(source.incidentUrgencyType());
         }

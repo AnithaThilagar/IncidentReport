@@ -1,5 +1,5 @@
 //Log using winston
-/*const winston = require('winston'),
+const winston = require('winston'),
     fs = require('fs'),
     timeFormat = () => (new Date()).toLocaleTimeString(),
     logPath = __dirname + '/log';
@@ -33,8 +33,6 @@ const logger = new winston.Logger({
 
 module.exports = logger;
 
-*/
-
 
 
 //Log using log4js
@@ -56,7 +54,7 @@ module.exports.addName = function (appendName) {
     return log4js.getLogger(appendName);
 };*/
 
-require('dotenv').config();
+/*require('dotenv').config();
 
 try {
     const winston = require('winston'),
@@ -83,4 +81,4 @@ try {
     console.log(e);
 }
 
-module.exports = logger;
+module.exports = logger;*/
