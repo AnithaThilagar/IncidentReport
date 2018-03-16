@@ -74,7 +74,7 @@ let userData = {};
 let accountLinkingToken, redirectURI, senderId;
 
 /* For Facebook Validation */
-app.get('/', (req, res) => {
+app.get('/ai', (req, res) => {
     console.log("Inside get method");
     if (req.query['hub.mode'] && req.query['hub.verify_token'] === config.apiaiVerificationToken) {
         res.send(req.query['hub.challenge']);
@@ -84,7 +84,7 @@ app.get('/', (req, res) => {
 });
 
 //To handle the response to bot
-app.post('/', (req, res) => {
+app.post('/ai', (req, res) => {
     console.log("Inside the API handle " + JSON.stringify(req.body));
     logger.info('Inside Bot request');
     //https://www.facebook.com/messenger_platform/account_linking/?account_linking_token=ARTSn2TcyrAdNLZWWcYzqzdyYqGXVe9Bk1cZ6r2P3joyh46VIGglcrYl3Wo5b3YaA0LS5a6SXldNUPpB0ENqklVYP7gx4oG94A632rPl4HPuTw&code=EhbKDHlakAzGmjbt#
@@ -220,7 +220,7 @@ app.post('/button', (req, res) => {
 //To handle the request from the Dialogflow
 function handleRequest(req, res, platform) {
     console.log("Inside the handleFacebook");
-    logger.info("User - " + req.body.result.resolvedQuery);
+    //logger.info("User - " + req.body.result.resolvedQuery);
     let source = require('./' + platform);
     const assistant = new DialogflowApp({ request: req, response: res });
     if (req.body.result.action === 'input.welcome') {
